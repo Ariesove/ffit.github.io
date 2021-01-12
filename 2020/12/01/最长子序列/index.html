@@ -22,7 +22,10 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="先来明确一点，为什么一定要用栈，这里我一直遗漏了一点就是 在递归中，再不断调用函数自身的时候，会形成一个调用栈，每调用一次就推入一个函数，执行完毕就去释放？这里不是特别理解理清一下思路（时刻记住..." />
+<meta name="description" content="
+最长递增子序列给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
+
+子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是..." />
 
 
 <meta name="robots" content="all" />
@@ -33,7 +36,7 @@
 
 <title>
     
-    盒模型 |
+    最长子序列 |
     
     Hexo
 </title>
@@ -142,9 +145,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="盒模型">
+        <h1 id="最长子序列">
             
-            盒模型
+            最长子序列
             
         </h1>
         <div class="post-meta">
@@ -167,7 +170,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2020/11/12</span>
+            2020/12/01</span>
     </span>
     
     <span class="fa-wrap">
@@ -182,12 +185,18 @@
     </div>
     
     <div class="post-body post-content">
-        <h4 id="先来明确一点，为什么一定要用栈，这里我一直遗漏了一点就是-在递归中，再不断调用函数自身的时候，会形成一个调用栈，每调用一次就推入一个函数，执行完毕就去释放？这里不是特别理解"><a href="#先来明确一点，为什么一定要用栈，这里我一直遗漏了一点就是-在递归中，再不断调用函数自身的时候，会形成一个调用栈，每调用一次就推入一个函数，执行完毕就去释放？这里不是特别理解" class="headerlink" title="先来明确一点，为什么一定要用栈，这里我一直遗漏了一点就是 在递归中，再不断调用函数自身的时候，会形成一个调用栈，每调用一次就推入一个函数，执行完毕就去释放？这里不是特别理解"></a>先来明确一点，为什么一定要用栈，这里我一直遗漏了一点就是 在递归中，再不断调用函数自身的时候，会形成一个调用栈，每调用一次就推入一个函数，执行完毕就去释放？这里不是特别理解</h4><h6 id="理清一下思路（时刻记住其实这个是由递归来改进的）"><a href="#理清一下思路（时刻记住其实这个是由递归来改进的）" class="headerlink" title="理清一下思路（时刻记住其实这个是由递归来改进的）"></a>理清一下思路（时刻记住其实这个是由递归来改进的）</h6><ol>
-<li>先设置一个栈结构–为什么为了能够使用栈来模拟调用栈的过程</li>
-<li>之后再访问根节点</li>
-<li>那怎么来访问根节点，是不是先来入栈，后再来弹出栈，来模拟每调用一次就推入栈，结束后再去弹栈</li>
+        <ol start="300">
+<li>最长递增子序列<br>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function prorder (root)&#123;</span><br><span class="line">    const stack&#x3D;[root];</span><br><span class="line">    if(!root) &#123;return&#125;;</span><br><span class="line">    </span><br><span class="line">    while(stack.length)&#123;</span><br><span class="line">    const n&#x3D;stack.pop();&#x2F;&#x2F;注意一下这里shift()才是在弹首元素，pop()弹的是尾元素</span><br><span class="line">    console.log(n.val);</span><br><span class="line">    if(n.right) &#123;stack.push(n.right)&#125;;</span><br><span class="line">    if(n.left) &#123;stack.push(n.left)&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
+<p>示例 1：</p>
+<p>输入：nums = [10,9,2,5,3,7,101,18]<br>输出：4<br>解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</p>
+<h3 id="再次复盘"><a href="#再次复盘" class="headerlink" title="再次复盘"></a>再次复盘</h3><ol>
+<li>这道题首先看到了最长，最值问题，动态规划正是在解决，最优子结构，就是说一个问题的最优解，是由许多子问题的最优解组合的，并且这个划分子问题的过程就是降低问题复杂度的过程。</li>
+<li>这个题首先分析问题，怎么来分解它降低问题的复杂度，就是倒推思考，求f(i) 前i个元素，并包括，i这个元素的求解，第f(i-1) 这个解，只要知道这个解了那就意味着，知道了f(i)的解，那也就是说要递推求解每一个子序列的最优解，最优子结构；</li>
+<li>那就来找状态转移方程：f(n)=maxf(i)+1 //前提是i&lt;n 并且nums[i]的值要小于nums[n]这样才能来延长子序列，否则没有延长的必要<h2 id="二刷反思"><a href="#二刷反思" class="headerlink" title="二刷反思"></a>二刷反思</h2></li>
+<li>这个题就是说，首先自己在做的时候没有考虑好最大长度何时更新，就是说，只有你此时更新的序列只有比之气的最大长度大才有必要更新，否则，不就变小了吗</li>
+</ol>
 
     </div>
     
@@ -206,17 +215,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2020/12/01/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/" class="pre-post btn btn-default" title='最长子序列'>
+    <a href="/HEXOS/2021/01/12/V8%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81/" class="pre-post btn btn-default" title=''>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            最长子序列</span>
+            </span>
     </a>
     
     
-    <a href="/HEXOS/2020/11/11/%E8%BF%AD%E4%BB%A3%E6%B3%95%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" class="next-post btn btn-default" title='后序遍历'>
+    <a href="/HEXOS/2020/11/12/%E8%BF%AD%E4%BB%A3%E6%B3%95%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86/" class="next-post btn btn-default" title='盒模型'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            后序遍历</span><i class="fa fa-angle-right fa-fw"></i>
+            盒模型</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -257,7 +266,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%88%E6%9D%A5%E6%98%8E%E7%A1%AE%E4%B8%80%E7%82%B9%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E5%AE%9A%E8%A6%81%E7%94%A8%E6%A0%88%EF%BC%8C%E8%BF%99%E9%87%8C%E6%88%91%E4%B8%80%E7%9B%B4%E9%81%97%E6%BC%8F%E4%BA%86%E4%B8%80%E7%82%B9%E5%B0%B1%E6%98%AF-%E5%9C%A8%E9%80%92%E5%BD%92%E4%B8%AD%EF%BC%8C%E5%86%8D%E4%B8%8D%E6%96%AD%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E8%87%AA%E8%BA%AB%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%BC%9A%E5%BD%A2%E6%88%90%E4%B8%80%E4%B8%AA%E8%B0%83%E7%94%A8%E6%A0%88%EF%BC%8C%E6%AF%8F%E8%B0%83%E7%94%A8%E4%B8%80%E6%AC%A1%E5%B0%B1%E6%8E%A8%E5%85%A5%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%AF%95%E5%B0%B1%E5%8E%BB%E9%87%8A%E6%94%BE%EF%BC%9F%E8%BF%99%E9%87%8C%E4%B8%8D%E6%98%AF%E7%89%B9%E5%88%AB%E7%90%86%E8%A7%A3"><span class="toc-text">先来明确一点，为什么一定要用栈，这里我一直遗漏了一点就是 在递归中，再不断调用函数自身的时候，会形成一个调用栈，每调用一次就推入一个函数，执行完毕就去释放？这里不是特别理解</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%90%86%E6%B8%85%E4%B8%80%E4%B8%8B%E6%80%9D%E8%B7%AF%EF%BC%88%E6%97%B6%E5%88%BB%E8%AE%B0%E4%BD%8F%E5%85%B6%E5%AE%9E%E8%BF%99%E4%B8%AA%E6%98%AF%E7%94%B1%E9%80%92%E5%BD%92%E6%9D%A5%E6%94%B9%E8%BF%9B%E7%9A%84%EF%BC%89"><span class="toc-text">理清一下思路（时刻记住其实这个是由递归来改进的）</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E6%AC%A1%E5%A4%8D%E7%9B%98"><span class="toc-text">再次复盘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%B7%E5%8F%8D%E6%80%9D"><span class="toc-text">二刷反思</span></a>
         
     </div>
 </aside>
