@@ -22,10 +22,8 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="
-最长递增子序列给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
-
-子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是..." />
+<meta name="description" content="206. 反转链表思路（联想三个指针不断的交换）
+如实记录几个月后的复盘结果，就是说自己第一次复盘的时候想到了双指针但是自己想的是一个指向了头，一个指向了尾元素，然后交换，思路完全错误了，错在了..." />
 
 
 <meta name="robots" content="all" />
@@ -36,7 +34,7 @@
 
 <title>
     
-    最长子序列 |
+    翻转链表 |
     
     Hexo
 </title>
@@ -145,9 +143,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="最长子序列">
+        <h1 id="翻转链表">
             
-            最长子序列
+            翻转链表
             
         </h1>
         <div class="post-meta">
@@ -170,7 +168,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2020/12/01</span>
+            2020/11/12</span>
     </span>
     
     <span class="fa-wrap">
@@ -185,17 +183,15 @@
     </div>
     
     <div class="post-body post-content">
-        <ol start="300">
-<li>最长递增子序列<br>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</li>
+        <h4 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/">206. 反转链表</a></h4><h5 id="思路（联想三个指针不断的交换）"><a href="#思路（联想三个指针不断的交换）" class="headerlink" title="思路（联想三个指针不断的交换）"></a>思路（联想三个指针不断的交换）</h5><ol>
+<li>如实记录几个月后的复盘结果，就是说自己第一次复盘的时候想到了双指针但是自己想的是一个指向了头，一个指向了尾元素，然后交换，思路完全错误了，错在了哪里</li>
+<li>首先对撞指针，更适用于两个元素交换，但是这个题的要求是让反转，而且双指针有一个问题就是说，当两个指针进行交换的时候，下一个节点不就丢了吗</li>
+<li>引出了三指针进行交换。</li>
 </ol>
-<p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
-<p>示例 1：</p>
-<p>输入：nums = [10,9,2,5,3,7,101,18]<br>输出：4<br>解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</p>
-<h3 id="再次复盘"><a href="#再次复盘" class="headerlink" title="再次复盘"></a>再次复盘</h3><ol>
-<li>这道题首先看到了最长，最值问题，动态规划正是在解决，最优子结构，就是说一个问题的最优解，是由许多子问题的最优解组合的，并且这个划分子问题的过程就是降低问题复杂度的过程。</li>
-<li>这个题首先分析问题，怎么来分解它降低问题的复杂度，就是倒推思考，求f(i) 前i个元素，并包括，i这个元素的求解，第f(i-1) 这个解，只要知道这个解了那就意味着，知道了f(i)的解，那也就是说要递推求解每一个子序列的最优解，最优子结构；</li>
-<li>那就来找状态转移方程：f(n)=maxf(i)+1 //前提是i&lt;n 并且nums[i]的值要小于nums[n]这样才能来延长子序列，否则没有延长的必要<h2 id="二刷反思"><a href="#二刷反思" class="headerlink" title="二刷反思"></a>二刷反思</h2></li>
-<li>这个题就是说，首先自己在做的时候没有考虑好最大长度何时更新，就是说，只有你此时更新的序列只有比之气的最大长度大才有必要更新，否则，不就变小了吗</li>
+<h3 id="题解思路"><a href="#题解思路" class="headerlink" title="题解思路"></a>题解思路</h3><ol>
+<li>核心点三指针，每次只通过 cur.next=pre 来循环翻转</li>
+<li>并且每次都需要缓存 next 指针为什么，就是因为你每次都翻转完毕后 cur 的 next 指向会丢失，所以你遍历的时候首先就需要来缓存它。</li>
+<li>其次还有一个小细节就是为什么，循环的条件没有 next 不为空，因为为空无所谓，但是删除链表这个题考虑下一个元素主要是是因为，都为空了，就没有去重的必要了，也就是说不必去循环了。</li>
 </ol>
 
     </div>
@@ -215,17 +211,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2020/12/01/V8%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81/" class="pre-post btn btn-default" title='V8引擎执行代码'>
+    <a href="/HEXOS/2020/12/01/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/" class="pre-post btn btn-default" title='最长子序列'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            V8引擎执行代码</span>
+            最长子序列</span>
     </a>
     
     
-    <a href="/HEXOS/2020/11/12/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="next-post btn btn-default" title='翻转链表'>
+    <a href="/HEXOS/2020/11/12/%E8%BF%AD%E4%BB%A3%E6%B3%95%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86/" class="next-post btn btn-default" title='盒模型'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            翻转链表</span><i class="fa fa-angle-right fa-fw"></i>
+            盒模型</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -266,7 +262,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E6%AC%A1%E5%A4%8D%E7%9B%98"><span class="toc-text">再次复盘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%B7%E5%8F%8D%E6%80%9D"><span class="toc-text">二刷反思</span></a>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8"><span class="toc-text">206. 反转链表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%88%E8%81%94%E6%83%B3%E4%B8%89%E4%B8%AA%E6%8C%87%E9%92%88%E4%B8%8D%E6%96%AD%E7%9A%84%E4%BA%A4%E6%8D%A2%EF%BC%89"><span class="toc-text">思路（联想三个指针不断的交换）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3%E6%80%9D%E8%B7%AF"><span class="toc-text">题解思路</span></a>
         
     </div>
 </aside>
