@@ -1,0 +1,470 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="HTTPS复盘HTTPS对称加密
+其实就是说用同一个经过交换的公钥来加密信息
+弊端：交换过程容易被中间人所攻击
+
+非对称加密
+其实就是用公钥加密，私钥解密
+服务器（公钥a-私钥a)先将公钥a发给..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    HTTPS基础 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://h.hiphotos.baidu.com/zhidao/pic/item/3c6d55fbb2fb4316d21a39d722a4462309f7d312.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="HTTPS基础">
+            
+            HTTPS基础
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/12/25</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><h2 id="复盘HTTPS"><a href="#复盘HTTPS" class="headerlink" title="复盘HTTPS"></a>复盘HTTPS</h2><h3 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h3><ul>
+<li>其实就是说用同一个经过交换的公钥来加密信息</li>
+<li>弊端：交换过程容易被中间人所攻击</li>
+</ul>
+<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><ul>
+<li>其实就是用公钥加密，私钥解密</li>
+<li>服务器（公钥a-私钥a)先将公钥a发给客户端，客户端拿到公钥a后加密自己生成一个随机数，然后再发给服务器，服务器再拿私钥a来解密公钥a所加密的随机数</li>
+<li>之后再去用这个随机数充当之后对称加密的公钥</li>
+</ul>
+<h3 id="TLS握手阶段-ECDHE算法"><a href="#TLS握手阶段-ECDHE算法" class="headerlink" title="TLS握手阶段/ECDHE算法"></a>TLS握手阶段/ECDHE算法</h3><ul>
+<li><p>一阶段</p>
+<ul>
+<li><p>客户端</p>
+<ul>
+<li>client hello</li>
+<li>支持的TLS协议版本号</li>
+<li>支持的密码套件</li>
+<li>Client Random</li>
+</ul>
+</li>
+<li><p>服务器</p>
+<ul>
+<li>server random</li>
+<li>确认TLS协议版本号</li>
+<li>确认选取某个密码套件</li>
+<li>Server Random</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>二阶段</p>
+<ul>
+<li><p>此时服务器为了能够验证自己的身份,向客户端发送证书（里面包含着服务器给客户端所发的公钥）</p>
+</li>
+<li><p>以ECDHE举例：之后服务器还会发给客户端一个Server params</p>
+<ul>
+<li>用于密钥交换算法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>密钥交换阶段</p>
+<ul>
+<li><p>客户端</p>
+<ul>
+<li>此时收到证书，先验签证明是如期的通信方后，取出证书里的公钥，同时生成一个Client Params,发给服务器，此时双方基于ECDHE算法（client params server params )生成Pre-master </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>对称加密的过程</p>
+<ul>
+<li><p>客户端</p>
+<ul>
+<li><p>此时拥有三个随机数</p>
+<ul>
+<li>client random </li>
+<li>server random</li>
+<li>pre-master</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>服务器</p>
+<ul>
+<li>同理也生成了一个Master Secret</li>
+</ul>
+</li>
+<li><p>之后双方拿这个Master随机数来加密finished 信息代表握手结束，之后就拿这个Master来当对称密钥，来进行之后的对称加密</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="默认端口"><a href="#默认端口" class="headerlink" title="默认端口"></a>默认端口</h2><h3 id="443"><a href="#443" class="headerlink" title="443"></a>443</h3><h2 id="不可否认性"><a href="#不可否认性" class="headerlink" title="不可否认性"></a>不可否认性</h2><h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><h3 id="密钥交换算法"><a href="#密钥交换算法" class="headerlink" title="密钥交换算法"></a>密钥交换算法</h3><h3 id="签名算法"><a href="#签名算法" class="headerlink" title="签名算法"></a>签名算法</h3><h3 id="对称加密算法"><a href="#对称加密算法" class="headerlink" title="对称加密算法"></a>对称加密算法</h3><h3 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a>摘要算法</h3><h2 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h2><h3 id="子主题"><a href="#子主题" class="headerlink" title="子主题"></a>子主题</h3><h2 id="完整性"><a href="#完整性" class="headerlink" title="完整性"></a>完整性</h2><h3 id="由于黑客可能窃取足够多的密文，并改造，重组再发给服务器，此时如果无法保证信息的完整性，服务器只能全盘接收依据其响应反推密文，所以此时要来保证信息的完整性"><a href="#由于黑客可能窃取足够多的密文，并改造，重组再发给服务器，此时如果无法保证信息的完整性，服务器只能全盘接收依据其响应反推密文，所以此时要来保证信息的完整性" class="headerlink" title="由于黑客可能窃取足够多的密文，并改造，重组再发给服务器，此时如果无法保证信息的完整性，服务器只能全盘接收依据其响应反推密文，所以此时要来保证信息的完整性"></a>由于黑客可能窃取足够多的密文，并改造，重组再发给服务器，此时如果无法保证信息的完整性，服务器只能全盘接收依据其响应反推密文，所以此时要来保证信息的完整性</h3><h3 id="摘要算法-1"><a href="#摘要算法-1" class="headerlink" title="摘要算法"></a>摘要算法</h3><ul>
+<li><p>单向将密文压缩为独一无二的摘要</p>
+</li>
+<li><p>SHA-2 常用算法</p>
+</li>
+<li><p>特点</p>
+<ul>
+<li><p>单向性</p>
+<ul>
+<li>无法由摘要反推密文</li>
+</ul>
+</li>
+<li><p>雪崩效应</p>
+<ul>
+<li>微小的改变都会造成极大的改变，避免黑客篡改信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>具体应用就是说</p>
+<ul>
+<li>此时客户端发送用会话密钥加密的消息以及对应的摘要</li>
+<li>服务器接收并用会话密钥解密后，拿到信息，自己再用SHA-2算法生成摘要来比对对方的摘要，无变动说明没有改动</li>
+</ul>
+</li>
+</ul>
+<h2 id="机密性"><a href="#机密性" class="headerlink" title="机密性"></a>机密性</h2><h3 id="对称加密-1"><a href="#对称加密-1" class="headerlink" title="对称加密"></a>对称加密</h3><ul>
+<li><p>用同一个公钥加密和解密</p>
+</li>
+<li><p>常用算法</p>
+<ul>
+<li>chacha20</li>
+<li>AES</li>
+</ul>
+</li>
+<li><p>分组模式</p>
+<ul>
+<li><p>将密钥转化为密文</p>
+<ul>
+<li>密钥加密明文转换为密文</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="非对称加密-1"><a href="#非对称加密-1" class="headerlink" title="非对称加密"></a>非对称加密</h3><ul>
+<li><p>通俗来讲网站保管私钥，网上分发公钥</p>
+</li>
+<li><p>公钥加密，私钥解密</p>
+<ul>
+<li>单向性</li>
+</ul>
+</li>
+<li><p>解决了对称加密中密钥交换的安全性</p>
+</li>
+<li><p>常用算法</p>
+<ul>
+<li><p>RSA</p>
+<ul>
+<li>基于整数分解的数学难题</li>
+</ul>
+</li>
+<li><p>ECC</p>
+<ul>
+<li><p>基于椭圆曲线离散对数</p>
+</li>
+<li><p>ECDHE子算法</p>
+<ul>
+<li>用于密钥交换</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>弊端就是由于基于各种数学难题，所以运算速度极慢</p>
+</li>
+</ul>
+<h3 id="所以HTTPS采用混合加密"><a href="#所以HTTPS采用混合加密" class="headerlink" title="所以HTTPS采用混合加密"></a>所以HTTPS采用混合加密</h3>
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/12/29/%E5%BC%82%E6%AD%A5/" class="pre-post btn btn-default" title='异步理解'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            异步理解</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2020/12/23/TCP/" class="next-post btn btn-default" title='tcp简要总结'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            tcp简要总结</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPS"><span class="toc-text">HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E7%9B%98HTTPS"><span class="toc-text">复盘HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-text">对称加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-text">非对称加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLS%E6%8F%A1%E6%89%8B%E9%98%B6%E6%AE%B5-ECDHE%E7%AE%97%E6%B3%95"><span class="toc-text">TLS握手阶段&#x2F;ECDHE算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A3"><span class="toc-text">默认端口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#443"><span class="toc-text">443</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E5%90%A6%E8%AE%A4%E6%80%A7"><span class="toc-text">不可否认性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TLS"><span class="toc-text">TLS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-text">密钥交换算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95"><span class="toc-text">签名算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-text">对称加密算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="toc-text">摘要算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="toc-text">身份验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E4%B8%BB%E9%A2%98"><span class="toc-text">子主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="toc-text">完整性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B1%E4%BA%8E%E9%BB%91%E5%AE%A2%E5%8F%AF%E8%83%BD%E7%AA%83%E5%8F%96%E8%B6%B3%E5%A4%9F%E5%A4%9A%E7%9A%84%E5%AF%86%E6%96%87%EF%BC%8C%E5%B9%B6%E6%94%B9%E9%80%A0%EF%BC%8C%E9%87%8D%E7%BB%84%E5%86%8D%E5%8F%91%E7%BB%99%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E6%AD%A4%E6%97%B6%E5%A6%82%E6%9E%9C%E6%97%A0%E6%B3%95%E4%BF%9D%E8%AF%81%E4%BF%A1%E6%81%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AA%E8%83%BD%E5%85%A8%E7%9B%98%E6%8E%A5%E6%94%B6%E4%BE%9D%E6%8D%AE%E5%85%B6%E5%93%8D%E5%BA%94%E5%8F%8D%E6%8E%A8%E5%AF%86%E6%96%87%EF%BC%8C%E6%89%80%E4%BB%A5%E6%AD%A4%E6%97%B6%E8%A6%81%E6%9D%A5%E4%BF%9D%E8%AF%81%E4%BF%A1%E6%81%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="toc-text">由于黑客可能窃取足够多的密文，并改造，重组再发给服务器，此时如果无法保证信息的完整性，服务器只能全盘接收依据其响应反推密文，所以此时要来保证信息的完整性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95-1"><span class="toc-text">摘要算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%AF%86%E6%80%A7"><span class="toc-text">机密性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86-1"><span class="toc-text">对称加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86-1"><span class="toc-text">非对称加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E4%BB%A5HTTPS%E9%87%87%E7%94%A8%E6%B7%B7%E5%90%88%E5%8A%A0%E5%AF%86"><span class="toc-text">所以HTTPS采用混合加密</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
