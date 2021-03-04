@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="切入点词法作用域
+首先我需要从作用域的底层机制说起，首先在 V8 引擎中是有编译阶段的，这里叙述”js 执行代码过程”&gt; ## V8 引擎如何执行一段代码
+
+编译阶段
+那在执行一段代码执行..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    闭包体系 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://h.hiphotos.baidu.com/zhidao/pic/item/3c6d55fbb2fb4316d21a39d722a4462309f7d312.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="闭包体系">
+            
+            闭包体系
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/12/02</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="切入点词法作用域"><a href="#切入点词法作用域" class="headerlink" title="切入点词法作用域"></a>切入点词法作用域</h3><ol>
+<li><p>首先我需要从作用域的底层机制说起，首先在 V8 引擎中是有编译阶段的，这里叙述”js 执行代码过程”&gt; ## V8 引擎如何执行一段代码</p>
+<blockquote>
+<h3 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h3><ol>
+<li>那在执行一段代码执行之前，得做些准备工作，（你做事情不也得需要做准备工作吗），具体就是需要准备<strong>基础环境</strong>。</li>
+<li>那现在有了基础环境后，就可以来执行这个代码。</li>
+<li>由于 v8 引擎并不识别代码，所以需要来，将其<strong>结构化</strong>， 转化为 <strong>AST 树</strong>，再<strong>最终转换为字节码</strong>，也就是说<strong>中间代码</strong>（介于 AST 和机器码中间的一种产物） ，但是 v8 引擎为了节省资源，它不会去将声明的函数内部的所有代码转换为中间代码。很<strong>懒惰</strong>，所以又称惰性解析 ，阶段。</li>
+</ol>
+</blockquote>
+<blockquote>
+<h3 id="执行阶段"><a href="#执行阶段" class="headerlink" title="执行阶段"></a>执行阶段</h3><ol>
+<li>同时要说明一点由于 V8 引擎属于JIT所以会有一个监控器，来判断是否有重复代码执行，如果有将其标记为热点代码，将其转换为二进制代码，当下次再次执行，解释器直接执行优化过的代码，提高效率。</li>
+</ol>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 第一次复习，主要是全局执行上下文的，变量，及作用域链的创建，中间代码由解释器执行，未回想成功</li>
+</ul>
+</blockquote>
+<p>。</p>
+</li>
+<li><p>这里还有一点就是此时引擎会在当前的作用域去寻找有没有所声明的变量，如果有那就忽略它，这也是为什么，var 可以重复声明的本质原因，如果没有的话就将这个变量存放在当前作用域，赋值阶段。</p>
+</li>
+</ol>
+<h4 id="如何来叙述闭包"><a href="#如何来叙述闭包" class="headerlink" title="如何来叙述闭包"></a>如何来叙述闭包</h4><ol>
+<li>切入点<strong>词法作用域</strong>，那么词法作用域是怎样生成的（此时联想作用域里面有声明了一个变量），那么在编译阶段首先会来判断，当前的作用域有没有这个变量，有了就忽略，继续，没有就直接将变量放置当前作用域内并赋值 undefined.</li>
+<li>那你不能光找到它，还得赋值，在当前作用域能找到直接赋值，没找到就不断向外部作用域找形成作用域链。</li>
+<li><strong>（谈到作用域本质就联想一个调用栈，里面压入了全局执行上下文，和函数执行上下文））</strong>作用域的<strong>本质</strong>到底是什么，从<strong>表层意思</strong>来讲，它是一套规则，存放相应变量的规则，从本质上来讲，它是当前所处执行上下文，从这一点可以明白，为什么闭包中，可以从内部访问外部的变量，而外部无法访问内部的变量，全局执行上下文首先会推入调用栈中，之后每当调用一个函数，就会将函数上下文推入栈中，所以即便调用栈中，栈顶执行上下文，执行完毕后出栈，但是内部执行上下文依然可以通过，作用域链来访问，但由于栈顶执行上下文出栈了作用域链也被销毁了，所以无法访问调用栈中上下文的变量。</li>
+<li>作用域链也被销毁了，所以无法访问调用栈中上下文的变量。</li>
+</ol>
+<h4 id="补充词法作用域"><a href="#补充词法作用域" class="headerlink" title="补充词法作用域"></a>补充词法作用域</h4><ol>
+<li>所谓词法作用域本质就是，作用域的形成是在你所定义的位置，而不是你所调用的位置，这一点区别于动态作用域，它是在你所调用的时候，而不是你所定义的位置。</li>
+</ol>
+<h3 id="闭包应用。"><a href="#闭包应用。" class="headerlink" title="闭包应用。"></a>闭包应用。</h3><ol>
+<li><pre><code>var a = [];
+for(let i = 0;i&lt;10;i++)&#123;
+a[i]=function()&#123;
+console.log(i)
+&#125;
+&#125;;
+a[2]();
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   let 定义的 i 会运行 for 的块级作用域中，每次执行一次循环，都会创建一个块级作用域。</span><br><span class="line"></span><br><span class="line">   在这个块级作用域中，你又定义了一个函数，而这个函数又引用了函数外部的 i 变量，那么这就产生了闭包，也就是说，所有块级作用域中的 i 都不会被销毁，你在这里执行了 10 次循环，那么也就创建了 10 个块级作用域，这十个块级作用域中的变量 i 都会被保存在内存中。</span><br><span class="line"></span><br><span class="line">   那么当你再次调用该 a[n]() 时，v8 就会拿出闭包中的变量 i，并将其打印出来，因为每个闭包中的 i 值都不同，所以 a[n]() 时，打印出来的值就是 n，这个就非常符合直觉了。</span><br><span class="line"></span><br><span class="line">   但是如果你将 for 循环中的 i 变量声明改成 var，那么并不会产生块级作用域，那么函数引用的 i 就是全局作用域中的了，由于全局作用域中只有一个，那么在执行 for 循环的时候，i 的值会一直被改变，最后是 10，所以最终你执行 a[n]() 时，无论 n 是多少，打印出来的都是 10. 那么这就是 bug 之源了。</span><br><span class="line">2. 循环打印 1，2，3，4，5</span><br><span class="line"></span><br><span class="line">   和第二种思路比较相似，同样是在 setTimeout 外面再套一层函数，只不过这个函数是一个**立即执行函数** 。利用立即执行函数的入参来缓存每一个循环中的 i 值：</span><br><span class="line"></span><br><span class="line">   &#96;&#96;&#96;js</span><br><span class="line">   for (var i &#x3D; 0; i &lt; 5; i++) &#123;</span><br><span class="line">       &#x2F;&#x2F; 这里的 i 被赋值给了立即执行函数作用域内的变量 j</span><br><span class="line">       (function(j) &#123;  </span><br><span class="line">           setTimeout(function() &#123;</span><br><span class="line">               console.log(j);</span><br><span class="line">           &#125;, 1000);</span><br><span class="line">       &#125;)(i);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+//就是每一次 settimeout 里的 j 对外部立即执行函数里的变量造成了引用，所以，缓存了这个值，因为 v8 不再回收这个被引用的值了，缓存了下来。
+
+
+</code></pre>
+</li>
+</ol>
+<h3 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h3><h4 id="模拟私有变量"><a href="#模拟私有变量" class="headerlink" title="模拟私有变量"></a>模拟私有变量</h4><ol>
+<li><p><strong>模拟私有变量</strong>：就是之前像是 Java c++ 这些，有 private 私有变量， 就是不是这个类的其它成员，你无法去访问这些私有变量。</p>
+</li>
+<li><p>在 js 生成一个类是依赖于这个构造函数，但是你实例化一个类会发现，你通过这个类可以访问到这些这个类的属性，但是这个有一个问题就是说，万一我在这个这个构造函数里定义了一些私密数据，那不就可以在这个对象去访问到这个属性了吗。</p>
+</li>
+<li><p>用立即执行函数，形成一个闭包，返回一个类，然后将私有属性放在函数里，不去通过 this 来赋值，直接进行赋值操作；a=privatedata，这样外部是无法拿到这个私有变量的。</p>
+</li>
+<li><p>还可以用”symbol:”&gt; #### symbol:</p>
+<blockquote>
+<ol>
+<li><p>可以用来定义一个绝对唯一的常量，避免命名冲突。</p>
+</li>
+<li><p>模拟私有变量，就是通过这个定义的属性是私有的，类似于之前通过立即执行函数，来实现的一个私有变量”闭包是如何来实现这个私有变量的”&gt; #### 模拟私有变量</p>
+<blockquote>
+<ol>
+<li><strong>模拟私有变量</strong>：就是之前像是 Java c++ 这些，有 private 私有变量， 就是不是这个类的其它成员，你无法去访问这些私有变量。</li>
+<li>在 js 生成一个类是依赖于这个构造函数，但是你实例化一个类会发现，你通过这个类可以访问到这些这个类的属性，但是这个有一个问题就是说，万一我在这个这个构造函数里定义了一些私密数据，那不就可以在这个对象去访问到这个属性了吗。</li>
+<li>用立即执行函数，形成一个闭包，返回一个类，然后将私有属性放在函数里，不去通过 this 来赋值，直接进行赋值操作；a=privatedata，这样外部是无法拿到这个私有变量的。</li>
+<li>还可以用”symbol<blockquote>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<h4 id="偏函数-bind-的实现"><a href="#偏函数-bind-的实现" class="headerlink" title="偏函数 bind 的实现"></a>偏函数 bind 的实现</h4><ol>
+<li>“bind”&gt; ### 思路详解.<blockquote>
+<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><ol>
+<li><p>二刷理解：</p>
+<ol>
+<li>第一点： 记住执行 bind 会返回一个函数，为什么为了之后的偏函数的应用，s.（a）（b）</li>
+<li>返回的函数需要调用它并且来改变它的 this 指向，利用 apply</li>
+<li>此时来考虑一下，类数组的问题，就是说，bind 函数里面有许多参数，被 arguements 所收集，你现在想传参数，但是 arguements 是一个类数组，需要转换为真正的数组，利用 array.propotype.slice.call()</li>
+<li>此时 bind 还具有偏函数的特性就是 bind 函数第一个括号内部，偏函数就是在第二个括号里的参数,为什么第一个括号里的参数要截取，因为我不需要第一个括号里面的第一个参数，所以要截取，对于第二个括号，只需要将其转化为数组就好，但是所谓偏函数的本质依然要将其两个参数里的东西转换为一个括号里的参数，所以我们需要合并 concat</li>
+<li>可以通过 bind 所返回的函数，实例化一个对象</li>
+<li>也就是说你需要在 Bind 所返回的函数里，去判断 this 是否是构造函数的实例，</li>
+<li>这里的构造函数指的是 person，不是你返回的函数，而且</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<h4 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h4><h4 id="防抖节流"><a href="#防抖节流" class="headerlink" title="防抖节流"></a>防抖节流</h4><ol>
+<li><p>“防抖&amp;节流”</p>
+<blockquote>
+<h4 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h4><ol>
+<li>节流就是，n 秒内，只触发一次。（timer 无值了，说明第一次的定时任务执行完毕）</li>
+<li>防抖就是 n 秒内，触发多次只看最后一次触发，的中间多次触发，会重新计时。（timer 有值得情况会删除之前的定时器）</li>
+<li>执行 fn，this 就指向 window 了，要指向触发的 dom 节点，所以要调用 apply 绑定 this。</li>
+<li>一定要把这个 timer 放在外面，因为要形成一个闭包，这样在内存中由于闭包，就不会导致这个变量被销毁，这样能够保证多次触发函数所引用的变量是一个 timer.</li>
+</ol>
+</blockquote>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function throter(callback, delay) &#123;&#x2F;&#x2F;节流</span><br><span class="line">  let timer;&#x2F;&#x2F;闭包应用</span><br><span class="line">   return function () &#123;</span><br><span class="line"></span><br><span class="line">    if (!timer) &#123;</span><br><span class="line">      timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">        callback.apply(this, arguments)</span><br><span class="line">      &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">input.addEventListerener(&#39;keyup&#39;, throter(function () &#123;</span><br><span class="line">  console.log(input.value);</span><br><span class="line">&#125;, 1000))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function debance(callback, delay) &#123;&#x2F;&#x2F;防抖</span><br><span class="line">  let timer &#x3D; null;&#x2F;&#x2F;闭包的应用</span><br><span class="line">  return function () &#123;</span><br><span class="line"></span><br><span class="line">    if (timer) &#123;</span><br><span class="line">      clearTimeout(timer)&#x2F;&#x2F;清空定时器操作</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">        callback.apply(this, arguments)</span><br><span class="line">        timer &#x3D; null</span><br><span class="line">      &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">input.addEventListener(&#39;keyup&#39;, debance(function () &#123;</span><br><span class="line">  console.log(input.value);</span><br><span class="line">&#125;, 1000))</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<p>。</p>
+</li>
+</ol>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/12/15/es6/" class="pre-post btn btn-default" title='es6基础'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            es6基础</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2020/12/01/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/" class="next-post btn btn-default" title='相交链表'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            相交链表</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E5%85%A5%E7%82%B9%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">切入点词法作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5"><span class="toc-text">编译阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E9%98%B6%E6%AE%B5"><span class="toc-text">执行阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%9D%A5%E5%8F%99%E8%BF%B0%E9%97%AD%E5%8C%85"><span class="toc-text">如何来叙述闭包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">补充词法作用域</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E5%BA%94%E7%94%A8%E3%80%82"><span class="toc-text">闭包应用。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">闭包的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F"><span class="toc-text">模拟私有变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%8F%E5%87%BD%E6%95%B0-bind-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">偏函数 bind 的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3"><span class="toc-text">个人理解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96"><span class="toc-text">柯里化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81"><span class="toc-text">防抖节流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E6%83%B3"><span class="toc-text">思想</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
