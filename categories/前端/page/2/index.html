@@ -33,7 +33,7 @@
 
 <title>
     
-    归档：2021/3 |
+    分类: 前端 |
     
     Hexo
 </title>
@@ -139,111 +139,216 @@
         <div class="container">
             <div class="row">
                 <main class="col-md-8 main-content ">
-                    <div id="main">
-    <div class="timebox">
-        <div class="timeline">
-            <ul>
-                
-                
-                
-                
-                
-                
-                <h2>
-                    2021
-                </h2>
-                
-                
-                <li class="">
-                    
-                    <h3>
-                        04<span>
-                            03月</span>
-                    </h3>
-                    <a href="/HEXOS/2021/03/04/%E5%89%8D%E7%AB%AF/" title="前端" target="_blank">
-                        前端</a>
-                </li>
-                
-                
-                
-                
-                
-                
-                <li class="hide">
-                    
-                    <h3>
-                        01<span>
-                            01月</span>
-                    </h3>
-                    <a href="/HEXOS/2021/01/01/V8%E5%BC%95%E6%93%8E/" title="V8引擎基础总结" target="_blank">
-                        V8引擎基础总结</a>
-                </li>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-            </ul>
+                    <ol class="breadcrumb">
+    
+    <li>
+        前端
+    </li>
+    
+</ol>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/11/12/%E8%BF%AD%E4%BB%A3%E6%B3%95%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86/">
+                    盒模型</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年11月12日
+                </time>
+            </div>
         </div>
+        <p class="brief">
+            
+            先来明确一点，为什么一定要用栈，这里我一直遗漏了一点就是 在递归中，再不断调用函数自身的时候，会形成一个调用栈，每调用一次就推入一个函数，执行完毕就去释放？这里不是特别理解理清一下思路（时刻记住其实这个是由递归来改进的）
+先设置一个栈...
+            
+        </p>
     </div>
-</div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/11/11/%E8%BF%AD%E4%BB%A3%E6%B3%95%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/">
+                    后序遍历</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年11月11日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            首先来捋一下思路
+后续遍历的顺序是先左子树，再右子树，再根节点
+那么从这你思考一下如果我把这个顺序颠倒一下是什么是不是先根节点，再右子树，再左子树，是不是非常的像先序遍历，及就是说把先序遍历的结果再入栈，然后根据栈的先进后出的特性，来...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/11/03/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                    动态规划</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年11月03日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            动态规划
+先明确哪类题用动态规划
+
+
+特征： 要求达成某个目的的具体个数
+不要求具体解法的过程重解法的====结果====
+
+
+思维模型是什么
+倒着分析问题–咋个倒就是站在问题的==终点==上思考
+在终点的基础上，思考能不能==后退=...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/11/02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/">
+                    执行上下文于调用栈</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年11月02日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            执行上下文所谓的执行上下文其实就是代码所处的环境分类全局执行上下文函数执行上下文eval执行上下文–我不用调用栈每当执行上下文创建一个就将起推入调用栈中，然后当函数执行完后，对应的函数执行上下文才会出栈，从而让出资源空间
+从这里开始，...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/10/03/DFS/">
+                    DFS</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年10月03日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            深度优先遍历的思想它会去到达每一个节点后会穷尽这个节点的所有子节点，知道到达叶子节点后，再到上一个节点的另一个孩子节点继续穷尽；怎么做的利用递归–》为什么，原因在于它每一次都会重复，访问根节点，之后再去访问它的子节点，每当访问到它的子...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/10/01/BFC/">
+                    BFC</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年10月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            为什么设置over-flow:hidden,可以清除浮动
+要了解bfc块，内部的块级元素会垂直摆放，同属于一个bfc块会发生margin重叠，那么消除这样的bug就可以给其中一个元素在套一个容器让他成为令一个新的bfc块（还要设置一个...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/09/12/%E7%9B%92%E6%A8%A1%E5%9E%8B/">
+                    盒模型</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年09月12日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            首先盒模型有几个属性分别是content  border padding margin ;
+盒模型有两种标准，
+1：第一种是w3c（万维网联盟）
+首先盒模型有几个属性分别是content  border padding margin ...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/02/13/%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA/">
+                    暂时性死区</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年02月13日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            何为暂时性死区
+首先说起这个问题，首先需要来明确一下这个var let const 的一些本质的一个区别，首先对于这个var 会有一个变量提升的问题，其实这个变量从未提升过，从执行上下文的角度来考虑，问题，首先创建的阶段对于你所声明的...
+            
+        </p>
+    </div>
+</article>
+
+
+<nav class="pagination" role="navigation">
+    <div id="page-nav">
+        <a class="extend prev" rel="prev" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">&lt;i class&#x3D;&#39;fa fa-angle-left&#39;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">1</a><span class="page-number current">2</span>
+    </div>
+</nav>
+
                 </main>
                 
                     
@@ -332,13 +437,20 @@
 
     
     
+<div class="widget">
+    <h3 class="title">
+        分类
+    </h3>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li></ul>
+</div>
+
     
     
 <div class="widget">
     <h3 class="title">
         归档
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
 </div>
 
     

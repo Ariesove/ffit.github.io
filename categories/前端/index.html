@@ -33,6 +33,8 @@
 
 <title>
     
+    分类: 前端 |
+    
     Hexo
 </title>
 
@@ -137,126 +139,309 @@
         <div class="container">
             <div class="row">
                 <main class="col-md-8 main-content ">
-                    
-<div class="carousel">
-    <a href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=xs0pypd2" target="_blank">
-        <img src="/HEXOS/./img/head-img.jpg" alt="">
-    </a>
-</div>
-
-
-
+                    <ol class="breadcrumb">
+    
+    <li>
+        前端
+    </li>
+    
+</ol>
 
 <article class="post">
     
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
-                <a href="/HEXOS/2020/02/01/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
-                    中间件</a>
+                <a href="/HEXOS/2021/01/01/V8%E5%BC%95%E6%93%8E/">
+                    V8引擎基础总结</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
-                    2020年02月01日
+                    2021年01月01日
                 </time>
             </div>
         </div>
         <p class="brief">
             
-            express中间件原理分析
-先来分析一下怎么用的
+            V8引擎如何来执行一段js代码首先你想想，v8想要来执行一段代码，首先你得有一个初始环境吧，基础环境
+全局执行上下文
 
+创建阶段
 
+首先会创建一个全局对象window： global object
+创建一个this 然后让它指向这个w...
             
         </p>
     </div>
-    
-    <footer class="post-footer clearfix">
-        <div class="pull-left tag-list">
-            <div class="post-meta">
-    
-    <span class="categories-meta fa-wrap">
-        <i class="fa fa-folder-open-o"></i>
-        
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-        </span>
-    </span>
-    
-    
-</div>
-        </div>
-        <div class="post-permalink">
-            <a href="/HEXOS/2020/02/01/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="btn btn-default">
-                阅读全文</a>
-        </div>
-    </footer>
-    
 </article>
-
 
 <article class="post">
     
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
-                <a href="/HEXOS/2020/01/20/cookie%20session%20redis/">
-                    cookie redis session</a>
+                <a href="/HEXOS/2020/12/29/%E5%BC%82%E6%AD%A5/">
+                    异步理解</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
-                    2020年01月20日
+                    2020年12月29日
                 </time>
             </div>
         </div>
         <p class="brief">
             
-            思路
-首先明确一下有了cookie，为何又要又session,那么redis又是解决了什么样的问题
-cookie最大的弊端就是用户信息会暴露在客户端中，更多的是安全性问题，所以引出了session技术。
-首先第一次登录的时候，服务器向...
+            异步异步发展阶段回调函数generator()promise
+为什么有promise
+
+避免出现回调地狱
+
+它是如何避免的
+
+通过.then的链式调用，从而避免的了不断嵌套的回调地狱
+
+
+
+
+它有哪些状态
+
+pending
+
+new/...
             
         </p>
     </div>
-    
-    <footer class="post-footer clearfix">
-        <div class="pull-left tag-list">
-            <div class="post-meta">
-    
-    <span class="categories-meta fa-wrap">
-        <i class="fa fa-folder-open-o"></i>
-        
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-        </span>
-    </span>
-    
-    
-</div>
-        </div>
-        <div class="post-permalink">
-            <a href="/HEXOS/2020/01/20/cookie%20session%20redis/" class="btn btn-default">
-                阅读全文</a>
-        </div>
-    </footer>
-    
 </article>
 
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/25/HTTPS/">
+                    HTTPS基础</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月25日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            HTTPS复盘HTTPS对称加密
+其实就是说用同一个经过交换的公钥来加密信息
+弊端：交换过程容易被中间人所攻击
+
+非对称加密
+其实就是用公钥加密，私钥解密
+服务器（公钥a-私钥a)先将公钥a发给客户端，客户端拿到公钥a后加密自己生成一...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/23/TCP/">
+                    tcp简要总结</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月23日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            TCP这一次首先复习一下TCP重传机制为什么TCP会重传呢
+TCP建立连接的过程如果这个过程如果有丢包那么就会触发重传机制
+
+超时重传
+
+就是TCP内部有一个机制会设定一个时间（时延）这个时间大概略大于，tcp报文往返时间，这个时间的...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/15/es6/">
+                    es6基础</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月15日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            es6promise/generator/async/await箭头函数是什么
+function的一种简化
+
+何时用
+简化函数，凡是用到函数的时候就可以用
+
+怎么用
+无参数
+
+&amp;lt;ol&amp;gt;&amp;lt;li&amp;gt;（）=&amp;gt;{&amp;...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/01/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/">
+                    相交链表</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            160. 相交链表。反思
+首先这个题的思路就是来联想一下这个相交节点，为什么要用双指针，就是说 a+b+c=b+1+c 也就是说我，都同时开始且路程相同，那么一定会在相交节点，相遇；
+因此思路就是只要我能够判断当前的节点是否为空，如果...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/01/V8%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81/">
+                    V8引擎执行代码</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            V8 引擎如何执行一段代码编译阶段
+那在执行一段代码执行之前，得做些准备工作，（你做事情不也得需要做准备工作吗），具体就是需要准备基础环境。
+
+全局执行上下文，创建阶段，首先会创建一个全局对象window，创建一个this 然后让它指...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/01/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/">
+                    最长子序列</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            
+最长递增子序列给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
+
+子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/11/25/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+                    垃圾回收机制</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年11月25日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            垃圾回收机制分类为什么要分类—依据
+代际假说
+
+一些变量生存周期很短
+
+存放在新生代区域
+
+
+一些比如window这些存活时间很长的对象
+
+存放在老生代区域
+
+
+依据生存周期的长短–因地制宜的选取对应的算法来回收
+
+
+
+
+堆/划分的
+...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/11/12/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
+                    翻转链表</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年11月12日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            206. 反转链表思路（联想三个指针不断的交换）
+如实记录几个月后的复盘结果，就是说自己第一次复盘的时候想到了双指针但是自己想的是一个指向了头，一个指向了尾元素，然后交换，思路完全错误了，错在了哪里
+首先对撞指针，更适用于两个元素交换...
+            
+        </p>
+    </div>
+</article>
 
 
 <nav class="pagination" role="navigation">
     <div id="page-nav">
-        <a class="extend prev" rel="prev" href="/HEXOS/page/2/">&lt;i class&#x3D;&#39;fa fa-angle-left&#39;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/HEXOS/">1</a><a class="page-number" href="/HEXOS/page/2/">2</a><span class="page-number current">3</span>
+        <span class="page-number current">1</span><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/2/">2</a><a class="extend next" rel="next" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/2/">&lt;i class&#x3D;&#39;fa fa-angle-right&#39;&gt;&lt;&#x2F;i&gt;</a>
     </div>
 </nav>
 
@@ -348,13 +533,20 @@ cookie最大的弊端就是用户信息会暴露在客户端中，更多的是�
 
     
     
+<div class="widget">
+    <h3 class="title">
+        分类
+    </h3>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li></ul>
+</div>
+
     
     
 <div class="widget">
     <h3 class="title">
         归档
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
 </div>
 
     
