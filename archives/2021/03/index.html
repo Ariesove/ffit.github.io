@@ -22,9 +22,7 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="首先来捋一下思路
-后续遍历的顺序是先左子树，再右子树，再根节点
-那么从这你思考一下如果我把这个顺序颠倒一下是什么是不是先根节点，再右子树，再左子树，是不是非常的像先序遍历，及就是说把先序遍历的结..." />
+<meta name="description" content="" />
 
 
 <meta name="robots" content="all" />
@@ -35,7 +33,7 @@
 
 <title>
     
-    后序遍历 |
+    归档：2021/3 |
     
     Hexo
 </title>
@@ -141,24 +139,110 @@
         <div class="container">
             <div class="row">
                 <main class="col-md-8 main-content ">
-                    <div>
-    
-    <article class="post">
-    <h1 class="post-head">
-        后序遍历
-    </h1>
-    <div class="post-body">
-        <h4 id="首先来捋一下思路"><a href="#首先来捋一下思路" class="headerlink" title="首先来捋一下思路"></a>首先来捋一下思路</h4><ol>
-<li>后续遍历的顺序是先左子树，再右子树，再根节点</li>
-<li>那么从这你思考一下如果我把这个顺序颠倒一下是什么是不是先根节点，再右子树，再左子树，是不是非常的像先序遍历，及就是说把先序遍历的结果再入栈，然后根据栈的先进后出的特性，来得到后序遍历的结果</li>
-</ol>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function lastorder (root) &#123;</span><br><span class="line">    if(!root)&#123;return&#125;</span><br><span class="line">    const outstack&#x3D;[];</span><br><span class="line">    const stack &#x3D;[root];</span><br><span class="line">    while(stack.length)&#123;</span><br><span class="line">    const n&#x3D;stack.pop();</span><br><span class="line">    outstack.push(n)</span><br><span class="line">    if(n.left) &#123;stack.push(n.left)&#125;</span><br><span class="line">    if(n.right)&#123;stack.push(n.right)&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    while(outstack.length)&#123;</span><br><span class="line">        const m&#x3D;outstack.pop()</span><br><span class="line">        console.log(m.val)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
+                    <div id="main">
+    <div class="timebox">
+        <div class="timeline">
+            <ul>
+                
+                
+                
+                
+                
+                
+                <h2>
+                    2021
+                </h2>
+                
+                
+                <li class="">
+                    
+                    <h3>
+                        04<span>
+                            03月</span>
+                    </h3>
+                    <a href="/HEXOS/2021/03/04/%E5%89%8D%E7%AB%AF/" title="前端" target="_blank">
+                        前端</a>
+                </li>
+                
+                
+                
+                
+                
+                
+                <li class="hide">
+                    
+                    <h3>
+                        01<span>
+                            01月</span>
+                    </h3>
+                    <a href="/HEXOS/2021/01/01/V8%E5%BC%95%E6%93%8E/" title="V8引擎基础总结" target="_blank">
+                        V8引擎基础总结</a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </ul>
+        </div>
     </div>
-</article>
-    
 </div>
                 </main>
                 
@@ -254,7 +338,7 @@
     <h3 class="title">
         归档
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
 </div>
 
     

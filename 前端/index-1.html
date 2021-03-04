@@ -22,7 +22,7 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="深度优先遍历的思想它会去到达每一个节点后会穷尽这个节点的所有子节点，知道到达叶子节点后，再到上一个节点的另一个孩子节点继续穷尽；怎么做的利用递归–》为什么，原因在于它每一次都会重复，访问根节点，..." />
+<meta name="description" content="" />
 
 
 <meta name="robots" content="all" />
@@ -33,7 +33,7 @@
 
 <title>
     
-    DFS |
+    前端 |
     
     Hexo
 </title>
@@ -143,12 +143,10 @@
     
     <article class="post">
     <h1 class="post-head">
-        DFS
+        前端
     </h1>
     <div class="post-body">
-        <h1 id="深度优先遍历的思想"><a href="#深度优先遍历的思想" class="headerlink" title="深度优先遍历的思想"></a>深度优先遍历的思想</h1><h5 id="它会去到达每一个节点后会穷尽这个节点的所有子节点，知道到达叶子节点后，再到上一个节点的另一个孩子节点继续穷尽；怎么做的利用递归–》为什么，原因在于它每一次都会重复，访问根节点，之后再去访问它的子节点，每当访问到它的子节点后，将这个子节点当根节点再去访问它的下一个子节点，意味着，不断的需要去调用自身，所以采取递归，以下为基本的实现"><a href="#它会去到达每一个节点后会穷尽这个节点的所有子节点，知道到达叶子节点后，再到上一个节点的另一个孩子节点继续穷尽；怎么做的利用递归–》为什么，原因在于它每一次都会重复，访问根节点，之后再去访问它的子节点，每当访问到它的子节点后，将这个子节点当根节点再去访问它的下一个子节点，意味着，不断的需要去调用自身，所以采取递归，以下为基本的实现" class="headerlink" title="它会去到达每一个节点后会穷尽这个节点的所有子节点，知道到达叶子节点后，再到上一个节点的另一个孩子节点继续穷尽；怎么做的利用递归–》为什么，原因在于它每一次都会重复，访问根节点，之后再去访问它的子节点，每当访问到它的子节点后，将这个子节点当根节点再去访问它的下一个子节点，意味着，不断的需要去调用自身，所以采取递归，以下为基本的实现"></a>它会去到达每一个节点后会穷尽这个节点的所有子节点，知道到达叶子节点后，再到上一个节点的另一个孩子节点继续穷尽；怎么做的利用递归–》为什么，原因在于它每一次都会重复，访问根节点，之后再去访问它的子节点，每当访问到它的子节点后，将这个子节点当根节点再去访问它的下一个子节点，意味着，不断的需要去调用自身，所以采取递归，以下为基本的实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function dfs(root) &#123;</span><br><span class="line">    console.log(root.val);</span><br><span class="line">    if(!root.left)&#123;dfs(root.left)&#125;</span><br><span class="line">    if(!root.right)&#123;dfs(root.right)&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+        
     </div>
 </article>
     
@@ -247,7 +245,7 @@
     <h3 class="title">
         归档
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
 </div>
 
     
