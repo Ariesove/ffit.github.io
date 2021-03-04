@@ -22,7 +22,8 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="" />
+<meta name="description" content="何为暂时性死区
+首先说起这个问题，首先需要来明确一下这个var let const 的一些本质的一个区别，首先对于这个var 会有一个变量提升的问题，其实这个变量从未提升过，从执行上下文的角度来..." />
 
 
 <meta name="robots" content="all" />
@@ -33,7 +34,7 @@
 
 <title>
     
-    归档：2021 |
+    暂时性死区 |
     
     Hexo
 </title>
@@ -138,213 +139,135 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <div id="main">
-    <div class="timebox">
-        <div class="timeline">
-            <ul>
-                
-                
-                
-                
-                
-                
-                <h2>
-                    2021
-                </h2>
-                
-                
-                <li>
-                    
-                    <h3>
-                        01<span>
-                            01月</span>
-                    </h3>
-                    <a href="/HEXOS/2021/01/01/V8%E5%BC%95%E6%93%8E/" title="V8引擎基础总结" target="_blank">
-                        V8引擎基础总结</a>
-                </li>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-            </ul>
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="暂时性死区">
+            
+            暂时性死区
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/02/13</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                385</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="何为暂时性死区"><a href="#何为暂时性死区" class="headerlink" title="何为暂时性死区"></a>何为暂时性死区</h3><ol>
+<li>首先说起这个问题，首先需要来明确一下这个var let const 的一些本质的一个区别，首先对于这个var 会有一个变量提升的问题，其实这个变量从未提升过，从执行上下文的角度来考虑，问题，首先创建的阶段对于你所声明的变量，会去开辟空间，然后到达执行阶段才去赋值，因为创建阶段先给变量赋值为undefined，，但是又由于js解释执行的时候是在之后，才有值所以是undefined.所以它的本质其实就是这个，全局执行上下文创建阶段和执行阶段两者不同步所造成的。</li>
+<li>那么这个var同时还没有作用域的概念，所以在闭包常见题种循环输出只能拿到最后一次遍历的值，因为一旦用var来声明变量，首先这个var会被提升至全局，因为它没有作用域的这个概念，然后每次遍历这个var都是唯一的所以，不断被刷新了。</li>
+<li>那么这个let const 就是说let 之所以没有变量提升的问题在于它将全局执行上下文的创建阶段和执行阶段都同步了，所以才不会出现这个，问题，并且添加了块级作用域的概念，也就是说，每次声明一个变量都会将其绑定到当前作用域内比如在函数中去。</li>
+<li>const 就是声明的变量，不能被重新赋值，对于简单值类型，不能被重复改变值，但是对于引用类型的值，只要不改它的地址，可以修改比如对象里的值。</li>
+</ol>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
         </div>
     </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/09/12/%E7%9B%92%E6%A8%A1%E5%9E%8B/" class="pre-post btn btn-default" title='盒模型'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            盒模型</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2020/02/12/%E5%A4%8D%E7%9B%98%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" class="next-post btn btn-default" title='复盘背包问题'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            复盘背包问题</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
 </div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
                 </main>
                 
-                    
-<aside class="col-md-4 sidebar">
-    
-    
-<div class="widget">
-    <h3 class="title">
-        搜索
-    </h3>
-    <div id="search-form">
-        <div id="result-mask" class="hide"></div>
-        <div class="search-area">
-            
-            <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢？">
-            <button type="button" class="search-form-submit" id="search-local">
-                站内搜索</button>
-            
-            
-        </div>
-        <div id="result-wrap" class="hide">
-            <div id="search-result"></div>
-        </div>
-        <div class="hide">
-            <template id="search-tpl">
-                <div class="item">
-                    <a href="/{path}" title="{title}">
-                        <div class="title">{title}</div>
-                        <div class="content">{content}</div>
-                    </a>
-                </div>
-            </template>
-        </div>
-    </div>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        网站公告
-    </h3>
-    <div class="notification">
-        <p>
-    主题下载：<a href="https://github.com/shenliyang/hexo-theme-snippet" title="fork me" target="_blank">Snippet主题</a> <br/>
-    主题使用：<a href="https://github.com/shenliyang/hexo-theme-snippet/blob/master/README.md#常见问题" title="" target="_blank">常见使用问题</a> <br/>
-    支持主题：<a target="_blank" rel="noopener" href="https://github.com/shenliyang/hexo-theme-snippet/stargazers">Star一下</a>
-</p>
-    </div>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        社交
-    </h3>
-    <div class="content social">
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
         
-        <a href="//github.com/shenliyang" rel="external nofollow" title="Github" target="_blank">
-            <i class="git fa fa-git"></i>
-        </a>
-        
-        <a href="mailto:snippet@91h5.cc" rel="external nofollow" title="邮箱" target="_blank">
-            <i class="envelope-o fa fa-envelope-o"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="联系QQ" target="_blank">
-            <i class="qq fa fa-qq"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="微信" target="_blank">
-            <i class="weixin fa fa-weixin"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="QQ群" target="_blank">
-            <i class="users fa fa-users"></i>
-        </a>
-        
-        <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
-            <i class="feed fa fa-feed"></i>
-        </a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E4%B8%BA%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA"><span class="toc-text">何为暂时性死区</span></a></li></ol>
         
     </div>
-</div>
-
-    
-    
-    
-    
-<div class="widget">
-    <h3 class="title">
-        归档
-    </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
-</div>
-
-    
-    
-    
-    
-<div class="widget">
-    <h3 class="title">
-        友链
-    </h3>
-    <div class="content friends-link">
-        
-        <a href="https://hexo.io/zh-cn/" class="fa" target="_blank">
-            Hexo官网</a>
-        
-    </div>
-</div>
-
-    
 </aside>
-
                 
             </div>
         </div>
@@ -391,10 +314,6 @@
         </div>
     </div>
 </div>
-
-
-<script src="/HEXOS/js/search.js?rev=@@hash.js"></script>
-
 
 
 
