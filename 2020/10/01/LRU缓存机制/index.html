@@ -22,7 +22,9 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="" />
+<meta name="description" content="思路1. 浏览器 LRU 缓存策略
+其实这个就是当输入网址访问时先会去本地缓存查看是否有我想要的数据，如果有直接用本地缓存的数据目的就是降低用户访问的时间
+那么这里有一个问题就是，本地缓存总有满..." />
 
 
 <meta name="robots" content="all" />
@@ -33,7 +35,7 @@
 
 <title>
     
-    categories |
+    BFC |
     
     Hexo
 </title>
@@ -138,159 +140,142 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <div>
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="BFC">
+            
+            BFC
+            
+        </h1>
+        <div class="post-meta">
     
-    <article class="post">
-        <h1 class="post-head">共计
-            3个分类</h1>
-        <div class="post-body">
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
             
-            <li class="post-items">
-                <a href="/categories/前端/" title="前端" target="_blank">
-                    前端
-                </a>
-            </li>
-            
-            <li class="post-items">
-                <a href="/categories/后端/" title="后端" target="_blank">
-                    后端
-                </a>
-            </li>
-            
-            <li class="post-items">
-                <a href="/categories/工具/" title="工具" target="_blank">
-                    工具
-                </a>
-            </li>
-            
-        </div>
-    </article>
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/10/01</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
     
 </div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h2 id="1-浏览器-LRU-缓存策略"><a href="#1-浏览器-LRU-缓存策略" class="headerlink" title="1. 浏览器 LRU 缓存策略"></a>1. 浏览器 LRU 缓存策略</h2><ol>
+<li>其实这个就是当输入网址访问时先会去本地缓存查看是否有我想要的数据，如果有直接用本地缓存的数据目的就是降低用户访问的时间</li>
+<li>那么这里有一个问题就是，本地缓存总有满的一天，那么删哪些</li>
+<li>核心： 删最近最少使用的—可以理解为，正是因为最少被使用，所以才该删</li>
+</ol>
+<h2 id="2-vue-Keep-alive"><a href="#2-vue-Keep-alive" class="headerlink" title="2. vue Keep-alive"></a>2. vue Keep-alive</h2><p>目的： 用于组件的缓存</p>
+<h4 id="具体怎么做的："><a href="#具体怎么做的：" class="headerlink" title="具体怎么做的："></a>具体怎么做的：</h4><ol>
+<li>就是 keep-alive 有一个 max 属性，一旦缓存的组件数大于了 max 就开始使用 LRU 算法</li>
+<li>cache 保存着组件实例，以及所对应的 key 值，然后就是还有一个 keys 数组存储着每一个所缓存组件的 key 值</li>
+<li>当用到了某个组件，会先看一下 cache 里面是否有对应组件： 如果有了就将相应的 key 值从 keys 中删除并移动到最后一个元素：其实就是在模拟最近最少算法：头元素肯定是少使用的，放末尾的意思自然是最近就使用的；</li>
+<li>当组件数》max 后，删 keys[0] 元素。</li>
+</ol>
+<h4 id="系统学习思路：包含浏览器缓存，keep-alive-的题解："><a href="#系统学习思路：包含浏览器缓存，keep-alive-的题解：" class="headerlink" title="系统学习思路：包含浏览器缓存，keep-alive 的题解："></a>系统学习思路：包含浏览器缓存，keep-alive 的题解：</h4><p>1<a href="https://">https://github.com/sisterAn/JavaScript-Algorithms/issues/9</a></p>
+<p>参考题解 1：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lru-cache/solution/ping-zi-jun-qian-duan-jin-jie-suan-fa-lru-shi-xian/">https://leetcode-cn.com/problems/lru-cache/solution/ping-zi-jun-qian-duan-jin-jie-suan-fa-lru-shi-xian/</a></p>
+<p>参考题解 2：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lru-cache/">https://leetcode-cn.com/problems/lru-cache/</a></p>
+<p>参考题解 3：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lru-cache/solution/chao-zuo-ye-vue3-nei-zhi-zu-jian-keep-alive-shi-xi/">https://leetcode-cn.com/problems/lru-cache/solution/chao-zuo-ye-vue3-nei-zhi-zu-jian-keep-alive-shi-xi/</a></p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/10/03/DFS/" class="pre-post btn btn-default" title='DFS'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            DFS</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2020/10/01/BFC/" class="next-post btn btn-default" title='BFC'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            BFC</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
                 </main>
                 
-                    
-<aside class="col-md-4 sidebar">
-    
-    
-<div class="widget">
-    <h3 class="title">
-        搜索
-    </h3>
-    <div id="search-form">
-        <div id="result-mask" class="hide"></div>
-        <div class="search-area">
-            
-            <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢？">
-            <button type="button" class="search-form-submit" id="search-local">
-                站内搜索</button>
-            
-            
-        </div>
-        <div id="result-wrap" class="hide">
-            <div id="search-result"></div>
-        </div>
-        <div class="hide">
-            <template id="search-tpl">
-                <div class="item">
-                    <a href="/{path}" title="{title}">
-                        <div class="title">{title}</div>
-                        <div class="content">{content}</div>
-                    </a>
-                </div>
-            </template>
-        </div>
-    </div>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        网站公告
-    </h3>
-    <div class="notification">
-        <p>
-    主题下载：<a href="https://github.com/shenliyang/hexo-theme-snippet" title="fork me" target="_blank">Snippet主题</a> <br/>
-    主题使用：<a href="https://github.com/shenliyang/hexo-theme-snippet/blob/master/README.md#常见问题" title="" target="_blank">常见使用问题</a> <br/>
-    支持主题：<a target="_blank" rel="noopener" href="https://github.com/shenliyang/hexo-theme-snippet/stargazers">Star一下</a>
-</p>
-    </div>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        社交
-    </h3>
-    <div class="content social">
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
         
-        <a href="//github.com/shenliyang" rel="external nofollow" title="Github" target="_blank">
-            <i class="git fa fa-git"></i>
-        </a>
-        
-        <a href="mailto:snippet@91h5.cc" rel="external nofollow" title="邮箱" target="_blank">
-            <i class="envelope-o fa fa-envelope-o"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="联系QQ" target="_blank">
-            <i class="qq fa fa-qq"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="微信" target="_blank">
-            <i class="weixin fa fa-weixin"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="QQ群" target="_blank">
-            <i class="users fa fa-users"></i>
-        </a>
-        
-        <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
-            <i class="feed fa fa-feed"></i>
-        </a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8-LRU-%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5"><span class="toc-text">1. 浏览器 LRU 缓存策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-vue-Keep-alive"><span class="toc-text">2. vue Keep-alive</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%EF%BC%9A"><span class="toc-text">具体怎么做的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%80%9D%E8%B7%AF%EF%BC%9A%E5%8C%85%E5%90%AB%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%EF%BC%8Ckeep-alive-%E7%9A%84%E9%A2%98%E8%A7%A3%EF%BC%9A"><span class="toc-text">系统学习思路：包含浏览器缓存，keep-alive 的题解：</span></a></li></ol></li></ol>
         
     </div>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        分类
-    </h3>
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%B7%A5%E5%85%B7/"><i class="fa" aria-hidden="true">工具</i></a><span class="category-list-count">1</span></li></ul>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        归档
-    </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">2</span></li></ul>
-</div>
-
-    
-    
-    
-    
-<div class="widget">
-    <h3 class="title">
-        友链
-    </h3>
-    <div class="content friends-link">
-        
-        <a href="https://hexo.io/zh-cn/" class="fa" target="_blank">
-            Hexo官网</a>
-        
-    </div>
-</div>
-
-    
 </aside>
-
                 
             </div>
         </div>
@@ -337,10 +322,6 @@
         </div>
     </div>
 </div>
-
-
-<script src="/HEXOS/js/search.js?rev=@@hash.js"></script>
-
 
 
 

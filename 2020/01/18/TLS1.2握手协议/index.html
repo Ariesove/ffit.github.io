@@ -22,7 +22,12 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="" />
+<meta name="description" content="总括
+以ECDH算法举例
+
+我现在要和一个人互相诉说小秘密，但是此时彼此都不知道身份，现在我和一个人进行碰面，在咖啡厅里会面，那肯定先得打个招呼。
+
+但是由于我不知道对方的真实身份，所以我得需要..." />
 
 
 <meta name="robots" content="all" />
@@ -33,7 +38,7 @@
 
 <title>
     
-    categories |
+    Tls1.2 |
     
     Hexo
 </title>
@@ -138,159 +143,208 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <div>
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Tls1.2">
+            
+            Tls1.2
+            
+        </h1>
+        <div class="post-meta">
     
-    <article class="post">
-        <h1 class="post-head">共计
-            3个分类</h1>
-        <div class="post-body">
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
             
-            <li class="post-items">
-                <a href="/categories/前端/" title="前端" target="_blank">
-                    前端
-                </a>
-            </li>
-            
-            <li class="post-items">
-                <a href="/categories/后端/" title="后端" target="_blank">
-                    后端
-                </a>
-            </li>
-            
-            <li class="post-items">
-                <a href="/categories/工具/" title="工具" target="_blank">
-                    工具
-                </a>
-            </li>
-            
-        </div>
-    </article>
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/01/18</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
     
 </div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                412</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h4 id="总括"><a href="#总括" class="headerlink" title="总括"></a>总括</h4><ol>
+<li><p>以ECDH算法举例</p>
+</li>
+<li><p>我现在要和一个人互相诉说小秘密，但是此时彼此都不知道身份，现在我和一个人进行碰面，在咖啡厅里会面，那肯定先得打个招呼。</p>
+</li>
+<li><p>但是由于我不知道对方的真实身份，所以我得需要对方发一个证明，验证身份我确认了对方是对的人了。</p>
+</li>
+<li><p>然后我和对方都把自己的一些小秘密(客户和服务器依赖于ECDHE子算法，彼此通过两个随机数生成了pre-master 随机数) 都整理好进行交换， 这样我们都知道了对方的小秘密。互相成了好基友</p>
+</li>
+<li><p>但是之后由于大家都很忙，所以我们互加微信，但是为了能够保证彼此的信息，不会被人拦截，所以我需要，对信息加密,就用之前彼此交换的秘密作为加密信息，进行对称加密</p>
+</li>
+</ol>
+<ul>
+<li><p>打招呼</p>
+</li>
+<li><p>验证身份</p>
+</li>
+<li><p>密钥交换</p>
+</li>
+<li><p>加密阶段</p>
+</li>
+</ul>
+<h3 id="1-打招呼阶段"><a href="#1-打招呼阶段" class="headerlink" title="1. 打招呼阶段"></a>1. 打招呼阶段</h3><ul>
+<li>客户端发消息</li>
+</ul>
+<ul>
+<li>四个个信息</li>
+</ul>
+<ol>
+<li><p>client hello</p>
+</li>
+<li><p>自己所支持的密码套件</p>
+</li>
+<li><p>以及TLS协议的版本号</p>
+</li>
+<li><p>用于密钥交换的，client random</p>
+</li>
+</ol>
+<ul>
+<li>那服务器回消息</li>
+</ul>
+<ul>
+<li>四个确认信息</li>
+</ul>
+<ol>
+<li><p>server hello</p>
+</li>
+<li><p>确认使用客户端所支持的密码套件</p>
+</li>
+<li><p>以及TLS版本号</p>
+</li>
+<li><p>密钥交换的server random</p>
+</li>
+</ol>
+<h3 id="2-身份确认阶段"><a href="#2-身份确认阶段" class="headerlink" title="2. 身份确认阶段"></a>2. 身份确认阶段</h3><ul>
+<li>服务器</li>
+</ul>
+<ol>
+<li><p>服务器向客户端发了证书，用自己的私钥进行加密</p>
+</li>
+<li><p>同时服务器向客户还发了一个server params</p>
+</li>
+<li><p>此时双方都具有了用于密钥交换的两个参数（client params ,server params)</p>
+</li>
+</ol>
+<ul>
+<li>客户端</li>
+</ul>
+<ol>
+<li><p>客户用公钥进行解密，确认了对方的身份之后</p>
+</li>
+<li><p>回了一个client params</p>
+</li>
+<li><p>此时双方都具有了用于密钥交换的两个参数（client params ,server params)</p>
+</li>
+</ol>
+<h3 id="3-密钥交换"><a href="#3-密钥交换" class="headerlink" title="3. 密钥交换"></a>3. 密钥交换</h3><ol>
+<li><p>客户和服务器依赖于ECDHE子算法，彼此通过两个随机数生成了pre-master 随机数</p>
+</li>
+<li><p>彼此综合三个随机数，各自生成主密钥 master-secret 用于之后对称加密信息.</p>
+</li>
+<li><p>之后发出加密算法通知，并发出finish（将之前的信息摘要）这⼀项同时把之前所有内容的发⽣的数据做个摘要，⽤来供服务端校验。</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.wolai.com/gRbzHvTAC8m4nm9mth4nnY">TLS1.3</a></p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/01/20/cookie%20session%20redis/" class="pre-post btn btn-default" title='cookie redis session'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            cookie redis session</span>
+    </a>
+    
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
                 </main>
                 
-                    
-<aside class="col-md-4 sidebar">
-    
-    
-<div class="widget">
-    <h3 class="title">
-        搜索
-    </h3>
-    <div id="search-form">
-        <div id="result-mask" class="hide"></div>
-        <div class="search-area">
-            
-            <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢？">
-            <button type="button" class="search-form-submit" id="search-local">
-                站内搜索</button>
-            
-            
-        </div>
-        <div id="result-wrap" class="hide">
-            <div id="search-result"></div>
-        </div>
-        <div class="hide">
-            <template id="search-tpl">
-                <div class="item">
-                    <a href="/{path}" title="{title}">
-                        <div class="title">{title}</div>
-                        <div class="content">{content}</div>
-                    </a>
-                </div>
-            </template>
-        </div>
-    </div>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        网站公告
-    </h3>
-    <div class="notification">
-        <p>
-    主题下载：<a href="https://github.com/shenliyang/hexo-theme-snippet" title="fork me" target="_blank">Snippet主题</a> <br/>
-    主题使用：<a href="https://github.com/shenliyang/hexo-theme-snippet/blob/master/README.md#常见问题" title="" target="_blank">常见使用问题</a> <br/>
-    支持主题：<a target="_blank" rel="noopener" href="https://github.com/shenliyang/hexo-theme-snippet/stargazers">Star一下</a>
-</p>
-    </div>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        社交
-    </h3>
-    <div class="content social">
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
         
-        <a href="//github.com/shenliyang" rel="external nofollow" title="Github" target="_blank">
-            <i class="git fa fa-git"></i>
-        </a>
-        
-        <a href="mailto:snippet@91h5.cc" rel="external nofollow" title="邮箱" target="_blank">
-            <i class="envelope-o fa fa-envelope-o"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="联系QQ" target="_blank">
-            <i class="qq fa fa-qq"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="微信" target="_blank">
-            <i class="weixin fa fa-weixin"></i>
-        </a>
-        
-        <a href="/" rel="external nofollow" title="QQ群" target="_blank">
-            <i class="users fa fa-users"></i>
-        </a>
-        
-        <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
-            <i class="feed fa fa-feed"></i>
-        </a>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E6%8B%AC"><span class="toc-text">总括</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%93%E6%8B%9B%E5%91%BC%E9%98%B6%E6%AE%B5"><span class="toc-text">1. 打招呼阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BA%AB%E4%BB%BD%E7%A1%AE%E8%AE%A4%E9%98%B6%E6%AE%B5"><span class="toc-text">2. 身份确认阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2"><span class="toc-text">3. 密钥交换</span></a>
         
     </div>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        分类
-    </h3>
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%B7%A5%E5%85%B7/"><i class="fa" aria-hidden="true">工具</i></a><span class="category-list-count">1</span></li></ul>
-</div>
-
-    
-    
-<div class="widget">
-    <h3 class="title">
-        归档
-    </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">2</span></li></ul>
-</div>
-
-    
-    
-    
-    
-<div class="widget">
-    <h3 class="title">
-        友链
-    </h3>
-    <div class="content friends-link">
-        
-        <a href="https://hexo.io/zh-cn/" class="fa" target="_blank">
-            Hexo官网</a>
-        
-    </div>
-</div>
-
-    
 </aside>
-
                 
             </div>
         </div>
@@ -337,10 +391,6 @@
         </div>
     </div>
 </div>
-
-
-<script src="/HEXOS/js/search.js?rev=@@hash.js"></script>
-
 
 
 
