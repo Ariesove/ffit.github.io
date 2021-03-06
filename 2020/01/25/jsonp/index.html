@@ -22,9 +22,12 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="js 栈和堆个人理解就是简单数据类型，都放在栈中，复杂数据类型对象的地址存放在栈中，在堆中存储这个对象的值。
+<meta name="description" content="手写 JSONP 的实现思路
+就是由于这个是一个异步的请求，所以需要用这个 promise,来做；
 
-如果是 let a=1  a=’scx’ 对于简单数据类型的仅重新赋值，不会去开辟..." />
+…解构的应用： 与对象去使用就是在将里面所有可遍历的属性，进行拷贝。
+
+for in 用来循..." />
 
 
 <meta name="robots" content="all" />
@@ -35,7 +38,7 @@
 
 <title>
     
-    js数组 |
+    jsonp结合promise |
     
     Hexo
 </title>
@@ -144,9 +147,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="js数组">
+        <h1 id="jsonp结合promise">
             
-            js数组
+            jsonp结合promise
             
         </h1>
         <div class="post-meta">
@@ -169,7 +172,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2020/02/03</span>
+            2020/01/25</span>
     </span>
     
     <span class="fa-wrap">
@@ -183,25 +186,24 @@
         
         <p class="fa fa-exclamation-triangle warning">
             本文于<strong>
-                396</strong>
+                405</strong>
             天之前发表，文中内容可能已经过时。
         </p>
         
     </div>
     
     <div class="post-body post-content">
-        <h3 id="js-栈和堆"><a href="#js-栈和堆" class="headerlink" title="js 栈和堆"></a>js 栈和堆</h3><p>个人理解就是<strong>简单</strong>数据类型，都放在<strong>栈</strong>中，<strong>复杂数</strong>据类型对象的地址存放在栈中，在<strong>堆中存储这个对象的值。</strong></p>
-<ol>
-<li><p>如果是 <strong>let a=1  a=’scx’</strong> 对于简单数据类型的仅重新赋值，不会去开辟空间。</p>
+        <h3 id="手写-JSONP-的实现"><a href="#手写-JSONP-的实现" class="headerlink" title="手写 JSONP 的实现"></a>手写 JSONP 的实现</h3><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
+<li><p>就是由于这个是一个异步的请求，所以需要用这个 promise,来做；</p>
 </li>
-<li><p><strong>谁块</strong>：栈块，因为栈先进后出的数据结构更加的简单，栈是编译时系统自动分配空间，而堆是动态分配（运行时分配空间），所以栈的速度快。并且每次访问用类型数据都是先访问栈里的对象的引用，然后再去找堆里的对象。所以步骤多了，慢。</p>
-<h4 id="js-数组为什么不需要去分配固定的空间"><a href="#js-数组为什么不需要去分配固定的空间" class="headerlink" title="js 数组为什么不需要去分配固定的空间"></a><strong>js 数组为什么不需要去分配固定的空间</strong></h4><ol>
-<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903943638794248#heading-12">v8 如何来实现这个 js 的数组</a>。</li>
-<li>js 里的<strong>数组</strong>是一个特殊的<strong>对象</strong>，为什么数组长度可变，为什么这个数组可以存储多个类型数据，因为是一个对象。<strong>快数组</strong>是一种线性的存储方式。新创建的空数组，默认的存储方式是快数组，快数组<strong>长度是可变</strong>的，可以根据元素的增加和删除来动态调整存储空间大小，内部是通过扩容和收缩机制实现，<strong>慢数组</strong>是用类似<strong>哈希表</strong>的形式创建的。</li>
-<li>如果 v8 引擎发现数组内部出现了大量空洞，就是比如 arr=[1,3] arr[1222]=1 ,那就转为慢数组，因为不需要去申请大量连续空间，但是是以一种 hash 表来展示的。</li>
-<li>慢转快；就是这个，js 数组的空洞少的时候就会去转换，这就是为什么 js 不需要分配固定长度的本质原因。</li>
-</ol>
+<li><p>…解构的应用： 与对象去使用就是在将里面所有可遍历的属性，进行拷贝。</p>
 </li>
+<li><p>for in 用来循环对象的属性的  let key  for   in  object; key 就是对象里面的键；</p>
+</li>
+<li><p>join 的用法就是说这个，将里面的值以什么来分割。</p>
+</li>
+<li><p>这个方法的弊端.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function JSONP(&#123; url, params, callback &#125;) &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    let script &#x3D; document.createElement(&#39;script&#39;)</span><br><span class="line">    window[callback] &#x3D; function (data) &#123;</span><br><span class="line">      resolve(data)</span><br><span class="line">      document.body.removeChild(script)&#x2F;&#x2F;就是类似于我在做哪个全局loading组件的时候用到的添加节点就是往这个body里添加。</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    let arr &#x3D; []</span><br><span class="line">    params &#x3D; &#123; ...params, callback &#125; &#x2F;&#x2F; a&#x3D;1&amp;callback&#x3D;s</span><br><span class="line">    for (let key in params) &#123;</span><br><span class="line">      arr.push(&#96;$&#123;key&#125;&#x3D;$&#123;params[key]&#125;&#96;)</span><br><span class="line">    &#125;</span><br><span class="line">    script.src &#x3D; &#96;$&#123;url&#125;?$&#123;arr.join(&#39;&amp;&#39;)&#125;&#96;</span><br><span class="line">    document.appendChild(script)</span><br><span class="line"></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">JSONP(&#123;</span><br><span class="line">  url: &#39;https:&#x2F;&#x2F;loacl:2000&#39;,</span><br><span class="line">  params: &#123; a: 1 &#125;,</span><br><span class="line">  callback: &#39;s&#39;</span><br><span class="line">&#125;</span><br><span class="line">).then(data &#x3D;&gt; &#123;</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
 </ol>
 
     </div>
@@ -221,17 +223,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2020/02/13/%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA/" class="pre-post btn btn-default" title='暂时性死区'>
+    <a href="/HEXOS/2020/02/03/js%E6%95%B0%E7%BB%84%E6%9C%AC%E8%B4%A8/" class="pre-post btn btn-default" title='js数组'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            暂时性死区</span>
+            js数组</span>
     </a>
     
     
-    <a href="/HEXOS/2020/01/25/jsonp/" class="next-post btn btn-default" title='jsonp结合promise'>
+    <a href="/HEXOS/2020/01/20/cookie%20session%20redis/" class="next-post btn btn-default" title='cookie redis session'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            jsonp结合promise</span><i class="fa fa-angle-right fa-fw"></i>
+            cookie redis session</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -272,7 +274,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#js-%E6%A0%88%E5%92%8C%E5%A0%86"><span class="toc-text">js 栈和堆</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#js-%E6%95%B0%E7%BB%84%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E5%8E%BB%E5%88%86%E9%85%8D%E5%9B%BA%E5%AE%9A%E7%9A%84%E7%A9%BA%E9%97%B4"><span class="toc-text">js 数组为什么不需要去分配固定的空间</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%86%99-JSONP-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">手写 JSONP 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li></ol>
         
     </div>
 </aside>
