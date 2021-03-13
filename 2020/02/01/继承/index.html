@@ -22,12 +22,9 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="手写 JSONP 的实现思路
-就是由于这个是一个异步的请求，所以需要用这个 promise,来做；
-
-…解构的应用： 与对象去使用就是在将里面所有可遍历的属性，进行拷贝。
-
-for in 用来循..." />
+<meta name="description" content="继承
+首先来理解这个原型链继承就是将子类的原型对象直接变为，父类的实例，这样就可以通过原型链实现继承，从而拿到一些属性和方法
+但是无法传递参数，而且会修改原型上的属性和方法，这里要注意一点就是要..." />
 
 
 <meta name="robots" content="all" />
@@ -38,7 +35,7 @@ for in 用来循..." />
 
 <title>
     
-    jsonp结合promise |
+    js继承 |
     
     Hexo
 </title>
@@ -147,9 +144,9 @@ for in 用来循..." />
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="jsonp结合promise">
+        <h1 id="js继承">
             
-            jsonp结合promise
+            js继承
             
         </h1>
         <div class="post-meta">
@@ -172,7 +169,7 @@ for in 用来循..." />
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2020/01/25</span>
+            2020/02/01</span>
     </span>
     
     <span class="fa-wrap">
@@ -186,26 +183,22 @@ for in 用来循..." />
         
         <p class="fa fa-exclamation-triangle warning">
             本文于<strong>
-                412</strong>
+                405</strong>
             天之前发表，文中内容可能已经过时。
         </p>
         
     </div>
     
     <div class="post-body post-content">
-        <h3 id="手写-JSONP-的实现"><a href="#手写-JSONP-的实现" class="headerlink" title="手写 JSONP 的实现"></a>手写 JSONP 的实现</h3><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
-<li><p>就是由于这个是一个异步的请求，所以需要用这个 promise,来做；</p>
-</li>
-<li><p>…解构的应用： 与对象去使用就是在将里面所有可遍历的属性，进行拷贝。</p>
-</li>
-<li><p>for in 用来循环对象的属性的  let key  for   in  object; key 就是对象里面的键；</p>
-</li>
-<li><p>join 的用法就是说这个，将里面的值以什么来分割。</p>
-</li>
-<li><p>这个方法的弊端.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">JSONP</span>(<span class="params">&#123; url, params, callback &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>)</span><br><span class="line">    <span class="built_in">window</span>[callback] = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">      resolve(data)</span><br><span class="line">      <span class="built_in">document</span>.body.removeChild(script)<span class="comment">//就是类似于我在做哪个全局loading组件的时候用到的添加节点就是往这个body里添加。</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> arr = []</span><br><span class="line">    params = &#123; ...params, callback &#125; <span class="comment">// a=1&amp;callback=s</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> params) &#123;</span><br><span class="line">      arr.push(<span class="string">`<span class="subst">$&#123;key&#125;</span>=<span class="subst">$&#123;params[key]&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    script.src = <span class="string">`<span class="subst">$&#123;url&#125;</span>?<span class="subst">$&#123;arr.join(<span class="string">&#x27;&amp;&#x27;</span>)&#125;</span>`</span></span><br><span class="line">    <span class="built_in">document</span>.appendChild(script)</span><br><span class="line"></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">JSONP(&#123;</span><br><span class="line">  url: <span class="string">&#x27;https://loacl:2000&#x27;</span>,</span><br><span class="line">  params: &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;,</span><br><span class="line">  callback: <span class="string">&#x27;s&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+        <h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><ol>
+<li>首先来理解这个原型链继承就是将子类的原型对象直接变为，父类的实例，这样就可以通过<strong>原型链实现继承</strong>，从而拿到一些属性和方法</li>
+<li>但是无法传递参数，而且会修改原型上的属性和方法，这里要注意一点就是要改变这个子类构造函数的指向，否则就顺着原型链指向了父类构造函数了，这个组合继承，寄生组合继承都要。</li>
+<li><strong>组合继承</strong>就是通过这个 call/apply 实现继承，首先子类实例一个对象，然后调用这个子类构造函数，之后再去调用这个父构造函数，改变这个父构造函数的 this 指向，这样并可以传递参数，这样，就给子类赋予了父类的属性和方法，并且由于构造函数声明的属性和方法都是私有的所以其它实例无法改变。并且还可以依赖原型链，去拿到这个<strong>父类原型上的方法</strong>，<strong>弊端就是父类构造函数调用了两次，</strong>一次是原型链上的，一次是这个 call 调用父构造函数的时候。</li>
+<li><strong>寄生组合继承</strong>：就是由于父构造函数调用了两次所以我需要，通过 object.create(父构造函数的 propotype),就是先来创建一个对象，然后让这个对象的_proto_指向这个参数。这样就跳过了这个父的实例，完美，不过也需要修改构造函数的指向。</li>
 </ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parent</span>(<span class="params">name, sex</span>) </span>&#123;<span class="comment">//组合继承</span></span><br><span class="line">  <span class="built_in">this</span>.name = name</span><br><span class="line">  <span class="built_in">this</span>.sex = sex</span><br><span class="line"></span><br><span class="line">  parent.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">111</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">child</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  parent.call(<span class="built_in">this</span>, name)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">child.prototype = <span class="keyword">new</span> parent()<span class="comment">//第一次调用这个父构造函数</span></span><br><span class="line">child.prototype.constructor = child<span class="comment">//修改这个原型constructor指向</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> child()<span class="comment">//第二次调用这个父构造函数</span></span><br></pre></td></tr></table></figure>
 
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parent</span>(<span class="params">name, sex</span>) </span>&#123;<span class="comment">//寄生组合继承</span></span><br><span class="line">  <span class="built_in">this</span>.name = name</span><br><span class="line">  <span class="built_in">this</span>.sex = sex</span><br><span class="line"></span><br><span class="line">  parent.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">111</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">child</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  parent.call(<span class="built_in">this</span>, name)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">child.prototype = <span class="built_in">Object</span>.create(parent.prototype)<span class="comment">//修改子类原型对象的__proto__为父构造函数的原型对象实现继承父的原型方法</span></span><br><span class="line">child.prototype.constructor = child<span class="comment">//修改这个原型constructor指向</span></span><br></pre></td></tr></table></figure>
     </div>
     
     <div class="post-footer">
@@ -223,17 +216,17 @@ for in 用来循..." />
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2020/02/01/%E7%BB%A7%E6%89%BF/" class="pre-post btn btn-default" title='js继承'>
+    <a href="/HEXOS/2020/02/03/js%E6%95%B0%E7%BB%84%E6%9C%AC%E8%B4%A8/" class="pre-post btn btn-default" title='js数组'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            js继承</span>
+            js数组</span>
     </a>
     
     
-    <a href="/HEXOS/2020/01/20/cookie%20session%20redis/" class="next-post btn btn-default" title='cookie redis session'>
+    <a href="/HEXOS/2020/01/25/jsonp/" class="next-post btn btn-default" title='jsonp结合promise'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            cookie redis session</span><i class="fa fa-angle-right fa-fw"></i>
+            jsonp结合promise</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -274,7 +267,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%86%99-JSONP-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">手写 JSONP 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-text">继承</span></a></li></ol>
         
     </div>
 </aside>
