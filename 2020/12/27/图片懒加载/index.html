@@ -22,12 +22,8 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="总括
-以ECDH算法举例
-
-我现在要和一个人互相诉说小秘密，但是此时彼此都不知道身份，现在我和一个人进行碰面，在咖啡厅里会面，那肯定先得打个招呼。
-
-但是由于我不知道对方的真实身份，所以我得需要..." />
+<meta name="description" content="图片懒加载
+首先所谓的图片懒加载其实就是当触发滚动事件的时候，判断当前元素上边距离视区域的上边框具有多少距离，如果说刚好小于等于视口高度，那就是遍历每一个元素，然后获取每一个元素上的 data-..." />
 
 
 <meta name="robots" content="all" />
@@ -38,7 +34,7 @@
 
 <title>
     
-    TLS1.2 |
+    图片懒加载 |
     
     Hexo
 </title>
@@ -147,9 +143,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="TLS1.2">
+        <h1 id="图片懒加载">
             
-            TLS1.2
+            图片懒加载
             
         </h1>
         <div class="post-meta">
@@ -172,7 +168,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2021/01/18</span>
+            2020/12/27</span>
     </span>
     
     <span class="fa-wrap">
@@ -187,92 +183,11 @@
     </div>
     
     <div class="post-body post-content">
-        <h4 id="总括"><a href="#总括" class="headerlink" title="总括"></a>总括</h4><ol>
-<li><p>以ECDH算法举例</p>
-</li>
-<li><p>我现在要和一个人互相诉说小秘密，但是此时彼此都不知道身份，现在我和一个人进行碰面，在咖啡厅里会面，那肯定先得打个招呼。</p>
-</li>
-<li><p>但是由于我不知道对方的真实身份，所以我得需要对方发一个证明，验证身份我确认了对方是对的人了。</p>
-</li>
-<li><p>然后我和对方都把自己的一些小秘密(客户和服务器依赖于ECDHE子算法，彼此通过两个随机数生成了pre-master 随机数) 都整理好进行交换， 这样我们都知道了对方的小秘密。互相成了好基友</p>
-</li>
-<li><p>但是之后由于大家都很忙，所以我们互加微信，但是为了能够保证彼此的信息，不会被人拦截，所以我需要，对信息加密,就用之前彼此交换的秘密作为加密信息，进行对称加密</p>
-</li>
+        <h3 id="图片懒加载"><a href="#图片懒加载" class="headerlink" title="图片懒加载"></a>图片懒加载</h3><ol>
+<li>首先所谓的图片懒加载其实就是当触发滚动事件的时候，判断当前元素上边距离视区域的上边框具有多少距离，如果说刚好小于等于视口高度，那就是遍历每一个元素，然后获取每一个元素上的 data-src 里得真实的 src,去赋值给每一个元素的 src，并且为了避免已经加载过的元素，再次遍历就设置 count 进行计数，</li>
+<li>问题： 自己经常忘记，计算网页视口的高度，主要是需要，先计算这个当前元素距离视口上边框的距离，和视口高度比较，只有小于等于的时候这个循环添加真实 src 才有意义。</li>
 </ol>
-<ul>
-<li><p>打招呼</p>
-</li>
-<li><p>验证身份</p>
-</li>
-<li><p>密钥交换</p>
-</li>
-<li><p>加密阶段</p>
-</li>
-</ul>
-<h3 id="1-打招呼阶段"><a href="#1-打招呼阶段" class="headerlink" title="1. 打招呼阶段"></a>1. 打招呼阶段</h3><ul>
-<li>客户端发消息</li>
-</ul>
-<ul>
-<li>四个个信息</li>
-</ul>
-<ol>
-<li><p>client hello</p>
-</li>
-<li><p>自己所支持的密码套件</p>
-</li>
-<li><p>以及TLS协议的版本号</p>
-</li>
-<li><p>用于密钥交换的，client random</p>
-</li>
-</ol>
-<ul>
-<li>那服务器回消息</li>
-</ul>
-<ul>
-<li>四个确认信息</li>
-</ul>
-<ol>
-<li><p>server hello</p>
-</li>
-<li><p>确认使用客户端所支持的密码套件</p>
-</li>
-<li><p>以及TLS版本号</p>
-</li>
-<li><p>密钥交换的server random</p>
-</li>
-</ol>
-<h3 id="2-身份确认阶段"><a href="#2-身份确认阶段" class="headerlink" title="2. 身份确认阶段"></a>2. 身份确认阶段</h3><ul>
-<li>服务器</li>
-</ul>
-<ol>
-<li><p>服务器向客户端发了证书，用自己的私钥进行加密</p>
-</li>
-<li><p>同时服务器向客户还发了一个server params</p>
-</li>
-<li><p>此时双方都具有了用于密钥交换的两个参数（client params ,server params)</p>
-</li>
-</ol>
-<ul>
-<li>客户端</li>
-</ul>
-<ol>
-<li><p>客户用公钥进行解密，确认了对方的身份之后</p>
-</li>
-<li><p>回了一个client params</p>
-</li>
-<li><p>此时双方都具有了用于密钥交换的两个参数（client params ,server params)</p>
-</li>
-</ol>
-<h3 id="3-密钥交换"><a href="#3-密钥交换" class="headerlink" title="3. 密钥交换"></a>3. 密钥交换</h3><ol>
-<li><p>客户和服务器依赖于ECDHE子算法，彼此通过两个随机数生成了pre-master 随机数</p>
-</li>
-<li><p>彼此综合三个随机数，各自生成主密钥 master-secret 用于之后对称加密信息.</p>
-</li>
-<li><p>之后发出加密算法通知，并发出finish（将之前的信息摘要）这⼀项同时把之前所有内容的发⽣的数据做个摘要，⽤来供服务端校验。</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://www.wolai.com/gRbzHvTAC8m4nm9mth4nnY">TLS1.3</a></p>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; &lt;img src&#x3D;&#39;&#39; data-src&#x3D;&#39;&#x2F;img1&#39;&gt;&lt;&#x2F;img&gt;</span><br><span class="line">&#x2F;&#x2F;&lt;img src&#x3D;&#39;&#39; data-src&#x3D;&#39;&#x2F;img2&#39;&gt;&lt;&#x2F;img&gt;</span><br><span class="line">&#x2F;&#x2F;&lt;img src&#x3D;&#39;&#39; data-src&#x3D;&#39;&#x2F;img3&#39;&gt;&lt;&#x2F;img&gt;</span><br><span class="line"></span><br><span class="line">let imgs &#x3D; document.body.getElementsByTagName(&#39;img&#39;)&#x2F;&#x2F;集合</span><br><span class="line">let viewheight &#x3D; window.innerHeight&#x2F;&#x2F; 窗口的高度</span><br><span class="line">let count &#x3D; 0</span><br><span class="line">function lazyout() &#123;</span><br><span class="line">  let distance &#x3D; viewheight - getBoundingClientrect().top&#x2F;&#x2F;api获取当前元素的上边框到达窗口上边框的距离</span><br><span class="line">  if (distance &gt;&#x3D; 0) &#123;</span><br><span class="line">    for (let i &#x3D; count; i &lt; imgs.length; i++) &#123;</span><br><span class="line">      let attr &#x3D; imgs[i].getAttribute(&#39;data-src&#39;)&#x2F;&#x2F;获取每一个元素里的data-src然后，再赋值给这个元素里的src.</span><br><span class="line">      imgs[i].src &#x3D; attr</span><br><span class="line">      count++&#x2F;&#x2F;避免重复循环已经加载过的元素</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">document.addEventListener(&#39;scroll&#39;, lazyout)&#x2F;&#x2F;监听这个滚动事件然后再去触发这个懒加载。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
     
     <div class="post-footer">
@@ -290,17 +205,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2021/01/20/cookie%20session%20redis/" class="pre-post btn btn-default" title='Cookie Redis Session'>
+    <a href="/HEXOS/2020/12/29/%E5%BC%82%E6%AD%A5/" class="pre-post btn btn-default" title='异步理解'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            Cookie Redis Session</span>
+            异步理解</span>
     </a>
     
     
-    <a href="/HEXOS/2021/01/01/V8%E5%BC%95%E6%93%8E/" class="next-post btn btn-default" title='V8引擎基础总结'>
+    <a href="/HEXOS/2020/12/25/HTTPS/" class="next-post btn btn-default" title='HTTPS基础'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            V8引擎基础总结</span><i class="fa fa-angle-right fa-fw"></i>
+            HTTPS基础</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -341,7 +256,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E6%8B%AC"><span class="toc-text">总括</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%93%E6%8B%9B%E5%91%BC%E9%98%B6%E6%AE%B5"><span class="toc-text">1. 打招呼阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BA%AB%E4%BB%BD%E7%A1%AE%E8%AE%A4%E9%98%B6%E6%AE%B5"><span class="toc-text">2. 身份确认阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2"><span class="toc-text">3. 密钥交换</span></a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="toc-text">图片懒加载</span></a></li></ol>
         
     </div>
 </aside>

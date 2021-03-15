@@ -34,7 +34,7 @@ cookie 如何来实现登录校验：就是每次用户登录过后服务端为�
 
 <title>
     
-    cookie redis session |
+    Cookie Redis Session |
     
     Hexo
 </title>
@@ -143,9 +143,9 @@ cookie 如何来实现登录校验：就是每次用户登录过后服务端为�
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="cookie redis session">
+        <h1 id="Cookie Redis Session">
             
-            cookie redis session
+            Cookie Redis Session
             
         </h1>
         <div class="post-meta">
@@ -184,7 +184,7 @@ cookie 如何来实现登录校验：就是每次用户登录过后服务端为�
     
     <div class="post-body post-content">
         <h3 id="session-怎么实现登录的"><a href="#session-怎么实现登录的" class="headerlink" title="session 怎么实现登录的"></a>session 怎么实现登录的</h3><ol>
-<li><p>cookie 如何来实现登录校验：就是每次用户登录过后服务端为用户设置一个 cookie：并且是一个随机数，不是真实的用户信息。这个 cookie 要设置过期时间以及设置这个 http:only 字段</p>
+<li><p>cookie 如何来实现登录校验：就是每次用户登录过后服务端为用户设置一个 cookie：并且是一个随机数，不是真实的用户信息。这个 cookie 要设置过期时间以及设置这个 Http:Only 字段</p>
 </li>
 <li><p>用户的 cookie 值所对应的真实信息，都存储在服务器端的 session 里，</p>
 </li>
@@ -192,14 +192,14 @@ cookie 如何来实现登录校验：就是每次用户登录过后服务端为�
 </li>
 <li><p>node.js 是多进程，进程之间的内存无法共享，所以需要用到这个 Redis,就是将所有 session，存储到 Redis 中。</p>
 </li>
-<li><p>考点：那么 session 有什么问题</p>
+<li><p>那么 session 有什么问题</p>
 <ol>
 <li>内存存储到 node.js 进程里，那么内存有限<br>2：由于真实的环境下是用多个进程所以，你第一次存第一个进程，第二次登录想找自己登录所对应的用户信息，就找不到，进程之间无法共享内存，每个进程都有自己独有的内存区域，但其内存又是有限的<br>3：node.js 是多进程的，因为能够提升运行的效率<br>Redis 就是来解决如何能够进程之间共享内存的问题：内存数据库<br>是什么就是一种缓存上的一个数据库访问速度快，但内存小成本高<br>Web server （类似于 node.js 的进程服务) 之前 session 是存在这上面的，然后之后二的话就是说。</li>
 </ol>
 </li>
-<li><p>考点：存到 Redis 里这样不会占用 node.js 的一个内存空间，现在统一的把 session 放到了 Redis 中，这样就可以是实现了，内存共享。</p>
+<li><p>存到 Redis 里这样不会占用 node.js 的一个内存空间，现在统一的把 session 放到了 Redis 中，这样就可以是实现了，内存共享。</p>
 </li>
-<li><p>那为什么用 Redis 存储 session，而不是用 MySQL，因为要频繁访问，性能要求高（内存更块），数据量更大一些<br>session，</p>
+<li><p>那为什么用 Redis 存储 session，而不是用 MySQL，因为要频繁访问，性能要求高（内存更块），数据量更大一些.</p>
 </li>
 </ol>
 

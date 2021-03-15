@@ -312,7 +312,7 @@
         <div class="post-head home-post-head">
             <h1 class="post-title">
                 <a href="/HEXOS/2021/01/20/cookie%20session%20redis/">
-                    cookie redis session</a>
+                    Cookie Redis Session</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
@@ -323,7 +323,7 @@
         <p class="brief">
             
             session 怎么实现登录的
-cookie 如何来实现登录校验：就是每次用户登录过后服务端为用户设置一个 cookie：并且是一个随机数，不是真实的用户信息。这个 cookie 要设置过期时间以及设置这个 http:only 字段
+cookie 如何来实现登录校验：就是每次用户登录过后服务端为用户设置一个 cookie：并且是一个随机数，不是真实的用户信息。这个 cookie 要设置过期时间以及设置这个 Http:Only 字段
 ...
             
         </p>
@@ -540,6 +540,57 @@ new/...
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
+                <a href="/HEXOS/2020/12/27/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/">
+                    图片懒加载</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月27日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            图片懒加载
+首先所谓的图片懒加载其实就是当触发滚动事件的时候，判断当前元素上边距离视区域的上边框具有多少距离，如果说刚好小于等于视口高度，那就是遍历每一个元素，然后获取每一个元素上的 data-src 里得真实的 src,去赋值给每一...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/HEXOS/2020/12/27/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
                 <a href="/HEXOS/2020/12/25/HTTPS/">
                     HTTPS基础</a>
             </h1>
@@ -596,23 +647,19 @@ new/...
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
-                <a href="/HEXOS/2020/12/23/TCP/">
-                    TCP简要总结</a>
+                <a href="/HEXOS/2020/12/25/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+                    深拷贝</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
-                    2020年12月23日
+                    2020年12月25日
                 </time>
             </div>
         </div>
         <p class="brief">
             
-            TCP这一次首先复习一下TCP重传机制为什么TCP会重传呢
-TCP建立连接的过程如果这个过程如果有丢包那么就会触发重传机制
-
-超时重传
-
-就是TCP内部有一个机制会设定一个时间（时延）这个时间大概略大于，tcp报文往返时间，这个时间的...
+            思想
+复盘第一次判断传入参数是不是一个对象造成了混乱，应该是判断不是一个数组或对象，并且对象为空，我当时还用了 type of 判断空，其实不对，应该是直接参数等于 Null 就行，typeof 还得为一个 object ,之后用 i...
             
         </p>
     </div>
@@ -638,66 +685,7 @@ TCP建立连接的过程如果这个过程如果有丢包那么就会触发重�
 </div>
         </div>
         <div class="post-permalink">
-            <a href="/HEXOS/2020/12/23/TCP/" class="btn btn-default">
-                阅读全文</a>
-        </div>
-    </footer>
-    
-</article>
-
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/15/es6/">
-                    ES6基础</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月15日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            es6promise/generator/async/await箭头函数是什么
-function的一种简化
-
-何时用
-简化函数，凡是用到函数的时候就可以用
-
-怎么用
-无参数
-
-&amp;lt;ol&amp;gt;&amp;lt;li&amp;gt;（）=&amp;gt;{&amp;...
-            
-        </p>
-    </div>
-    
-    <footer class="post-footer clearfix">
-        <div class="pull-left tag-list">
-            <div class="post-meta">
-    
-    <span class="categories-meta fa-wrap">
-        <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-        </span>
-    </span>
-    
-    
-</div>
-        </div>
-        <div class="post-permalink">
-            <a href="/HEXOS/2020/12/15/es6/" class="btn btn-default">
+            <a href="/HEXOS/2020/12/25/%E6%B7%B1%E6%8B%B7%E8%B4%9D/" class="btn btn-default">
                 阅读全文</a>
         </div>
     </footer>
@@ -800,7 +788,7 @@ function的一种简化
     <h3 class="title">
         分类
     </h3>
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">33</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%B7%A5%E5%85%B7/"><i class="fa" aria-hidden="true">工具</i></a><span class="category-list-count">1</span></li></ul>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">38</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%B7%A5%E5%85%B7/"><i class="fa" aria-hidden="true">工具</i></a><span class="category-list-count">1</span></li></ul>
 </div>
 
     
@@ -809,7 +797,7 @@ function的一种简化
     <h3 class="title">
         归档
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/02/"><i class="fa" aria-hidden="true">2021年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">3</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/02/"><i class="fa" aria-hidden="true">2021年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">3</span></li></ul>
 </div>
 
     

@@ -22,12 +22,8 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="总括
-以ECDH算法举例
-
-我现在要和一个人互相诉说小秘密，但是此时彼此都不知道身份，现在我和一个人进行碰面，在咖啡厅里会面，那肯定先得打个招呼。
-
-但是由于我不知道对方的真实身份，所以我得需要..." />
+<meta name="description" content="思想
+复盘第一次判断传入参数是不是一个对象造成了混乱，应该是判断不是一个数组或对象，并且对象为空，我当时还用了 type of 判断空，其实不对，应该是直接参数等于 Null 就行，typeof..." />
 
 
 <meta name="robots" content="all" />
@@ -38,7 +34,7 @@
 
 <title>
     
-    TLS1.2 |
+    深拷贝 |
     
     Hexo
 </title>
@@ -147,9 +143,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="TLS1.2">
+        <h1 id="深拷贝">
             
-            TLS1.2
+            深拷贝
             
         </h1>
         <div class="post-meta">
@@ -172,7 +168,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2021/01/18</span>
+            2020/12/25</span>
     </span>
     
     <span class="fa-wrap">
@@ -187,92 +183,13 @@
     </div>
     
     <div class="post-body post-content">
-        <h4 id="总括"><a href="#总括" class="headerlink" title="总括"></a>总括</h4><ol>
-<li><p>以ECDH算法举例</p>
-</li>
-<li><p>我现在要和一个人互相诉说小秘密，但是此时彼此都不知道身份，现在我和一个人进行碰面，在咖啡厅里会面，那肯定先得打个招呼。</p>
-</li>
-<li><p>但是由于我不知道对方的真实身份，所以我得需要对方发一个证明，验证身份我确认了对方是对的人了。</p>
-</li>
-<li><p>然后我和对方都把自己的一些小秘密(客户和服务器依赖于ECDHE子算法，彼此通过两个随机数生成了pre-master 随机数) 都整理好进行交换， 这样我们都知道了对方的小秘密。互相成了好基友</p>
-</li>
-<li><p>但是之后由于大家都很忙，所以我们互加微信，但是为了能够保证彼此的信息，不会被人拦截，所以我需要，对信息加密,就用之前彼此交换的秘密作为加密信息，进行对称加密</p>
-</li>
+        <h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><ol>
+<li>复盘第一次判断传入参数是不是一个对象造成了混乱，应该是判断不是一个数组或对象，并且对象为空，我当时还用了 type of 判断空，其实不对，应该是直接参数等于 Null 就行，typeof 还得为一个 object ,之后用 instance of 来判断这个元素是不是这个数组，对象，做对应的处理，并且这里要用到这个递归，为什么，因为对象里面有可能去嵌套一个对象， 那么递归式，先去处理第一层的逻辑，就是直接赋值，如果还有值，那就重复逻辑，给它套一个递归，这样它就可以去继续判断里面的对象。</li>
+<li>我还卡在了 这个 <strong>for in</strong> 循环上其实这个不管是数组，还是对象都可以用到这个，并且遍历的是键，也就是索引值，并且要配合这个 hasOwnPropoty 来剔除从原型链上继承的属性。</li>
 </ol>
-<ul>
-<li><p>打招呼</p>
-</li>
-<li><p>验证身份</p>
-</li>
-<li><p>密钥交换</p>
-</li>
-<li><p>加密阶段</p>
-</li>
-</ul>
-<h3 id="1-打招呼阶段"><a href="#1-打招呼阶段" class="headerlink" title="1. 打招呼阶段"></a>1. 打招呼阶段</h3><ul>
-<li>客户端发消息</li>
-</ul>
-<ul>
-<li>四个个信息</li>
-</ul>
-<ol>
-<li><p>client hello</p>
-</li>
-<li><p>自己所支持的密码套件</p>
-</li>
-<li><p>以及TLS协议的版本号</p>
-</li>
-<li><p>用于密钥交换的，client random</p>
-</li>
-</ol>
-<ul>
-<li>那服务器回消息</li>
-</ul>
-<ul>
-<li>四个确认信息</li>
-</ul>
-<ol>
-<li><p>server hello</p>
-</li>
-<li><p>确认使用客户端所支持的密码套件</p>
-</li>
-<li><p>以及TLS版本号</p>
-</li>
-<li><p>密钥交换的server random</p>
-</li>
-</ol>
-<h3 id="2-身份确认阶段"><a href="#2-身份确认阶段" class="headerlink" title="2. 身份确认阶段"></a>2. 身份确认阶段</h3><ul>
-<li>服务器</li>
-</ul>
-<ol>
-<li><p>服务器向客户端发了证书，用自己的私钥进行加密</p>
-</li>
-<li><p>同时服务器向客户还发了一个server params</p>
-</li>
-<li><p>此时双方都具有了用于密钥交换的两个参数（client params ,server params)</p>
-</li>
-</ol>
-<ul>
-<li>客户端</li>
-</ul>
-<ol>
-<li><p>客户用公钥进行解密，确认了对方的身份之后</p>
-</li>
-<li><p>回了一个client params</p>
-</li>
-<li><p>此时双方都具有了用于密钥交换的两个参数（client params ,server params)</p>
-</li>
-</ol>
-<h3 id="3-密钥交换"><a href="#3-密钥交换" class="headerlink" title="3. 密钥交换"></a>3. 密钥交换</h3><ol>
-<li><p>客户和服务器依赖于ECDHE子算法，彼此通过两个随机数生成了pre-master 随机数</p>
-</li>
-<li><p>彼此综合三个随机数，各自生成主密钥 master-secret 用于之后对称加密信息.</p>
-</li>
-<li><p>之后发出加密算法通知，并发出finish（将之前的信息摘要）这⼀项同时把之前所有内容的发⽣的数据做个摘要，⽤来供服务端校验。</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://www.wolai.com/gRbzHvTAC8m4nm9mth4nnY">TLS1.3</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; &#123;</span><br><span class="line">  a: 1,</span><br><span class="line">  b: &#123;</span><br><span class="line">    a: 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function deepclone(obj) &#123;</span><br><span class="line"></span><br><span class="line">  if (obj !&#x3D;&#x3D; null &amp;&amp; typeof obj !&#x3D;&#x3D; &#39;object&#39;) &#123;</span><br><span class="line">    throw new TypeError(&#39;必须是数组或对象，并且不能为空&#39;)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  let res &#x3D; []</span><br><span class="line">  if (obj instanceof Array) &#123;</span><br><span class="line">    res &#x3D; []</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    res &#x3D; &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  for (key in obj) &#123;</span><br><span class="line">    if (obj.hasOwnPropoty(obj[key])) &#123;</span><br><span class="line">      continue</span><br><span class="line">    &#125;</span><br><span class="line">    res[key] &#x3D; deepclone(obj[key]) &#x2F;&#x2F;对于这个递归的逻辑还是不清楚</span><br><span class="line">  &#125;</span><br><span class="line">  return res</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">function deepCopy(obj, cache &#x3D; new WeakMap()) &#123;</span><br><span class="line">  if (!obj instanceof Object) return obj</span><br><span class="line">  &#x2F;&#x2F; 防止循环引用   if (cache.get(obj)) return cache.get(obj)</span><br><span class="line">  &#x2F;&#x2F; 支持函数   if (obj instanceof Function) &#123;</span><br><span class="line">    return function () &#123;</span><br><span class="line">      obj.apply(this, arguments)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 支持日期   if (obj instanceof Date) return new Date(obj)</span><br><span class="line">  &#x2F;&#x2F; 支持正则对象   if (obj instanceof RegExp) return new RegExp(obj.source, obj.flags)</span><br><span class="line">  &#x2F;&#x2F; 还可以增加其他对象，比如：Map, Set等，根据情况判断增加即可，面试点到为止就可以了 </span><br><span class="line">  &#x2F;&#x2F; 数组是 key 为数字素银的特殊对象   const res &#x3D; Array.isArray(obj) ? [] : &#123;&#125;</span><br><span class="line">  &#x2F;&#x2F; 缓存 copy 的对象，用于处理循环引用的情况   cache.set(obj, res)</span><br><span class="line"></span><br><span class="line">  Object.keys(obj).forEach((key) &#x3D;&gt; &#123;</span><br><span class="line">    if (obj[key] instanceof Object) &#123;</span><br><span class="line">      res[key] &#x3D; deepCopy(obj[key], cache)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      res[key] &#x3D; obj[key]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  return res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 测试 const source &#x3D; &#123;</span><br><span class="line">  name: &#39;Jack&#39;,</span><br><span class="line">  meta: &#123;</span><br><span class="line">    age: 12,</span><br><span class="line">    birth: new Date(&#39;1997-10-10&#39;),</span><br><span class="line">    ary: [1, 2, &#123; a: 1 &#125;],</span><br><span class="line">    say() &#123;</span><br><span class="line">      console.log(&#39;Hello&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">source.source &#x3D; source</span><br><span class="line">const newObj &#x3D; deepCopy(source)</span><br><span class="line">console.log(newObj.meta.ary[2] &#x3D;&#x3D;&#x3D; source.meta.ary[2]); </span><br></pre></td></tr></table></figure>
     </div>
     
     <div class="post-footer">
@@ -290,17 +207,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2021/01/20/cookie%20session%20redis/" class="pre-post btn btn-default" title='Cookie Redis Session'>
+    <a href="/HEXOS/2020/12/25/HTTPS/" class="pre-post btn btn-default" title='HTTPS基础'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            Cookie Redis Session</span>
+            HTTPS基础</span>
     </a>
     
     
-    <a href="/HEXOS/2021/01/01/V8%E5%BC%95%E6%93%8E/" class="next-post btn btn-default" title='V8引擎基础总结'>
+    <a href="/HEXOS/2020/12/23/TCP/" class="next-post btn btn-default" title='TCP简要总结'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            V8引擎基础总结</span><i class="fa fa-angle-right fa-fw"></i>
+            TCP简要总结</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -341,7 +258,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E6%8B%AC"><span class="toc-text">总括</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%93%E6%8B%9B%E5%91%BC%E9%98%B6%E6%AE%B5"><span class="toc-text">1. 打招呼阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BA%AB%E4%BB%BD%E7%A1%AE%E8%AE%A4%E9%98%B6%E6%AE%B5"><span class="toc-text">2. 身份确认阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2"><span class="toc-text">3. 密钥交换</span></a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E6%83%B3"><span class="toc-text">思想</span></a></li></ol>
         
     </div>
 </aside>

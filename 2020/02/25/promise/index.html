@@ -1,0 +1,502 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="手写 Promise思路码云地址
+promise思路
+首先搭框架
+then()方法是每一个实例化对象都拥有的可以通过原型链去寻找。
+promise的状态是私有的也就是说每一个实例化的状态都是在构..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    手写Promise |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2471723616,1604025636&amp;fm=26&amp;gp=0.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="手写Promise">
+            
+            手写Promise
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/02/25</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                383</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="手写-Promise"><a href="#手写-Promise" class="headerlink" title="手写 Promise"></a>手写 Promise</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><a href="https://gitee.com/HEXOS/handwritten-promsie">码云地址</a></p>
+<h3 id="promise思路"><a href="#promise思路" class="headerlink" title="promise思路"></a>promise思路</h3><ol>
+<li>首先搭框架</li>
+<li>then()方法是每一个实例化对象都拥有的可以通过原型链去寻找。</li>
+<li>promise的状态是私有的也就是说每一个实例化的状态都是在构造函数上，你每一次去实例化一个对象，都会去通过构造函数初始化其对应的状态。</li>
+<li>牢记一点就是只要凡是私有的方法属性，都放在构造函数上，为什么因为你每次实例化一个对象都会重新通过构造函数生成一个新的属性，和方法，因为resolve和reject是执行器内部的，所以，不用将其传至下一个promise，所以我需要来放到构造函数内部.</li>
+<li>这里为什么一定要将里面的value传递到，then方法里面，而这个then是原型上的方法，那么我可以给实例添加value,reason属性，这样就可以在实例中拿到这个值传递给then.//这里还是有些不清楚</li>
+<li>每一次调用resolve，都会将这个里面成功或着失败的值全部都放到这个，this.value上.</li>
+<li>为了能够实现不能连续的更改这个状态，所以限定只有是pending状态，才可以来改变你成功/失败的状态，否则不可以更改.</li>
+<li>如果说突然抛出异常了.就相当于调用了reject 然后将错误的原因reject(error).</li>
+<li>这里有一个小问题 就是说，then里的第二个失败回调，和catch有什么区别.</li>
+<li>但是这里有一个问题就是说，如果说立即执行函数里有一个settimeout 宏任务，怎么办，就是可以把对应的then里成功的回调和失败的回调，全部push到相应的数组，里然后等到执行了settimout里的回调后，再去执行数组里的回调.</li>
+<li>对于链式调用怎么来理解它就是说，第一个promise通过resolve来将其值传递到then方法里，所以只要在调用then的时候返回一个promise然后再去调用resolve，并将其值传递给resolve(x),这里不直接去返回这个promise其实是因为这个，要再决议程序中拿到这个promise来，来调用这个promise里的resolve,reject.</li>
+<li>但是这里还需要来考虑一点就是说，这个x值可能为普通值，也可能为一个promise,所以来处理一下就是说，当这个对象为成功就执行resolve，如果为失败就去调用其promise,的reject.//决议程序故名思意，其实就是再判断then函数返回的结果到底是一个普通值还是一个promise.</li>
+<li>这里又有了一个新的问题就是说我现在想要拿到这个promise2但是更具js执行代码的顺序，由于此时promise2还未返回因此你拿不到，所以用一个settimeout来去将其放置宏任务队列等到这个promise2返回完毕后再去，拿到这个promise2.所以你要给每一个then方法里的方法都去判断一下是否是promise对象，通过函数来处理。</li>
+<li>但是如果说then方法内部直接抛出了错误，怎么办–直接在settimeout定时器里面去try catch 什么意思就是说目前then方法返回一个promise2后去判断then里返回的结果，如果说直接抛出了<strong>异步</strong>的错误，那么就在settimeout里，去try catch 里的错误</li>
+<li>决议程序这里就还是有一些问题就是说这个，通过then.call(x,y,r)调用then肯定会有一个成功的回调和失败的回调，继续去调用这个相应的resolve，和reject。</li>
+</ol>
+<h3 id="决议程序的理解"><a href="#决议程序的理解" class="headerlink" title="决议程序的理解"></a>决议程序的理解</h3><ol>
+<li>如果x和promise 都指向同一个对象，则以typeError为reason 拒绝执行promise。<br>如果x 是Promise对象，则promise采用x当前的状态：</li>
+<li>如果x是pending状态，promise必须保持pending状态直到x的状态变为resolved或者rejected。</li>
+<li>如果x是resolved状态，用相同的值value执行promise。</li>
+<li>如果x是rejected状态，则用相同的原因reason执行promise。<br>如果x是一个对象或者函数：</li>
+<li>将promise的then方法指向x.then。</li>
+<li>如果x.then属性抛出异常error，则以error为reason来调用reject。</li>
+<li>如果then是是一个函数，那么用x为this来调用它，第一个参数为 resolvePromise，第二个参数为rejectPromise<br>ⅰ. 如果resolvePromise以值y为参数被调用，则运行 [[Resolve]](promise, y)。<br>ⅱ. 如果 rejectPromise 以据因 r 为参数被调用，则用原因r执行promise（reject）。<br>ⅲ. 如果 resolvePromise 和 rejectPromise 均被调用，或者被同一参数调用了多次，则使用第一次调用并忽略剩下的调用。<br>ⅳ. 如果then抛出了异常 error<br>如果 resolvePromise 或 rejectPromise 已经被调用，则忽略它。<br>否则用error为reason拒绝promise<br>d. 如果then不是function，用x为参数执行promise<br>如果x不是一个object或者function，用x为参数执行promise。</li>
+</ol>
+<h3 id="promise-all"><a href="#promise-all" class="headerlink" title="promise.all"></a>promise.all</h3><ol>
+<li>实现思路</li>
+<li>首先明确它会返回一个promise对象，并且值是新的一个数组。</li>
+<li>由于需要所传入的数组中的元素进行遍历，对待promsie对象需要去，调用对应的then方法里成功的回调，和失败的回调。有一个失败，直接调用reject方法，就可以使其状态成为失败，并且无法，逆转状态。</li>
+<li>如果不是promise对象，直接调用存储新数组的函数，将其下标，和值进行存储。</li>
+</ol>
+<h3 id="复盘promise问题"><a href="#复盘promise问题" class="headerlink" title="复盘promise问题"></a>复盘promise问题</h3><ol>
+<li>自己有一个非常严重的问题就是这个，没有理解这个构造函数的用处，我用构造函数是为了能够私有化数据，其它实例化对象无法访问，所以，不仅你的状态是在这个构造函数里面，还有你的resolve，还有这个reject也应该是在这个构造函数里，因为ressolve,reject是你传递到promise里的函数，不是通过这个原型链上继承的.</li>
+<li>自己写这个resolve的时候没有注意这个把值改变，因为每次你调用这个resolve，都需要在then中通过这个value,和reason来拿到这个值，所以你需要改变这个value,reason.还有要注意这个只有在状态为pending 的时候才可以去改变，状态不能逆转.</li>
+<li>对于立即执行函数里面再加上一个定时器，不清楚，还有对于决议程序其实是为了能够判断then的执行结果是一个promise还是普通值，如果是一个promise的话那就去更具决议程序去判断，不是那就按照普通值去处理，</li>
+<li>对于立即执行函数，里的定时器，自然调用这个then的时候要考虑这个，状态为pending的时候，只有这样，才可以去，先把成功的回调push进去，失败的回调也push进去，典型的发布订阅模式。</li>
+</ol>
+<h3 id="promise-finnaly手写"><a href="#promise-finnaly手写" class="headerlink" title="promise.finnaly手写"></a>promise.finnaly手写</h3><ol>
+<li>首先这个思路就是无论promise对象的状态是成功还是失败都会去触发的函数。</li>
+<li>首先这个题就是说，首先联想这个finnaly是能够再次then，联想then具有链式调用的功能，那也就是说，这个finnaly其实是类似于用then来模拟的，所以，所以来找到这个调用finnaly的对象里的then方法，并且无论是all,race,finnaly都返回的是一个promise但是我想用.resolve，因为它可以等待里面的promsie执行完毕，因为这个finnaly(func)func有可能返回的是一个promise，并且可能设置了定时器，为了能模拟finnaly等待的过程，必须设置。</li>
+<li>promsie.finnaly还能够去继续链式调用， 所以内部返回了一个promise并执行内部回调后，还要继续调用then方法，并且为了能够将value这个值让之后的then拿到需要用到这个then方法。</li>
+<li>复盘再次出错，首先你应该明白的是，你用这个finnaly，它本质是一个then，那也就意味着会有一个失败的回调函数会去执行，那也就是说会，还有Promise.resolve是什么原理，这个promise就是es5里的函数，那也就是说，这个是构造函数，那我在构造函数里是不是定义过这个resolve,所以我能拿到这个值。</li>
+<li>拿这个promise.resolve所包裹的函数，会等待这个函数执行完毕，才会去继续调用这个。</li>
+<li>finnaly还有一个问题就是不会去改变对象的状态所以，在执行这个失败的回调的时候，是用了throw,这样就可以去让之后的catch来执行了。</li>
+</ol>
+<h3 id="promise-race"><a href="#promise-race" class="headerlink" title="promise.race"></a>promise.race</h3><ol>
+<li>思路就是race故名思意就是一个竞赛，看谁先返回状态。所返回的promise就是什么状态，通过调用相应的resolve，reject</li>
+<li>这里我有一个误区就是，对待非promise对象直接resolve,就好，在相应的then去调用相应的resolve,reject,来改变race返回的promise对象的状态，所以then不用返回，只是来改变返回promise的状态的。</li>
+</ol>
+<ol>
+<li><pre><code class="js">const Pending = &#39;pending&#39;
+const Resolved = &#39;resolved&#39;
+const Rejected = &#39;rejected&#39;
+const resolvepromise = (promise2, x, resolve, reject) =&gt; &#123;
+  if (promise2 === x) &#123;
+    return reject(new TypeError(&#39;不能返回自身&#39;))
+  &#125;
+  if (typeof x === &#39;object&#39; &amp;&amp; typeof x !== null || typeof x === &#39;function&#39;) &#123;
+    //由于测试的时候即调用成功，也调用失败resolve(),reject()
+    try &#123;
+      let then = x.then
+      if (typeof then === &#39;function&#39;) &#123;//是一个promise
+        then.call(x, y =&gt; &#123;
+          resolvepromise(promise2, y, resolve, reject)//什么意思就是说这个，resolve可能继续返回一个promise，所以想递归不断得到一个普通值后再去返回
+
+        &#125;, r =&gt; &#123;
+          reject(r)
+        &#125;)//这里为什么是x
+
+      &#125; else &#123;
+        resolve(x)//这里就是说这个x亦可能是普通值then里面返回一个普通值自然，调用promise2的一个resolve(x)
+      &#125;
+
+    &#125; catch (error) &#123;
+      reject(error)
+    &#125;
+
+  &#125;
+
+&#125;
+class Promise &#123;
+
+  constructor(executor) &#123;
+    this.status = &#39;pending&#39;
+    this.value = undefined
+    this.reason = undefined
+    this.onResolvecallbacks = []
+    this.onRejectecallbacks = []
+
+    let resolve = (value) =&gt; &#123;
+      if (this.status === Pending) &#123;
+        this.value = value
+        this.status = Resolved
+        this.onResolvecallbacks.forEach(fn =&gt; fn())
+
+      &#125;
+
+    &#125;
+    let reject = (reason) =&gt; &#123;
+      if (this.status === Pending) &#123;
+        this.reason = reason
+        this.status = Rejected
+        this.onRejectecallbacks.forEach(fn =&gt; fn())
+      &#125;
+
+</code></pre>
+</li>
+</ol>
+<pre><code>   &#125;
+
+   try &#123;
+     executor(resolve, reject)
+   &#125; catch (error) &#123;
+     reject(error)
+   &#125;
+
+ &#125;
+
+
+ then(onsuccess, onreject) &#123;
+   let promise2 = new Promise((resolve, reject) =&gt; &#123;
+     if (this.status === Resolved) &#123;
+       setTimeout(() =&gt; &#123;
+         try &#123;
+           let x = onsuccess(this.value)//普通值，这里是想来获取第一次的then的成功函数返回的结果
+           resolvepromise(promise2, x, resolve, reject)
+         &#125; catch (error) &#123;
+           reject(error)
+         &#125;
+
+       &#125;, 0);
+
+     &#125;
+     if (this.status === Rejected) &#123;
+       setTimeout(() =&gt; &#123;
+         try &#123;
+           let x = onreject(this.reason)
+           resolvepromise(promise2, x, resolve, reject)
+         &#125; catch (error) &#123;
+           reject(error)
+         &#125;
+
+       &#125;, 0);
+
+     &#125;
+     if (this.status === Pending) &#123;
+       this.onResolvecallbacks.push(() =&gt; &#123;
+         setTimeout(() =&gt; &#123;
+           try &#123;
+             let x = onsuccess(this.value)
+             resolvepromise(promise2, x, resolve, reject)
+           &#125; catch (error) &#123;
+             reject(error)
+           &#125;
+         &#125;, 0);
+
+       &#125;)
+       this.onRejectecallbacks.push(() =&gt; &#123;
+         setTimeout(() =&gt; &#123;
+           try &#123;
+             let x = onreject(this.reason)
+             resolvepromise(promise2, x, resolve, reject)
+           &#125; catch (error) &#123;
+             reject(error)
+           &#125;
+
+         &#125;, 0);
+
+       &#125;)
+     &#125;
+   &#125;)
+   return promise2
+
+
+ &#125;</code></pre>
+<p>   }</p>
+<pre><code></code></pre>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/09/11/%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD%EF%BC%9A%20margin%E5%8E%9F%E7%90%86/" class="pre-post btn btn-default" title='垂直水平居中：margin:auto 原理'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            垂直水平居中：margin:auto 原理</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2020/02/20/%E7%9F%A5%E4%B9%8E%E4%B8%93%E6%A0%8F%E9%A1%B9%E7%9B%AE%E7%AC%94%E8%AE%B0/" class="next-post btn btn-default" title='vue3项目笔记'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            vue3项目笔记</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%86%99-Promise"><span class="toc-text">手写 Promise</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#promise%E6%80%9D%E8%B7%AF"><span class="toc-text">promise思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B3%E8%AE%AE%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">决议程序的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#promise-all"><span class="toc-text">promise.all</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E7%9B%98promise%E9%97%AE%E9%A2%98"><span class="toc-text">复盘promise问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#promise-finnaly%E6%89%8B%E5%86%99"><span class="toc-text">promise.finnaly手写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#promise-race"><span class="toc-text">promise.race</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
