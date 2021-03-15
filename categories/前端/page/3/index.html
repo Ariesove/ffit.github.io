@@ -152,6 +152,29 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
+                <a href="/HEXOS/2020/11/02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/">
+                    执行上下文于调用栈</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年11月02日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            执行上下文所谓的执行上下文其实就是代码所处的环境分类全局执行上下文函数执行上下文eval执行上下文–我不用调用栈每当执行上下文创建一个就将起推入调用栈中，然后当函数执行完后，对应的函数执行上下文才会出栈，从而让出资源空间
+从这里开始，...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
                 <a href="/HEXOS/2020/10/03/DFS/">
                     DFS</a>
             </h1>
@@ -185,10 +208,11 @@
         </div>
         <p class="brief">
             
-            首先盒模型有几个属性分别是content  border padding margin ;
-盒模型有两种标准，
-1：第一种是w3c（万维网联盟）
-首先盒模型有几个属性分别是content  border padding margin ...
+            盒模型
+首先盒模型有几个属性分别是 content  border padding margin ;
+盒模型有两种标准，第一种是 w3c（万维网联盟）
+
+首先盒模型有几个属性分别是 content  border padding ma...
             
         </p>
     </div>
@@ -213,10 +237,11 @@
             margin: auto 原理
 第一种可以用 flex 布局
 
-123给父元素，去设置display:flex;	justify-content:center//水平居中； align-item:center//垂直居中；
+给父元素，去设置
+123  display:flex;justify-content:center//水平居中；  align-item:center//垂直居中；
 
 
-```...
+...
             
         </p>
     </div>
@@ -242,6 +267,32 @@
 对于 vuex 中的这个通过 actions 去定义获取信息的函数，然后通过在对应的组件中通过这个 commit 来触发这个 mutitions，所以通过这个来实现。
 
 这里的逻辑就是说这个通过在渲染这个一个 id 号...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/02/17/TCP%E9%87%8D%E9%9A%BE%E7%82%B9%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">
+                    TCP重难点知识</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年02月17日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            TCP如何来理解 tcp 是面向流的
+所谓的流就是说无”消息保护边界的”，这里通俗理解就是说接受方无法去界定这个消息的开始和结尾，而有消息保护边界就是说消息之间是独立的，因为消息与消息之间有边界。
+
+过程
+首先（先联想图）客户端向服务...
             
         </p>
     </div>
@@ -345,60 +396,6 @@
     </div>
 </article>
 
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/01/25/jsonp/">
-                    jsonp结合promise</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年01月25日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            手写 JSONP 的实现思路
-就是由于这个是一个异步的请求，所以需要用这个 promise,来做；
-
-…解构的应用： 与对象去使用就是在将里面所有可遍历的属性，进行拷贝。
-
-for in 用来循环对象的属性的  let key  fo...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/01/25/requestanimation/">
-                    requetAnimationFrame</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年01月25日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            requetAnimationFrame-js 动画
-这个是 js 动画用的，就是来控制动画的更新频率为 60hz/s,
-
-settimeout 是手动来控制的而 raf 是浏览器自动控制的
-
-浏览器如果切换到后台了，那么 raf 会...
-            
-        </p>
-    </div>
-</article>
-
 
 <nav class="pagination" role="navigation">
     <div id="page-nav">
@@ -494,7 +491,7 @@ settimeout 是手动来控制的而 raf 是浏览器自动控制的
     <h3 class="title">
         分类
     </h3>
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%B7%A5%E5%85%B7/"><i class="fa" aria-hidden="true">工具</i></a><span class="category-list-count">1</span></li></ul>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%B7%A5%E5%85%B7/"><i class="fa" aria-hidden="true">工具</i></a><span class="category-list-count">1</span></li></ul>
 </div>
 
     
@@ -503,7 +500,7 @@ settimeout 是手动来控制的而 raf 是浏览器自动控制的
     <h3 class="title">
         归档
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/02/"><i class="fa" aria-hidden="true">2021年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">4</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/02/"><i class="fa" aria-hidden="true">2021年02月</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">4</span></li></ul>
 </div>
 
     

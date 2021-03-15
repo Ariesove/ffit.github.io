@@ -22,10 +22,11 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="首先盒模型有几个属性分别是content  border padding margin ;
-盒模型有两种标准，
-1：第一种是w3c（万维网联盟）
-首先盒模型有几个属性分别是content  bo..." />
+<meta name="description" content="盒模型
+首先盒模型有几个属性分别是 content  border padding margin ;
+盒模型有两种标准，第一种是 w3c（万维网联盟）
+
+首先盒模型有几个属性分别是 conten..." />
 
 
 <meta name="robots" content="all" />
@@ -185,15 +186,17 @@
     </div>
     
     <div class="post-body post-content">
-        <p>首先盒模型有几个属性分别是content  border padding margin ;</p>
-<p>盒模型有两种标准，</p>
-<p>1：第一种是w3c（万维网联盟）</p>
-<p>首先盒模型有几个属性分别是content  border padding margin ;</p>
-<p>它的宽高的计算是包含了border的</p>
-<p>第二种：是传统的ie浏览器模型：</p>
-<p>也有几个属性分别是content （特殊点就是内容包含了内边距和border） border padding margin ;</p>
-<p>但是其元素宽高的计算是包含了border</p>
-<p>什么意思，就是说我可以并排的展示两个加上border超出了容器的元素；再具体就是元素的宽高既包含元素本身，还包含了其内部的边框与内边距；</p>
+        <h3 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h3><ol>
+<li>首先盒模型有几个属性分别是 content  border padding margin ;</li>
+<li>盒模型有两种标准，第一种是 w3c（万维网联盟）</li>
+</ol>
+<p>首先盒模型有几个属性分别是 content  border padding margin ;就是<strong>实际元素宽高是考虑，边距和边界的。</strong></p>
+<p>你<strong>所设定的 height width **是</strong>不包括<strong>这个 **border 和边距（padding)</strong></p>
+<p>第二种：是传统的 IE 浏览器模型：box-sizing:border-box;</p>
+<p>也有几个属性分别是 content  border padding margin ;</p>
+<p><strong>实际元素的宽高是不考虑，这个边距和边界的</strong>。</p>
+<p>但是<strong>其元素 width height</strong> 的计算是包含了 <strong>border.</strong></p>
+<p>什么意思，就是说我可以<strong>并排的展示两个加上 border 超出了容器的元素</strong>；再具体就是元素的宽高既包含元素本身，还包含了其内部的边框与内边距；</p>
 
     </div>
     
@@ -263,7 +266,7 @@ new Valine({
             文章目录
         </h3>
         
-        <p>暂无目录</p>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%92%E6%A8%A1%E5%9E%8B"><span class="toc-text">盒模型</span></a></li></ol>
         
     </div>
 </aside>

@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="TCP如何来理解 tcp 是面向流的
+所谓的流就是说无”消息保护边界的”，这里通俗理解就是说接受方无法去界定这个消息的开始和结尾，而有消息保护边界就是说消息之间是独立的，因为消息与消息之间有边界..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    TCP重难点知识 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2471723616,1604025636&amp;fm=26&amp;gp=0.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="TCP重难点知识">
+            
+            TCP重难点知识
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/02/17</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                392</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h3 id="如何来理解-tcp-是面向流的"><a href="#如何来理解-tcp-是面向流的" class="headerlink" title="如何来理解 tcp 是面向流的"></a>如何来理解 tcp 是面向流的</h3><ol>
+<li>所谓的流就是说无”消息保护边界的”，这里通俗理解就是说接受方无法去界定这个消息的开始和结尾，而有消息保护边界就是说消息之间是独立的，因为消息与消息之间有边界。</li>
+</ol>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ol>
+<li>首先（先联想图）客户端向服务器发出序列号 SYN ，seq（随机发出一个序列号）</li>
+<li>服务器收到后会基于客户端的序列号，发出一个 ACK 确认号。为了表示一个回礼，还需要发 Seq</li>
+<li>客户端会再次对服务器的序列号产生一个确认。</li>
+</ol>
+<h3 id="为什么建立连接是三次，而不是两次。"><a href="#为什么建立连接是三次，而不是两次。" class="headerlink" title="为什么建立连接是三次，而不是两次。"></a>为什么建立连接是三次，而不是两次。</h3><h4 id="防止历史请求初始化-tcp-连接"><a href="#防止历史请求初始化-tcp-连接" class="headerlink" title="防止历史请求初始化 tcp 连接"></a>防止历史请求初始化 tcp 连接</h4><ol>
+<li><strong>反向验证两次为什么不行</strong>：如果只有两次，客户端这里对于服务器发来的报文，无法来判断这个报文是否有效（是否过期，是否超时）因为网路拥塞这样的事情很常见。</li>
+<li>所以客户端这里没有足够的<strong>上下文</strong>来判断，是否是如期的请求。</li>
+<li>此时从三次说，那为什么三次避免了这样的问题，当客户端收到服务器的请求的时候，<strong>客户端</strong>本身会<strong>存储</strong>自己所发出的<strong>序列号</strong>，所以可以依据所收到的 ack 来判断是否是如期的，如果是就正常连接。</li>
+<li>但如果不是，那就发送 <strong>RST</strong> （有重置的意思）报文，来结束这个连接。</li>
+</ol>
+<h4 id="确认彼此的系列号"><a href="#确认彼此的系列号" class="headerlink" title="确认彼此的系列号"></a>确认彼此的系列号</h4><ol>
+<li>其实 tcp 能够实现可靠连接的本质其实是能够确认彼此的序列号，那你如果只有两次，只能单向确认，无法互相确认，所以需要三次。</li>
+</ol>
+<h4 id="防止（服务器）资源浪费"><a href="#防止（服务器）资源浪费" class="headerlink" title="防止（服务器）资源浪费"></a>防止（服务器）资源浪费</h4><ol>
+<li>由于仅有两次，服务器是没有办法判断对方是否收到了正确的序号</li>
+<li>客户端如果因为网路阻塞，发出了多个 SYN 信号，那客户端有可能收到，也有可能收不到，所以为了确保对方收到，服务器只能建立多个重复的 tcp 链接。极大的浪费资源。</li>
+</ol>
+<h4 id="TCP-四次挥手"><a href="#TCP-四次挥手" class="headerlink" title="TCP 四次挥手"></a>TCP 四次挥手</h4><ol>
+<li>首先看到<strong>四</strong>先想想哪四次，<strong>两对 FIN-ACK</strong> ，为什么一定要四次，就是说客户端向服务器先发 FIN 表示两个人关系淡了想分了，所以<strong>发出 FIN 终止报文</strong>。</li>
+<li>服务区器先对终止报文发出确认</li>
+<li>但服务器收到还可能对收到的信进行处理并发送，意味着此时不能立刻终止关系。</li>
+<li>在处理完信息后再去发出 FIN，自身进入 closed 状态。</li>
+<li>客户端收到信息后再次，向服务器发出一个 ACK,后它不会立刻进入到 closed 状态，它需要等待两个 <strong>MSL</strong>（最大报文生存时间）为什么是两个主要是因为网络时常会发生阻塞，对方没有收到一个 ACK,客户端会重发，那么重发之后一个来回就对应了两个 MSL。</li>
+<li>补充：TIME——wait 等待过程，”timewait closewait”.</li>
+</ol>
+<h3 id="TCP-流量控制"><a href="#TCP-流量控制" class="headerlink" title="TCP 流量控制"></a>TCP 流量控制</h3><h5 id="知道滑动窗口不，客户端和服务端控制滑动窗口的过程是怎样的。"><a href="#知道滑动窗口不，客户端和服务端控制滑动窗口的过程是怎样的。" class="headerlink" title="知道滑动窗口不，客户端和服务端控制滑动窗口的过程是怎样的。"></a>知道滑动窗口不，客户端和服务端控制滑动窗口的过程是怎样的。</h5><ol>
+<li>（此处联想 tcp 连接的一个过程）首先滑动窗口受限于接收方的接收能力大小，就是发送方每发送数据后，服务器就会去移动滑动窗口的指针，之后可用窗口会减小，并且会将当前可用窗口的大小发送给客户端，用来控制发送方发送的数据量以达到，流量控制。</li>
+</ol>
+<p><strong>讲述思路：</strong></p>
+<ol>
+<li>首先想到滑动窗口首先<strong>联想接收方有一个滑动窗口</strong>，也就是说这个主要是和接收方有关，防止对方发送的数据超出了接收方的数据。</li>
+</ol>
+<h5 id="发送窗口和接收窗口分别由哪些构成"><a href="#发送窗口和接收窗口分别由哪些构成" class="headerlink" title="发送窗口和接收窗口分别由哪些构成"></a>发送窗口和接收窗口分别由哪些构成</h5><ol>
+<li>发送窗口：由<strong>发送</strong>想到了<strong>已发送</strong>到并得到确认的字段区域，那有得到确认的自然还有<strong>没有接收到确认的</strong>，<strong>可用窗口</strong>，那由于自身肯定还有好多数据好多话想告诉接收方所以自然还会有许多数据等待发送，但是这个会超出对方的接收范围。也就 是<strong>不可用窗口</strong>。（两个发送，可不可以）4 个</li>
+<li>接收方窗口：已经接受到的数据并确认，<strong>理解有一个误区就是说接收方没有接收到数据但是没有得到确认的</strong>，发送方有是因为它自己是发送数据的，接收到的 ack 是有可能阻塞的，未确认，接收方不考虑这个，只管接收就好。<strong>还有未接收到，并是可接受范围内</strong>，<strong>未接收但是，超出了可用窗口大小的区域</strong>。（三个）</li>
+</ol>
+<h5 id="那你知道滑动窗口和拥塞窗口有什么区别不"><a href="#那你知道滑动窗口和拥塞窗口有什么区别不" class="headerlink" title="那你知道滑动窗口和拥塞窗口有什么区别不"></a>那你知道滑动窗口和拥塞窗口有什么区别不</h5><ol>
+<li>由拥塞想到了网络拥塞，也就是说主要应用于解决网络拥塞问题的，主要由发送方控制，防止它发多了导致了网络拥塞。</li>
+<li>而滑动窗口主要是因为解决防止发送方数据量超过了接收方的能力，也就是说其大小取决于接收方。</li>
+</ol>
+<h3 id="如果对方问到这个-tcp-流量控制我该怎么回答"><a href="#如果对方问到这个-tcp-流量控制我该怎么回答" class="headerlink" title="如果对方问到这个 tcp 流量控制我该怎么回答"></a>如果对方问到这个 tcp 流量控制我该怎么回答</h3><ol>
+<li><p>流量控制依赖于<strong>滑动窗口</strong>来控制发送方发送的速率不要太快</p>
+</li>
+<li><p>你怎么理解这个窗口其实就是一个操作系统的一个缓冲区，只有收到确认才能将已经发送的数据进行发送。</p>
+</li>
+<li><p>所谓的流量控制其实就是面试以服务端发送举例子（此时假定发送窗口可接收窗口都不变的情况），客户端接收做例子，这里我概括说就是，每当服务器发送完数据后，相应的可用窗口大小就会减少，相对应的指针也会发送变化，就是 snd.next 指向的是可用窗口大小的头指针，右移，当收到了对方的确认后，自生的 snd.una 也会右移，那么此时可用窗口大小自然增大。</p>
+</li>
+<li><p>此时接收方再接收到信息后 rsv.next,也会发送移动，如果发送方的数据超过了其可用窗口就会导致窗口关闭也就是说起到了<strong>流量控制</strong>。在接收到接收方的确认后才可以据悉的发送数据。</p>
+</li>
+<li><p>实际上如果应用层没有及时的读取缓存区里的数据就会导致，每次接收方接收到数据后，其<strong>接收</strong>窗口大小会变得更小，并且会将这个大小以 window 字段来告诉，发送方来达到流量控制，以此控制发送方的速率。</p>
+</li>
+<li><p>但是窗口大小其实是和操作系统的缓冲区是有关的，如果先减少了接收缓存区，又收缩了窗口，最终没有多余接收缓存，可以接收数据，就会导致丢包，那为了解决这个问题，就是先来收缩窗口，再去减少接收缓存。**?**</p>
+</li>
+<li><p>窗口局面就是说如果说在窗口关闭后，应用应用进程如果没有及时读取缓冲区里的数据会导致窗口收缩，</p>
+</li>
+<li><p>那么在窗口关闭后应用进程及时读取消息，就会恢复其接收窗口大小，并且会通知发送方以 window 字段，但是这里有一个问题就是，如果这个消息丢失了，就会导致，<strong>死锁</strong>现象。</p>
+</li>
+<li><p><strong>坚持定时器</strong>，就是一旦接收方窗口大小变为 0 就会启动，并每隔一段时间来进行探测报文探测对方目前可用窗口大小，这样就可以来避免死锁了。</p>
+</li>
+</ol>
+<h3 id="拥塞控制（联想折线上升图）"><a href="#拥塞控制（联想折线上升图）" class="headerlink" title="拥塞控制（联想折线上升图）"></a>拥塞控制（联想折线上升图）</h3><ol>
+<li>首先来复盘一下自己的知识点，就是首先由拥塞想到了为什么拥塞窗口也就是说 crwd,</li>
+<li>那么也就是说所谓的拥塞窗口主要是来解决网络拥塞的。</li>
+<li>那么首先达到慢启动阶段，以指数增加。[慢启动为什么是指数增加]</li>
+<li>之后到达了门限值，之后进入了拥塞避免阶段，每接收到一个 ack 就拥塞窗口加拥塞窗口分之一。线性增加</li>
+<li>但是还是会拥塞，先有超时重传，门限值减半，拥塞窗口初始化为 1</li>
+<li>还有一种就是快重传会接收到三个重复的 ack，cwnd 减半，然后门限值为拥塞窗口一半，到达快恢复后，其拥塞窗口在此基础上加三（三个重复的 ack）。</li>
+</ol>
+<h3 id="粘包拆包问题"><a href="#粘包拆包问题" class="headerlink" title="粘包拆包问题"></a>粘包拆包问题</h3><h3 id="tcp-粘包，"><a href="#tcp-粘包，" class="headerlink" title="tcp 粘包，"></a>tcp 粘包，</h3><ol>
+<li>由于 tcp 无消息保护边界，（个人理解就是不知道消息从哪里开始，也不知道消息从哪里结束）需要在接收端来处理消息边界问题，这也就是说粘包，拆包问题。</li>
+<li>什么是粘包，就是说有可能两个信息包，粘在了一起</li>
+<li>有些包被拆成几块因为大于了 MSS,所以需要拆包，，然后与其它包粘在一起。</li>
+</ol>
+<h3 id="为什么会出现这个奇怪的现象"><a href="#为什么会出现这个奇怪的现象" class="headerlink" title="为什么会出现这个奇怪的现象"></a>为什么会出现这个奇怪的现象</h3><ol>
+<li>对于接受方就是，<strong>接受数据到缓存的</strong>速率<strong>大于</strong>了<strong>应用进程读取数据</strong>的速率，就会导致多个包粘连在一起。</li>
+<li>发送方的 Nagel 算法。导致出现了在接收到一个确认后，收集多个分组数据再去发送。</li>
+</ol>
+<p>怎么解决这个问题</p>
+<ol>
+<li><p>发送方 去关闭 nagel 算法。</p>
+</li>
+<li><p>由于接收方不清楚，一个完整消息的大小，所以发送端会给数据包，<strong>添加一个包首部</strong>，这个首部，会<strong>包含数据包的长度</strong>，这样接收方通过首部消息就可以知道了类似于有了消息边界。</p>
+</li>
+<li><p>发送端将每个数据包大小固定，这样接收方就可以知道这个了。</p>
+</li>
+<li><p>也可以在<strong>数据包之间设置边界</strong>，如添加特殊的符号，接收方就可以清楚一个完整数据包的大小了。</p>
+</li>
+</ol>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/02/20/%E7%9F%A5%E4%B9%8E%E4%B8%93%E6%A0%8F%E9%A1%B9%E7%9B%AE%E7%AC%94%E8%AE%B0/" class="pre-post btn btn-default" title='vue3项目笔记'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            vue3项目笔记</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2020/02/13/%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA/" class="next-post btn btn-default" title='暂时性死区'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            暂时性死区</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP"><span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%9D%A5%E7%90%86%E8%A7%A3-tcp-%E6%98%AF%E9%9D%A2%E5%90%91%E6%B5%81%E7%9A%84"><span class="toc-text">如何来理解 tcp 是面向流的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-text">过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E6%98%AF%E4%B8%89%E6%AC%A1%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E4%B8%A4%E6%AC%A1%E3%80%82"><span class="toc-text">为什么建立连接是三次，而不是两次。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%E5%8E%86%E5%8F%B2%E8%AF%B7%E6%B1%82%E5%88%9D%E5%A7%8B%E5%8C%96-tcp-%E8%BF%9E%E6%8E%A5"><span class="toc-text">防止历史请求初始化 tcp 连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E8%AE%A4%E5%BD%BC%E6%AD%A4%E7%9A%84%E7%B3%BB%E5%88%97%E5%8F%B7"><span class="toc-text">确认彼此的系列号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%EF%BC%88%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%89%E8%B5%84%E6%BA%90%E6%B5%AA%E8%B4%B9"><span class="toc-text">防止（服务器）资源浪费</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="toc-text">TCP 四次挥手</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-text">TCP 流量控制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9F%A5%E9%81%93%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E4%B8%8D%EF%BC%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%8E%A7%E5%88%B6%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%E3%80%82"><span class="toc-text">知道滑动窗口不，客户端和服务端控制滑动窗口的过程是怎样的。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E7%AA%97%E5%8F%A3%E5%92%8C%E6%8E%A5%E6%94%B6%E7%AA%97%E5%8F%A3%E5%88%86%E5%88%AB%E7%94%B1%E5%93%AA%E4%BA%9B%E6%9E%84%E6%88%90"><span class="toc-text">发送窗口和接收窗口分别由哪些构成</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%82%A3%E4%BD%A0%E7%9F%A5%E9%81%93%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E5%92%8C%E6%8B%A5%E5%A1%9E%E7%AA%97%E5%8F%A3%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E4%B8%8D"><span class="toc-text">那你知道滑动窗口和拥塞窗口有什么区别不</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%AF%B9%E6%96%B9%E9%97%AE%E5%88%B0%E8%BF%99%E4%B8%AA-tcp-%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E6%88%91%E8%AF%A5%E6%80%8E%E4%B9%88%E5%9B%9E%E7%AD%94"><span class="toc-text">如果对方问到这个 tcp 流量控制我该怎么回答</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%EF%BC%88%E8%81%94%E6%83%B3%E6%8A%98%E7%BA%BF%E4%B8%8A%E5%8D%87%E5%9B%BE%EF%BC%89"><span class="toc-text">拥塞控制（联想折线上升图）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%98%E5%8C%85%E6%8B%86%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-text">粘包拆包问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp-%E7%B2%98%E5%8C%85%EF%BC%8C"><span class="toc-text">tcp 粘包，</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0%E8%BF%99%E4%B8%AA%E5%A5%87%E6%80%AA%E7%9A%84%E7%8E%B0%E8%B1%A1"><span class="toc-text">为什么会出现这个奇怪的现象</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

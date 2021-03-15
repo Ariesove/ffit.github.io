@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="问题一：HTTPS 它的认证加密过程是怎样，它怎么保证内容不会被篡改
+首先由认证想到了身份认证，在 tls 握手阶段为了能够表明自己的身份，首先依赖于数字签名算法，就是首先会将密文用摘要算法，这..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    HTTPS常见问题自我复盘 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2471723616,1604025636&amp;fm=26&amp;gp=0.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="HTTPS常见问题自我复盘">
+            
+            HTTPS常见问题自我复盘
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2021/02/19</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h4 id="问题一：HTTPS-它的认证加密过程是怎样，它怎么保证内容不会被篡改"><a href="#问题一：HTTPS-它的认证加密过程是怎样，它怎么保证内容不会被篡改" class="headerlink" title="问题一：HTTPS 它的认证加密过程是怎样，它怎么保证内容不会被篡改"></a>问题一：HTTPS 它的认证加密过程是怎样，它怎么保证内容不会被篡改</h4><ol>
+<li>首先由认证想到了<strong>身份认证</strong>，在 tls 握手阶段为了能够表明自己的身份，首先依赖于<strong>数字签名算法</strong>，就是首先会将密文用摘要算法，这些算法的特点就是单向性，和雪崩性，也就是说一旦中间人篡改一点点，摘要就会改变，然后此时用<strong>私钥</strong>（因为是唯一的）<strong>加密摘要</strong>，以及将<strong>公钥</strong>发送给对方，那么为了能够让客户端清楚是对的人发 的。</li>
+<li>需要依赖于 ca 机构的证书，那么我将数字签名和公钥，都发给对方，对方接收到之后取出公钥然后验签，确认是对方了，就继续握手阶段。</li>
+<li>那么它的加密过程是什么就是说在开始阶段，双方发给对方，发送 client random,server random ,验证身份阶段，服务器会发送 server params ，，客户端验签后会发送 client params  , 彼此通过 ecdhe 算法算法出一个 pre-master.</li>
+<li>双方此时具有三个参数（client random server random pre-master ） 生成 Master 主密钥，之后就用这个密钥进行加密信息。</li>
+</ol>
+<h4 id="那根证书怎么保证签发的证书是有安全有效的"><a href="#那根证书怎么保证签发的证书是有安全有效的" class="headerlink" title="那根证书怎么保证签发的证书是有安全有效的"></a>那根证书怎么保证签发的证书是有安全有效的</h4><ol>
+<li>此时联想一个证书链，浏览器是具备各大机构的<strong>根证书</strong>的，走证书链找对应的根证书</li>
+<li>易错点就是自己这个，这个证书发布是服务器不是这个机构，机构只是给申请者颁布证书的，并且就是 ca 机构页会对服务器发的公钥来加密，然后接受方用内置的 ca 公钥来解密 ca 的私钥</li>
+</ol>
+<h4 id="CA-机构会用密钥对服务器的公钥进行签名，签名和加密，怎么理解"><a href="#CA-机构会用密钥对服务器的公钥进行签名，签名和加密，怎么理解" class="headerlink" title="CA 机构会用密钥对服务器的公钥进行签名，签名和加密，怎么理解"></a>CA 机构会用密钥对服务器的公钥进行签名，签名和加密，怎么理解</h4><ol>
+<li>就是 ca 机构拿到这个，服务器发来的公钥，会用自己的私钥加密，形成证书的签名算法，之后呢就是，客户端保存有各大 ca 机构的公钥，然后进行解密，验证这个 ca 机构，这里是证书的签名，不是之前那个服务器，的签名算法，不要弄混了</li>
+</ol>
+<h4 id="如果发生无限套娃的情况，根证书都被篡改怎么办-或者说-https-一定是安全的吗？"><a href="#如果发生无限套娃的情况，根证书都被篡改怎么办-或者说-https-一定是安全的吗？" class="headerlink" title="如果发生无限套娃的情况，根证书都被篡改怎么办/或者说 https 一定是安全的吗？"></a>如果发生无限套娃的情况，根证书都被篡改怎么办/或者说 https 一定是安全的吗？</h4><ol>
+<li>无解，因为证书体系的保障就是依赖于根证书的，这个都无法保障的话，确实无解。</li>
+</ol>
+<h3 id="HTTPS-用到了加密算法，加密算法都有哪些类型"><a href="#HTTPS-用到了加密算法，加密算法都有哪些类型" class="headerlink" title="HTTPS 用到了加密算法，加密算法都有哪些类型"></a>HTTPS 用到了加密算法，加密算法都有哪些类型</h3><ol>
+<li>首先对称加密算法，非对称加密算法，摘要算法里的单向加密也就是说只能加密不能解密。</li>
+<li>对称加密：ACE chacha20</li>
+<li>非对称加密： RSA ECDH</li>
+<li>摘要算法： MD5 SHA-2</li>
+</ol>
+<h3 id="对称加密和非对称加密有什么区别吗"><a href="#对称加密和非对称加密有什么区别吗" class="headerlink" title="对称加密和非对称加密有什么区别吗"></a>对称加密和非对称加密有什么区别吗</h3><ol>
+<li>对称加密简单来讲就是用同一个公钥进行加密</li>
+<li>非对称加密就是公钥加密，私钥解密，因为私钥是唯一的。补充：其实也可以用私钥加密公钥解密，就是数字签名算法了。</li>
+</ol>
+<h3 id="MD5、SHA、Base64-和-RSA-属于什么类型的算法，对称还是非对称？"><a href="#MD5、SHA、Base64-和-RSA-属于什么类型的算法，对称还是非对称？" class="headerlink" title="MD5、SHA、Base64 和 RSA 属于什么类型的算法，对称还是非对称？"></a>MD5、SHA、Base64 和 RSA 属于什么类型的算法，对称还是非对称？</h3><ol>
+<li>MD5,SHA 属于摘要算法，，RSA 常用非对称加密算法。</li>
+<li><strong>Base64,用 64 个字符表示二进制（B）不是加密算法</strong>。</li>
+</ol>
+<h3 id="1-HTTP-和-HTTPS-之间有什么区别或者说改进"><a href="#1-HTTP-和-HTTPS-之间有什么区别或者说改进" class="headerlink" title="1. HTTP 和 HTTPS 之间有什么区别或者说改进"></a>1. HTTP 和 HTTPS 之间有什么区别或者说改进</h3><ol>
+<li>首先 TLS—》 是什么： 网景公司开发，一个协议，在哪： TCP/IP 协议栈中 HTTP 层之下，TCP 协议层之上，解决了 HTTP 安全性问题， 在 TLS1.2 握手协议（HTTP 和 HTTPS 是好兄弟需要握手）中由于身份认证，需要向 <strong>CA 机构申请证书</strong>。</li>
+<li>然后还有一个细节就是 HTTPS 的端口号是 443，HTTP 是 80（S4，P 的吧（8））</li>
+</ol>
+<h4 id="联想记忆路径："><a href="#联想记忆路径：" class="headerlink" title="联想记忆路径："></a>联想记忆路径：</h4><ol>
+<li>由 S 联想到了 TLS， 把它想象一个人，查它户口，是谁，在哪，解决了什么问题，同时为了表明自己的身份，需要向 CA 机构申请证书。</li>
+</ol>
+<h4 id="2-HTTPS-具体是如何解决-HTTP-的安全性问题的"><a href="#2-HTTPS-具体是如何解决-HTTP-的安全性问题的" class="headerlink" title="2. HTTPS 具体是如何解决 HTTP 的安全性问题的"></a>2. HTTPS 具体是如何解决 HTTP 的安全性问题的</h4><ol>
+<li>这个题就得从机密性，不可否认性，完整性，身份认证四个点来答.</li>
+</ol>
+<h3 id="tls1-3-握手"><a href="#tls1-3-握手" class="headerlink" title="tls1.3 握手"></a>tls1.3 握手</h3><ol>
+<li>简单来讲就是说讲之前的 hello 阶段与密钥交换阶段合并。一次信息交换，就可以产生 两个 random 随机数，以及两个 params。</li>
+</ol>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/HEXOS/2021/02/15/https%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="next-post btn btn-default" title='https优化'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            https优化</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%80%EF%BC%9AHTTPS-%E5%AE%83%E7%9A%84%E8%AE%A4%E8%AF%81%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%EF%BC%8C%E5%AE%83%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E5%86%85%E5%AE%B9%E4%B8%8D%E4%BC%9A%E8%A2%AB%E7%AF%A1%E6%94%B9"><span class="toc-text">问题一：HTTPS 它的认证加密过程是怎样，它怎么保证内容不会被篡改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%82%A3%E6%A0%B9%E8%AF%81%E4%B9%A6%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E7%AD%BE%E5%8F%91%E7%9A%84%E8%AF%81%E4%B9%A6%E6%98%AF%E6%9C%89%E5%AE%89%E5%85%A8%E6%9C%89%E6%95%88%E7%9A%84"><span class="toc-text">那根证书怎么保证签发的证书是有安全有效的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CA-%E6%9C%BA%E6%9E%84%E4%BC%9A%E7%94%A8%E5%AF%86%E9%92%A5%E5%AF%B9%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%85%AC%E9%92%A5%E8%BF%9B%E8%A1%8C%E7%AD%BE%E5%90%8D%EF%BC%8C%E7%AD%BE%E5%90%8D%E5%92%8C%E5%8A%A0%E5%AF%86%EF%BC%8C%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3"><span class="toc-text">CA 机构会用密钥对服务器的公钥进行签名，签名和加密，怎么理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%8F%91%E7%94%9F%E6%97%A0%E9%99%90%E5%A5%97%E5%A8%83%E7%9A%84%E6%83%85%E5%86%B5%EF%BC%8C%E6%A0%B9%E8%AF%81%E4%B9%A6%E9%83%BD%E8%A2%AB%E7%AF%A1%E6%94%B9%E6%80%8E%E4%B9%88%E5%8A%9E-%E6%88%96%E8%80%85%E8%AF%B4-https-%E4%B8%80%E5%AE%9A%E6%98%AF%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97%EF%BC%9F"><span class="toc-text">如果发生无限套娃的情况，根证书都被篡改怎么办&#x2F;或者说 https 一定是安全的吗？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS-%E7%94%A8%E5%88%B0%E4%BA%86%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%EF%BC%8C%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B"><span class="toc-text">HTTPS 用到了加密算法，加密算法都有哪些类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E5%90%97"><span class="toc-text">对称加密和非对称加密有什么区别吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MD5%E3%80%81SHA%E3%80%81Base64-%E5%92%8C-RSA-%E5%B1%9E%E4%BA%8E%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%AE%97%E6%B3%95%EF%BC%8C%E5%AF%B9%E7%A7%B0%E8%BF%98%E6%98%AF%E9%9D%9E%E5%AF%B9%E7%A7%B0%EF%BC%9F"><span class="toc-text">MD5、SHA、Base64 和 RSA 属于什么类型的算法，对称还是非对称？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-HTTP-%E5%92%8C-HTTPS-%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E6%88%96%E8%80%85%E8%AF%B4%E6%94%B9%E8%BF%9B"><span class="toc-text">1. HTTP 和 HTTPS 之间有什么区别或者说改进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%94%E6%83%B3%E8%AE%B0%E5%BF%86%E8%B7%AF%E5%BE%84%EF%BC%9A"><span class="toc-text">联想记忆路径：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-HTTPS-%E5%85%B7%E4%BD%93%E6%98%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3-HTTP-%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84"><span class="toc-text">2. HTTPS 具体是如何解决 HTTP 的安全性问题的</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tls1-3-%E6%8F%A1%E6%89%8B"><span class="toc-text">tls1.3 握手</span></a>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
