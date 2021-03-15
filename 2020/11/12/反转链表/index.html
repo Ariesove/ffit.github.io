@@ -193,7 +193,7 @@
 <li>并且每次都需要缓存 next 指针为什么，就是因为你每次都翻转完毕后 cur 的 next 指向会丢失，所以你遍历的时候首先就需要来缓存它。</li>
 <li>其次还有一个小细节就是为什么，循环的条件没有 next 不为空，因为为空无所谓，但是删除链表这个题考虑下一个元素主要是是因为，都为空了，就没有去重的必要了，也就是说不必去循环了。</li>
 </ol>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseList = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">let</span> pre=<span class="literal">null</span>;</span><br><span class="line">   <span class="keyword">let</span> cur=head;</span><br><span class="line">   <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">       <span class="keyword">let</span> next=cur.next;</span><br><span class="line">       cur.next=pre;</span><br><span class="line">       pre=cur;</span><br><span class="line">       cur=next;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> pre</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
     
     <div class="post-footer">
