@@ -22,9 +22,11 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="首先来捋一下思路
-后续遍历的顺序是先左子树，再右子树，再根节点
-那么从这你思考一下如果我把这个顺序颠倒一下是什么是不是先根节点，再右子树，再左子树，是不是非常的像先序遍历，及就是说把先序遍历的结..." />
+<meta name="description" content="进程和线程的区别思路：
+
+首先所谓的进程就是，资源调度的基本单位
+线程就是依附于**进程的一个独立**的执行单元。
+它俩的区别就是，一个进程可以有多个线程，线程依附于进程进程有独立的单元，也就是..." />
 
 
 <meta name="robots" content="all" />
@@ -35,7 +37,7 @@
 
 <title>
     
-    后序遍历 |
+    进程和线程总结 |
     
     Hexo
 </title>
@@ -144,9 +146,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="后序遍历">
+        <h1 id="进程和线程总结">
             
-            后序遍历
+            进程和线程总结
             
         </h1>
         <div class="post-meta">
@@ -169,7 +171,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2020/11/11</span>
+            2021/02/01</span>
     </span>
     
     <span class="fa-wrap">
@@ -184,13 +186,37 @@
     </div>
     
     <div class="post-body post-content">
-        <h4 id="首先来捋一下思路"><a href="#首先来捋一下思路" class="headerlink" title="首先来捋一下思路"></a>首先来捋一下思路</h4><ol>
-<li>后续遍历的顺序是先左子树，再右子树，再根节点</li>
-<li>那么从这你思考一下如果我把这个顺序颠倒一下是什么是不是先根节点，再右子树，再左子树，是不是非常的像先序遍历，及就是说把先序遍历的结果再入栈，然后根据栈的先进后出的特性，来得到后序遍历的结果</li>
+        <h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><p>思路：</p>
+<ol>
+<li>首先所谓的进程就是，资源调度的基本单位</li>
+<li>线程就是<strong>依附于**</strong>进程<strong>的一个</strong>独立**的执行单元。</li>
+<li>它俩的区别就是，一个进程可以有多个线程，线程依附于进程进程有独立的单元，也就是说一个进程的崩溃，不会影响其它进程，而一个线程挂掉，代表着整个进程崩溃，进程之间的内存难共享，而线程之间的数据是可共享的，</li>
 </ol>
-<hr>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lastorder</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root)&#123;<span class="keyword">return</span>&#125;</span><br><span class="line">    <span class="keyword">const</span> outstack=[];</span><br><span class="line">    <span class="keyword">const</span> stack =[root];</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">    <span class="keyword">const</span> n=stack.pop();</span><br><span class="line">    outstack.push(n)</span><br><span class="line">    <span class="keyword">if</span>(n.left) &#123;stack.push(n.left)&#125;</span><br><span class="line">    <span class="keyword">if</span>(n.right)&#123;stack.push(n.right)&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(outstack.length)&#123;</span><br><span class="line">        <span class="keyword">const</span> m=outstack.pop()</span><br><span class="line">        <span class="built_in">console</span>.log(m.val)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<p>易理解思路：</p>
+<ol>
+<li><ul>
+<li>线程在进程下行进（</li>
+<li>一个进程可以包含多个线程</li>
+<li>不同进程间数据很难共享</li>
+<li>同一进程下不同线程间数据很易共享</li>
+<li>进程要比线程消耗更多的计算机资源</li>
+<li>进程间不会相互影响，一个线程挂掉将导致整个进程挂掉</li>
+<li>进程可以拓展到多机，进程最多适合多核</li>
+<li>进程使用的内存地址可以上锁，即一个线程使用某些共享内存时，其他线程必须等它结束，才能使用这一块内存。</li>
+<li>进程使用的内存地址可以限定使用量</li>
+</ul>
+</li>
+</ol>
+<h3 id="进程-线程之间如何来通信"><a href="#进程-线程之间如何来通信" class="headerlink" title="进程/线程之间如何来通信"></a>进程/线程之间如何来通信</h3><ol>
+<li>进程之间通过<strong>管道</strong>（有这个有名字的无名字的管道）匿名管道，具名管道，消息队列，然后还有这个，信号量（发送消息）套接字，可用于不同设备之间的。</li>
+<li>线程之间就是通过锁机制，读写锁，互斥锁，信号量机制，用来同步线程之间的消息的。</li>
+</ol>
+<h3 id="线程之间哪些资源共享，哪些不共享"><a href="#线程之间哪些资源共享，哪些不共享" class="headerlink" title="线程之间哪些资源共享，哪些不共享"></a>线程之间哪些资源共享，哪些不共享</h3><p>1 .标识线程的线程 ID，栈空间是私有的的，堆空间是共享的，全局变量是共享的。</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><ol>
+<li>概念： 多个进程，竞争资源导致的阻塞现象</li>
+<li>条件： 1：<strong>互斥条件</strong>：就是资源非共享，想获取这个资源就得等这个资源被释放。2：<strong>不可剥夺</strong>：就是你不能随意占据已经被使用的资源，3：<strong>请求和保持</strong>：吃着碗里的看着锅里的，就是自己占着资源，但还在申请资源，同时不去释放资源。4：<strong>环路等待条件</strong>：（进程资源形成一条循环链）存在一种进程的循环链，链中的每一个进程已获得的资源同时被链中的下一个进程所请求。</li>
+<li>怎么避免就是：<strong>银行家算法</strong>，判断当前系统是否存在安全序列，如果有那么就同意进程请求资源，不存在安全序列，就阻塞这个请求因为有可能发送死锁.</li>
+</ol>
 
     </div>
     
@@ -209,17 +235,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2020/11/12/%E8%BF%AD%E4%BB%A3%E6%B3%95%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86/" class="pre-post btn btn-default" title='盒模型'>
+    <a href="/HEXOS/2021/02/11/js%E6%A0%88%E5%92%8C%E5%A0%86/" class="pre-post btn btn-default" title='js 栈和堆'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            盒模型</span>
+            js 栈和堆</span>
     </a>
     
     
-    <a href="/HEXOS/2020/11/11/GET%E5%92%8CPost%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB/" class="next-post btn btn-default" title='GET 和 post 本质区别'>
+    <a href="/HEXOS/2021/01/20/cookie%20session%20redis/" class="next-post btn btn-default" title='cookie redis session'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            GET 和 post 本质区别</span><i class="fa fa-angle-right fa-fw"></i>
+            cookie redis session</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -260,7 +286,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E6%9D%A5%E6%8D%8B%E4%B8%80%E4%B8%8B%E6%80%9D%E8%B7%AF"><span class="toc-text">首先来捋一下思路</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">进程和线程的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E6%9D%A5%E9%80%9A%E4%BF%A1"><span class="toc-text">进程&#x2F;线程之间如何来通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E5%93%AA%E4%BA%9B%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%EF%BC%8C%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%85%B1%E4%BA%AB"><span class="toc-text">线程之间哪些资源共享，哪些不共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-text">死锁</span></a></li></ol></li></ol>
         
     </div>
 </aside>

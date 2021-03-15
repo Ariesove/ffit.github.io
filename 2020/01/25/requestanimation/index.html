@@ -22,9 +22,12 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="思路
-首先明确一下有了cookie，为何又要又session,那么redis又是解决了什么样的问题
-cookie最大的弊端就是用户信息会暴露在客户端中，更多的是安全性问题，所以引出了sessio..." />
+<meta name="description" content="requetAnimationFrame-js 动画
+这个是 js 动画用的，就是来控制动画的更新频率为 60hz/s,
+
+settimeout 是手动来控制的而 raf 是浏览器自动控制的
+
+..." />
 
 
 <meta name="robots" content="all" />
@@ -35,7 +38,7 @@ cookie最大的弊端就是用户信息会暴露在客户端中，更多的是�
 
 <title>
     
-    cookie redis session |
+    requetAnimationFrame |
     
     Hexo
 </title>
@@ -144,16 +147,16 @@ cookie最大的弊端就是用户信息会暴露在客户端中，更多的是�
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="cookie redis session">
+        <h1 id="requetAnimationFrame">
             
-            cookie redis session
+            requetAnimationFrame
             
         </h1>
         <div class="post-meta">
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
     </span>
     
     
@@ -169,7 +172,7 @@ cookie最大的弊端就是用户信息会暴露在客户端中，更多的是�
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2020/01/20</span>
+            2020/01/25</span>
     </span>
     
     <span class="fa-wrap">
@@ -183,18 +186,25 @@ cookie最大的弊端就是用户信息会暴露在客户端中，更多的是�
         
         <p class="fa fa-exclamation-triangle warning">
             本文于<strong>
-                418</strong>
+                414</strong>
             天之前发表，文中内容可能已经过时。
         </p>
         
     </div>
     
     <div class="post-body post-content">
-        <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
-<li>首先明确一下有了cookie，为何又要又session,那么redis又是解决了什么样的问题</li>
-<li>cookie最大的弊端就是用户信息会暴露在客户端中，更多的是安全性问题，所以引出了session技术。</li>
-<li>首先第一次登录的时候，服务器向客户端返回一个随机id号码，时会将这个id号码赋值给req.sessionid，并且将用户信息先存到session中，然后以键值对的形式存放到redis中（sessionid,session)</li>
-<li>同时客户端下次请求的时候会带上这个sesssionid号，通过get 在redis中返回对应的session信息，这里就存储着用户的信息，自然也不必用户再去重复登录了，同时也基于此，进行了权限认证的问题。</li>
+        <h3 id="requetAnimationFrame-js-动画"><a href="#requetAnimationFrame-js-动画" class="headerlink" title="requetAnimationFrame-js 动画"></a>requetAnimationFrame-js 动画</h3><ol>
+<li><p>这个是 js 动画用的，就是来控制动画的更新频率为 60hz/s,</p>
+</li>
+<li><p>settimeout 是手动来控制的而 raf 是浏览器自动控制的</p>
+</li>
+<li><p>浏览器如果切换到后台了，那么 raf 会停止，而 settimeout 会继续执行。<strong>节省资源</strong></p>
+</li>
+<li><p>而且用 settimeout 还得算时间.</p>
+</li>
+<li><p>我们来分析一下，为什么要在重新渲染前去调用？因为 <code>rAF</code> 是官方推荐的用来做一些流畅动画所应该使用的 API，做<strong>动画不可避免的会去更改 DOM，</strong>而如果在渲染之后再去更改 DOM，那就只能等到下一轮渲染机会的时候才能去绘制出来了，这显然是不合理的。</p>
+<p><code>rAF</code> 在浏览器决定渲染之前给你最后一个机会去改变 DOM 属性，然后很快在接下来的绘制中帮你呈现出来，所以这是做流畅动画的不二选择。下面我用一个 <code>setTimeout</code> 的例子来对比。</p>
+</li>
 </ol>
 
     </div>
@@ -265,7 +275,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#requetAnimationFrame-js-%E5%8A%A8%E7%94%BB"><span class="toc-text">requetAnimationFrame-js 动画</span></a></li></ol>
         
     </div>
 </aside>
