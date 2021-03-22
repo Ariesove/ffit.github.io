@@ -1,0 +1,503 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="CSS 知识体系响应式布局系统.rem.
+“. 问题二:什么是 rem 布局？rem 布局的缺陷。”。
+叙述思路：： 首先由 r 想到 root –也就是说 HTML-fontsize 的大小，..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    CSS知识体系 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2471723616,1604025636&amp;fm=26&amp;gp=0.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="CSS知识体系">
+            
+            CSS知识体系
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2021/01/20</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="CSS-知识体系"><a href="#CSS-知识体系" class="headerlink" title="CSS 知识体系"></a>CSS 知识体系</h2><h3 id="响应式布局系统"><a href="#响应式布局系统" class="headerlink" title="响应式布局系统."></a>响应式布局系统.</h3><h4 id="rem"><a href="#rem" class="headerlink" title="rem."></a>rem.</h4><ol>
+<li>“. 问题二:什么是 rem 布局？rem 布局的缺陷。”。</li>
+<li><strong>叙述思路：</strong>： 首先由 r 想到 root –也就是说 HTML-fontsize 的大小，也就说 1rem 就是等于 HTML-fontsize 的大小 。 （补充 HTML 根元素 font-size： <strong>16px</strong>）。由于是响应式的也就是说会变，的—》那不能变元素吧，只能是随着屏幕的变化，而通过 js 来动态的设置这个根元素的大小。</li>
+</ol>
+<h4 id="vw-vh"><a href="#vw-vh" class="headerlink" title="vw/vh"></a>vw/vh</h4><ol>
+<li><p>“. 问题一：什么是 vw+vh 布局？有哪些有优点？有哪些缺陷？”.</p>
+</li>
+<li><p>由 v 想到了 viewport 也就是说视口宽高,也就是说这个，你<strong>屏幕的宽高</strong>，可视的嘛,但是它相对于设备视口的 <strong>1/100</strong>.</p>
+</li>
+<li><p>也就是说 1vw=1/100 width(可视宽：屏幕的宽高）。通过这个可以来<strong>计算</strong>，1px 与 vw/h 的关系从而能够完美实现响应式布局。</p>
+</li>
+<li><p><strong>补充</strong>布局视口（HTML 网页的宽高），理想视口 ，视觉视口（用户当前所看到的宽高）。</p>
+</li>
+</ol>
+<h4 id="rem-vw-vh"><a href="#rem-vw-vh" class="headerlink" title="rem/vw/vh"></a>rem/vw/vh</h4><ol>
+<li>用 rem 更多还是从兼容性上说的，而 vw 更多的是从简易性考虑的，没有谁是完美的，我在项目中有用到过 vw 和 rem，觉得确实 vw 更具有实操性，</li>
+</ol>
+<p><a href="%5Bhttps://blog.csdn.net/suraelax/article/details/112202267%5D(https://blog.csdn.net/suraelax/article/details/112202267)">css 习题</a>.</p>
+<h3 id="1px-问题如何解决"><a href="#1px-问题如何解决" class="headerlink" title="1px 问题如何解决"></a>1px 问题如何解决</h3><ol>
+<li><p><strong>为什么</strong>会出现这个问题，主要其实在于这个，会有一个比例值，设备的像素：window.devicePixelRatio（设备像素比例：ration:比例的意思）= 实际像素/css 像素。//弊端再于兼容性不好</p>
+</li>
+<li><p>直接写 0.5px:就是直接，先去给相应的元素设置这个，自定义属性：值为像素比例，然后通过属性选择器，去命中它，border 直接改为 0.5px。</p>
+</li>
+<li><p>利用伪元素，然后子绝父项，相对于目标元素定位，宽高设置： 两倍于目标元素，然后再次，利用 transform 来缩放 50%，之后，这样正好，就把 1px 转为 0.5px，了然后再去 × 比例系数=1px.</p>
+</li>
+<li><pre><code>#container[data-device=&quot;2&quot;] &#123;
+    position: relative;
+&#125;
+
+#container[data-device=&quot;2&quot;]::after&#123;
+      position:absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      content:&quot;&quot;;//不写，伪类元素，没办法设置宽高了
+      transform: scale(0.5);//缩放一半
+      transform-origin: left top;//以哪个点来缩放
+      box-sizing: border-box;
+      border: 1px solid #333;
+    &#125;
+&#125;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 首先：想到 viewport 为什么想到因为这个是视觉问题想到了视口：也就是说只要来控制</span><br><span class="line">2. &#96;&#96;&#96;html</span><br><span class="line">   &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;initial-scale&#x3D;0.5, maximum-scale&#x3D;0.5, minimum-scale&#x3D;0.5, user-scalable&#x3D;no&quot;&gt;</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><p>那如果想要来改变里面的属性，通过 js 向 meta 这个 dom 节点设置新的属性，并且改变设备<strong>像素比例</strong>。</p>
+</li>
+<li><p>弊端：你想想这样做是将页面所有内容全部缩放了，文字图片也被缩小了，那怎么解决</p>
+</li>
+<li><p>我们可以通过调用 <code>document.documentElement.clientWidth / clientHeight</code> 来获取布局视口大小。</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/superlizhao/p/8729190.html">1px 问题的方案</a>。</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9dcdeedf2097">1px 解决方案</a>。</p>
+<p><a target="_blank" rel="noopener" href="https://www.imooc.com/read/70/article/2131">慕课教程 1px 解决的方案</a></p>
+<h3 id="link-和-import"><a href="#link-和-import" class="headerlink" title="link 和@import"></a>link 和@import</h3><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1vJ411C7QQ?from=search&seid=14239456639025638587">link 和 import 区别</a>。</p>
+</li>
+<li><pre><code>&lt;link href&gt;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 首先遇到这个问题先想自己平时引入的 CSS 样式，就是拿 Link 来引入的，这个是非常常见的。由由于这个是写在 HTML 里的也就是属于 HTML，其实就是一个 dom 节点所以可以通过 js 获取并更改。</span><br><span class="line">2. **浏览器在解析资源的时候遇到 link 标签，会发出一个异步请求引入的资源，而不会去，阻塞页面的加载，而@import 是**最后**才会被加载的资源**，所以最好用这个 link</span><br><span class="line">3. 兼容性，就是 link 属于 HTML 标签，没有什么问题，但是@import 是 CSS2.1 加入的也就是会存在兼容性问题。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### CSS 定位问题</span><br><span class="line"></span><br><span class="line">1. absolute &#x2F; relative</span><br><span class="line">2. 首先明确一点就是子觉，父相，也就是说子元素一般是绝对定位，而父元素就是相对定位的，、</span><br><span class="line">3. absolute&#x2F;fix : 都会脱离文档流而触发这个 BFC 块。</span><br><span class="line">4. absolute 基于最后一个定位的父元素定位，最后一个定位的父元素指什么？</span><br><span class="line">5. 可以看到，「最后一个定位的父元素」指最后一个 position 不是 **static** (就是最近的定位元素)的父元素。</span><br><span class="line">6. absolute 在找不到最后一个父定位的元素，相对于浏览器窗口（viewport）定位的时候，和 fixed 有什么区别：就是 absolute 会随着滚动条滚动，而 fix 直接就定死。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### src 与 href 之间的区别</span><br><span class="line"></span><br><span class="line">1. &#96;&#96;&#96;</span><br><span class="line">   &lt;link href&#x3D;&#39;&#39;&gt; &lt;a href &gt;  &lt;script src &gt;  &lt;img src&gt;</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/dadbb8f8a952">src 和 href 的区别</a>。//<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av67434740/">b 站对于 src 和 href 之间的一个区别</a>。</p>
+</li>
+<li><p>就是 src 就是下载这个资源，然后<strong>嵌入到这个节点内部</strong>,会阻塞这个页面的加载。</p>
+</li>
+<li><p>而 href（联想跳转这个动作）一般用于 a 链接，目的就是为了能够建立和外部资源的联系，<strong>不会阻塞浏览器解析资源</strong>.”link 和@import”</p>
+</li>
+</ol>
+<h3 id="CSS-选择器优先级别问题"><a href="#CSS-选择器优先级别问题" class="headerlink" title="CSS 选择器优先级别问题"></a>CSS 选择器优先级别问题</h3><ol>
+<li><p>就是给一个元素设置了多个样式，我该渲染哪一个</p>
+<p>！imporant 是最重要的</p>
+<p>2：内联元素</p>
+<p>3： id 选择器//id 是唯一的所以优先了。</p>
+<p>4：class 类名选择器伪类元素</p>
+<p>5：标签（直接 div span 设置样式），伪元素</p>
+<p>（1，2，3，4，5） 最左边的值更大(但是序号所对应的数量，而不是权重值）</p>
+<p>但是如果<strong>相同</strong>的话就是层叠覆盖，谁在后就用谁</p>
+</li>
+</ol>
+<h3 id="CSS-选择器继承问题"><a href="#CSS-选择器继承问题" class="headerlink" title="CSS 选择器继承问题"></a>CSS 选择器继承问题</h3><ol>
+<li>就是 font-size ,font-weight,还有 color， line-height 。</li>
+</ol>
+<h3 id="CSS-画一个三角形"><a href="#CSS-画一个三角形" class="headerlink" title="CSS 画一个三角形"></a>CSS 画一个三角形</h3><ol>
+<li>其实想象一个正方形，然后它的边框在外部，然后边框越粗，内容相应越短的时候，就会让这个边框无限向内收缩所有，也可以来设置上下左右边框的 border 的颜色来决定三角形的朝向。</li>
+</ol>
+<h3 id="flex-布局-联想实际布局不要死记"><a href="#flex-布局-联想实际布局不要死记" class="headerlink" title="flex 布局//联想实际布局不要死记"></a>flex 布局//联想实际布局不要死记</h3><ol>
+<li>flex 有哪些属性</li>
+<li>联想一个容器里面有两个元素，首先联想到这个 <strong>flex 的排列方向</strong>，是水平排列还是垂直排列。flex-diredtion:cloumn/row;</li>
+<li>那如果元素太大，但是我又不想让它<strong>换行</strong>怎么办-flex-wrap :nowrap.</li>
+<li>此时我又想让它<strong>水平</strong>，排开两边就用 justify-content: space between/center;//<strong>水平轴上</strong>的。</li>
+<li><strong>垂直轴上对齐</strong>怎么办：<strong>align-item</strong>: center/flex-start// 在垂直轴最上方对齐用.</li>
+<li>这里有一个小的细节就是，<strong>flex-grow</strong>： 1 给某个元素设定后，它就会占慢剩余空间。</li>
+<li>由于已经是 flex 布局了，所以 <strong>float clear vertical-aligen</strong>都将<strong>失效</strong>了</li>
+</ol>
+<h3 id="CSS-动画"><a href="#CSS-动画" class="headerlink" title="CSS 动画"></a>CSS 动画</h3><ol>
+<li>平时动画怎么来实现的，首先动画分为 2d 的和 3d 的。</li>
+</ol>
+<h3 id="px-em-rem"><a href="#px-em-rem" class="headerlink" title="px em rem"></a>px em rem</h3><ol>
+<li>px pixel 像素，就是相对于屏幕分辨率而言的，就是图像里最小的点。</li>
+<li>em， 相对于使用 em 的标签的 fonf-size 大小，<strong>易错点：</strong>这个不是取的是父元素的 font-size,因为这个是发生了 font-size 继承。div: font-size:20px  width:em;  width=20p;</li>
+<li>rem ，就是想对于 HTML 根元素的 HTML : font-size: 20px;   1rem =20px.</li>
+</ol>
+<h3 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h3><ol>
+<li><p>首先盒模型有几个属性分别是 content  border padding margin ;</p>
+</li>
+<li><p>盒模型有两种标准，第一种是 w3c（万维网联盟）</p>
+</li>
+</ol>
+<p>首先盒模型有几个属性分别是 content  border padding margin ;就是<strong>实际元素宽高是考虑，边距和边界的。</strong></p>
+<p>你<strong>所设定的 height width **是</strong>不包括<strong>这个 **border 和边距（padding)</strong></p>
+<p>第二种：是传统的 IE 浏览器模型：box-sizing:border-box;</p>
+<p>也有几个属性分别是 content  border padding margin ;</p>
+<p><strong>实际元素的宽高是不考虑，这个边距和边界的</strong>。</p>
+<p>但是<strong>其元素 width height</strong>的计算是包含了 <strong>border.</strong></p>
+<p>什么意思，就是说我可以<strong>并排的展示两个加上 border 超出了容器的元素</strong>；再具体就是元素的宽高既包含元素本身，还包含了其内部的边框与内边距；</p>
+<p><img src="C:\Users\86158\AppData\Local\YNote\data\weixinobU7Vjmk6syhU6sxVIDcRR8plLNo\5b212ce32ac34a7c87e1e437d180774a\clipboard.png"></p>
+<h4 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h4><ol>
+<li>: content:box, : border-box : inherit 继承父元素的盒模型。</li>
+</ol>
+<h3 id="BFC-块-IFC"><a href="#BFC-块-IFC" class="headerlink" title="BFC 块 /IFC"></a>BFC 块 /IFC</h3><h4 id="为什么设置-over-flow-hidden-可以清除浮动"><a href="#为什么设置-over-flow-hidden-可以清除浮动" class="headerlink" title="为什么设置 over-flow:hidden,可以清除浮动"></a>为什么设置 over-flow:hidden,可以清除浮动</h4><p><a href="assets/css-20210320111737-6wun76u.emmx">清除浮动元素.emmx</a>.</p>
+<ol>
+<li>要了解 bfc 块，内部的块级元素会垂直摆放，同属于一个 bfc 块会发生 margin 重叠，那么消除这样的 bug 就可以给其中一个元素在套一个容器让他成为令一个新的 bfc 块（还要设置一个 over-flow:hidden).</li>
+<li>给父元素加了一个 over-flow:hidden 就是为了使用 bfc 块的特性：在计算 bfc 块的高度时会计算里面浮动元素的高度，这样看上去就把浮动元素包裹了起来。</li>
+<li>注意一下如何使用 BFC 消除 margin 重叠，</li>
+<li>首先你要去明确就是重叠这个现象只出现在垂直的方向，水平方向是没有的</li>
+<li>overflow:hidden;bfc 块的特性就是，紧贴浮动元素，所以直接就在两边。也可以用来去做这个浮动元素。</li>
+<li><strong>可以触发 BFC</strong>的属性有 float、position、overflow、display：table-cell/ inline-block/table-caption</li>
+</ol>
+<h4 id="IFC"><a href="#IFC" class="headerlink" title="IFC"></a>IFC</h4><ol>
+<li>IFC（Inline formatting contexts）：<strong>内联格式上下文</strong> IFC 的 line box（线框）高度由其包含行内元素中最高的实际高度计算而来（不受到竖直方向的 padding/margin 影响)IFC 中的 line box 一般左右都贴紧整个 IFC，但是会因为 float 元素而扰乱。float 元素会位于 IFC 与与 line box 之间，使得 line box 宽度缩短。 同个 ifc 下的多个 line box 高度会不同 IFC 中时不可能有块级元素的，当插入块级元素时（如 p 中插入 div）会产生两个匿名块与 div 分隔开，即产生两个 IFC，每个 IFC 对外表现为块级元素，与 div 垂直排列。 那么 IFC 一般有什么用呢？ <strong>水平居中</strong>：当一个块要在环境中水平居中时，设置其为 inline-block 则会在外层产生 IFC，通过 text-align 则可以使其水平居中。 <strong>垂直居中</strong>：创建一个 IFC，用其中一个元素撑开父元素的高度，然后设置其 vertical-align:middle，其他行内元素则可以在此父元素下垂直居中。</li>
+</ol>
+<h3 id="垂直水平居中原理"><a href="#垂直水平居中原理" class="headerlink" title="垂直水平居中原理"></a>垂直水平居中原理</h3><h4 id="margin-auto-原理"><a href="#margin-auto-原理" class="headerlink" title="margin: auto 原理"></a>margin: auto 原理</h4><ol>
+<li>第一种可以用 flex 布局</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">          给父元素，去设置display:flex;</span><br><span class="line">justify-content:center&#x2F;&#x2F;水平居中；</span><br><span class="line"></span><br><span class="line">             align-item:center&#x2F;&#x2F;垂直居中；</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><pre><code>#center &#123;
+  background-color: red;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+&#125;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. [margin:auto 原理](https:&#x2F;&#x2F;www.imooc.com&#x2F;read&#x2F;70&#x2F;article&#x2F;2131)。</span><br><span class="line"></span><br><span class="line">1. auto 就是“一样”的意思，如果是左右 auto 的话，意思就是：</span><br><span class="line">   这个 DIV 离 左边的距离 跟 右边的距离 是一样的。</span><br><span class="line">   margin:0px auto；就是上下的距离是 0px，左右的距离是“一样”。</span><br><span class="line">2. **叙述思路**： 垂直方向上，auto 不会自动填充，水平方向上不会去自动填充，所以此时通过，绝对定位并设置上下左右边界，触发流体特性，这样垂直方向上就可以进行自动填充了，从而达到垂直方向上居中的操作。</span><br><span class="line">3. 1. 解释下原理:</span><br><span class="line"></span><br><span class="line">      1 在普通内容流中，margin:auto 的效果等同于 margin-top:0;margin-bottom:0.</span><br><span class="line"></span><br><span class="line">      2 position:absolute 使绝对定位块跳出了内容流</span><br><span class="line"></span><br><span class="line">      3 为块区域设置 top: 0; left: 0; bottom: 0; right: ;将给浏览器重新分配一个边界框 ，使元素具有流体特性，此时该元素的所有可用空间，所以 margin 垂直方向上有了可分配的空间。</span><br><span class="line"></span><br><span class="line">      4 再设置 margin 垂直方向上下为 auto ,即可实现垂直居中。(注意高度得设置)</span><br><span class="line"></span><br><span class="line">4. 动画属性：transform:就是</span><br><span class="line"></span><br><span class="line">   &#96;&#96;&#96;css</span><br><span class="line">   #center &#123;</span><br><span class="line">    position:absolute;</span><br><span class="line">    left:50%;</span><br><span class="line">    right:50%;</span><br><span class="line">    transform: translate(-50%,-50%) &#x2F;&#x2F;其实就是因为刚开始，元素左顶点位于中心，所以此时让这个元素相对于自身往左移动50%，再往上移动50%，由于css动画是上负下正，和数学坐标是相反的。</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</code></pre>
+</li>
+</ol>
+<h3 id="CSS-动画-1"><a href="#CSS-动画-1" class="headerlink" title="CSS 动画"></a>CSS 动画</h3><h4 id="rgba-和-opacity-之间的区别"><a href="#rgba-和-opacity-之间的区别" class="headerlink" title="rgba()和 opacity 之间的区别"></a>rgba()和 opacity 之间的区别</h4><p>rgba()和 opacity 都能实现透明效果，但最大的不同是 opacity 作用于元素，以及元素内的</p>
+<p>所有内容的透明度，而 rgba()只作用于元素的颜色或其背景色。（设置 rgba 透明的元素的子元素不会继承透明</p>
+<p>效果！）。</p>
+<ol start="2">
+<li>一句话总结就是 opacity(有 c(继承父元素透明度))，而这个 rgba 是不继承的，并且是一个函数。</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/150541216?from_voters_page=true">rgba 和 opacity 动画的区别</a></li>
+</ol>
+<h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><ol>
+<li>字面意思就是变形的意思，就是有 rotate()旋转，translate(x,y)平移联想”依赖动画实现水平垂直居中”。</li>
+<li>还有一个属性就是：transform-origin: 变形的基点。</li>
+</ol>
+<h3 id="CSS3-动画和-js-动画之间的区别"><a href="#CSS3-动画和-js-动画之间的区别" class="headerlink" title="CSS3 动画和 js 动画之间的区别"></a>CSS3 动画和 js 动画之间的区别</h3><ol>
+<li>第一点，就是 js 动画，没有兼容性问题，而 CSS3 有些浏览器不支持</li>
+<li>js 动画经常涉及操作 dom 可能会导致这个，重绘重流的问题。</li>
+<li>由于这个 js 是单线程，可能会阻塞其它任务的执行。</li>
+<li>而 CSS 动画，由于不是 js 所以无法绑定事件，较为复杂的动画做不了。</li>
+</ol>
+<h3 id="CSS-选择器"><a href="#CSS-选择器" class="headerlink" title="CSS 选择器"></a>CSS 选择器</h3><p>（选择元素添加样式）</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/isremya/p/12364741.html">css 选择器参考链接</a>。</p>
+<p>1：类名选择器</p>
+<ol start="2">
+<li>id 选择器</li>
+<li>标签选择器</li>
+<li>属性选择器： input :[ type=’text’]</li>
+<li>通配符： *</li>
+<li>伪类选择器； a: nth-child()  link : hover。</li>
+</ol>
+<h3 id="margin-负值"><a href="#margin-负值" class="headerlink" title="margin 负值"></a>margin 负值</h3><ol>
+<li>这里联想一个图，就是，有上下左右四个边距，然后，向上和左，就是，拖拽，对于下和右就是相应位置将不占高和宽。</li>
+</ol>
+<p><img src="assets/IMG20210320162510-20210320162601-vcjb0rq.jpg" alt="IMG20210320162510.jpg">。</p>
+<ol start="2">
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dy4y117Br?from=search&seid=17438600498286416664">margin 负值的链接</a>。</li>
+</ol>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2021/02/01/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%80%BB%E7%BB%93/" class="pre-post btn btn-default" title='进程和线程总结'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            进程和线程总结</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2021/01/20/cookie%20session%20redis/" class="next-post btn btn-default" title='Cookie Redis Session'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Cookie Redis Session</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB"><span class="toc-text">CSS 知识体系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%E7%B3%BB%E7%BB%9F"><span class="toc-text">响应式布局系统.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rem"><span class="toc-text">rem.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vw-vh"><span class="toc-text">vw&#x2F;vh</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rem-vw-vh"><span class="toc-text">rem&#x2F;vw&#x2F;vh</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1px-%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-text">1px 问题如何解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#link-%E5%92%8C-import"><span class="toc-text">link 和@import</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E9%80%89%E6%8B%A9%E5%99%A8%E4%BC%98%E5%85%88%E7%BA%A7%E5%88%AB%E9%97%AE%E9%A2%98"><span class="toc-text">CSS 选择器优先级别问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E9%80%89%E6%8B%A9%E5%99%A8%E7%BB%A7%E6%89%BF%E9%97%AE%E9%A2%98"><span class="toc-text">CSS 选择器继承问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E7%94%BB%E4%B8%80%E4%B8%AA%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="toc-text">CSS 画一个三角形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-%E5%B8%83%E5%B1%80-%E8%81%94%E6%83%B3%E5%AE%9E%E9%99%85%E5%B8%83%E5%B1%80%E4%B8%8D%E8%A6%81%E6%AD%BB%E8%AE%B0"><span class="toc-text">flex 布局&#x2F;&#x2F;联想实际布局不要死记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E5%8A%A8%E7%94%BB"><span class="toc-text">CSS 动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#px-em-rem"><span class="toc-text">px em rem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%92%E6%A8%A1%E5%9E%8B"><span class="toc-text">盒模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#box-sizing"><span class="toc-text">box-sizing</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFC-%E5%9D%97-IFC"><span class="toc-text">BFC 块 &#x2F;IFC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AE%BE%E7%BD%AE-over-flow-hidden-%E5%8F%AF%E4%BB%A5%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8"><span class="toc-text">为什么设置 over-flow:hidden,可以清除浮动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IFC"><span class="toc-text">IFC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD%E5%8E%9F%E7%90%86"><span class="toc-text">垂直水平居中原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#margin-auto-%E5%8E%9F%E7%90%86"><span class="toc-text">margin: auto 原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E5%8A%A8%E7%94%BB-1"><span class="toc-text">CSS 动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rgba-%E5%92%8C-opacity-%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">rgba()和 opacity 之间的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transform"><span class="toc-text">transform</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS3-%E5%8A%A8%E7%94%BB%E5%92%8C-js-%E5%8A%A8%E7%94%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">CSS3 动画和 js 动画之间的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">CSS 选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#margin-%E8%B4%9F%E5%80%BC"><span class="toc-text">margin 负值</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
