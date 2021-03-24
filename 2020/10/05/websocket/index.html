@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="websocket它解决了http是半双工，实现了服务端推送也就是说客户端和服务器之间无法，随意互相发送数据，只能是客户端，发，服务器去接受，服务器无法主动发送数据，只能是被动的那为了能够实现类..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Websocket |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2471723616,1604025636&amp;fm=26&amp;gp=0.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Websocket">
+            
+            Websocket
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/10/05</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="它解决了http是半双工，实现了服务端推送"><a href="#它解决了http是半双工，实现了服务端推送" class="headerlink" title="它解决了http是半双工，实现了服务端推送"></a>它解决了http是半双工，实现了服务端推送</h2><h3 id="也就是说客户端和服务器之间无法，随意互相发送数据，只能是客户端，发，服务器去接受，服务器无法主动发送数据，只能是被动的"><a href="#也就是说客户端和服务器之间无法，随意互相发送数据，只能是客户端，发，服务器去接受，服务器无法主动发送数据，只能是被动的" class="headerlink" title="也就是说客户端和服务器之间无法，随意互相发送数据，只能是客户端，发，服务器去接受，服务器无法主动发送数据，只能是被动的"></a>也就是说客户端和服务器之间无法，随意互相发送数据，只能是客户端，发，服务器去接受，服务器无法主动发送数据，只能是被动的</h3><h2 id="那为了能够实现类似全双工的效果，http做出了哪些努力，"><a href="#那为了能够实现类似全双工的效果，http做出了哪些努力，" class="headerlink" title="那为了能够实现类似全双工的效果，http做出了哪些努力，"></a>那为了能够实现类似全双工的效果，http做出了哪些努力，</h2><h3 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a>轮询</h3><ul>
+<li>其实就是说，客户端会向服务器不断的发送询问，问是否有新的数据，那么很明显这样做，效率非常的低</li>
+</ul>
+<h3 id="长轮询"><a href="#长轮询" class="headerlink" title="长轮询"></a>长轮询</h3><ul>
+<li>意思就是说只有对方有数据才会发，每次客户端仅在接受到新数据才会去询问，如果，没有那就不询问了</li>
+</ul>
+<h2 id="那么websocket是怎么来建立连接的（握手）"><a href="#那么websocket是怎么来建立连接的（握手）" class="headerlink" title="那么websocket是怎么来建立连接的（握手）"></a>那么websocket是怎么来建立连接的（握手）</h2><h3 id="其实首先初始本质就是一个http的get-请求（之所以这样做其实是为了能够，绕过浏览器，防火墙的限制，因为这样做，但是这里为了能够告诉服务器其实并不是http协议，会加入两个字段：并且还会加入一些验证消息，目的就是为了能够防止误连接"><a href="#其实首先初始本质就是一个http的get-请求（之所以这样做其实是为了能够，绕过浏览器，防火墙的限制，因为这样做，但是这里为了能够告诉服务器其实并不是http协议，会加入两个字段：并且还会加入一些验证消息，目的就是为了能够防止误连接" class="headerlink" title="其实首先初始本质就是一个http的get 请求（之所以这样做其实是为了能够，绕过浏览器，防火墙的限制，因为这样做，但是这里为了能够告诉服务器其实并不是http协议，会加入两个字段：并且还会加入一些验证消息，目的就是为了能够防止误连接"></a>其实首先初始本质就是一个http的get 请求（之所以这样做其实是为了能够，绕过浏览器，防火墙的限制，因为这样做，但是这里为了能够告诉服务器其实并不是http协议，会加入两个字段：并且还会加入一些验证消息，目的就是为了能够防止误连接</h3><h3 id="建立了连接，并且确认了就是websocket协议，之后客户端和服务器之间就可以随意互发信息了"><a href="#建立了连接，并且确认了就是websocket协议，之后客户端和服务器之间就可以随意互发信息了" class="headerlink" title="建立了连接，并且确认了就是websocket协议，之后客户端和服务器之间就可以随意互发信息了"></a>建立了连接，并且确认了就是websocket协议，之后客户端和服务器之间就可以随意互发信息了</h3><h2 id="这个协议更多的是对http的一种优化"><a href="#这个协议更多的是对http的一种优化" class="headerlink" title="这个协议更多的是对http的一种优化"></a>这个协议更多的是对http的一种优化</h2><h2 id="二进制帧格式"><a href="#二进制帧格式" class="headerlink" title="二进制帧格式"></a>二进制帧格式</h2>
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/10/11/HTTP3%E5%B1%95%E6%9C%9B/" class="pre-post btn btn-default" title='HTTP3展望'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            HTTP3展望</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2020/10/03/DFS/" class="next-post btn btn-default" title='DFS'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            DFS</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#websocket"><span class="toc-text">websocket</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E8%A7%A3%E5%86%B3%E4%BA%86http%E6%98%AF%E5%8D%8A%E5%8F%8C%E5%B7%A5%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%BA%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%8E%A8%E9%80%81"><span class="toc-text">它解决了http是半双工，实现了服务端推送</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%9F%E5%B0%B1%E6%98%AF%E8%AF%B4%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E6%97%A0%E6%B3%95%EF%BC%8C%E9%9A%8F%E6%84%8F%E4%BA%92%E7%9B%B8%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%8F%AA%E8%83%BD%E6%98%AF%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%8C%E5%8F%91%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8E%BB%E6%8E%A5%E5%8F%97%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%A0%E6%B3%95%E4%B8%BB%E5%8A%A8%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%8F%AA%E8%83%BD%E6%98%AF%E8%A2%AB%E5%8A%A8%E7%9A%84"><span class="toc-text">也就是说客户端和服务器之间无法，随意互相发送数据，只能是客户端，发，服务器去接受，服务器无法主动发送数据，只能是被动的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%A3%E4%B8%BA%E4%BA%86%E8%83%BD%E5%A4%9F%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E5%85%A8%E5%8F%8C%E5%B7%A5%E7%9A%84%E6%95%88%E6%9E%9C%EF%BC%8Chttp%E5%81%9A%E5%87%BA%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%AA%E5%8A%9B%EF%BC%8C"><span class="toc-text">那为了能够实现类似全双工的效果，http做出了哪些努力，</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AE%E8%AF%A2"><span class="toc-text">轮询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%BF%E8%BD%AE%E8%AF%A2"><span class="toc-text">长轮询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%A3%E4%B9%88websocket%E6%98%AF%E6%80%8E%E4%B9%88%E6%9D%A5%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E7%9A%84%EF%BC%88%E6%8F%A1%E6%89%8B%EF%BC%89"><span class="toc-text">那么websocket是怎么来建立连接的（握手）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%9E%E9%A6%96%E5%85%88%E5%88%9D%E5%A7%8B%E6%9C%AC%E8%B4%A8%E5%B0%B1%E6%98%AF%E4%B8%80%E4%B8%AAhttp%E7%9A%84get-%E8%AF%B7%E6%B1%82%EF%BC%88%E4%B9%8B%E6%89%80%E4%BB%A5%E8%BF%99%E6%A0%B7%E5%81%9A%E5%85%B6%E5%AE%9E%E6%98%AF%E4%B8%BA%E4%BA%86%E8%83%BD%E5%A4%9F%EF%BC%8C%E7%BB%95%E8%BF%87%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%8C%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E9%99%90%E5%88%B6%EF%BC%8C%E5%9B%A0%E4%B8%BA%E8%BF%99%E6%A0%B7%E5%81%9A%EF%BC%8C%E4%BD%86%E6%98%AF%E8%BF%99%E9%87%8C%E4%B8%BA%E4%BA%86%E8%83%BD%E5%A4%9F%E5%91%8A%E8%AF%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B6%E5%AE%9E%E5%B9%B6%E4%B8%8D%E6%98%AFhttp%E5%8D%8F%E8%AE%AE%EF%BC%8C%E4%BC%9A%E5%8A%A0%E5%85%A5%E4%B8%A4%E4%B8%AA%E5%AD%97%E6%AE%B5%EF%BC%9A%E5%B9%B6%E4%B8%94%E8%BF%98%E4%BC%9A%E5%8A%A0%E5%85%A5%E4%B8%80%E4%BA%9B%E9%AA%8C%E8%AF%81%E6%B6%88%E6%81%AF%EF%BC%8C%E7%9B%AE%E7%9A%84%E5%B0%B1%E6%98%AF%E4%B8%BA%E4%BA%86%E8%83%BD%E5%A4%9F%E9%98%B2%E6%AD%A2%E8%AF%AF%E8%BF%9E%E6%8E%A5"><span class="toc-text">其实首先初始本质就是一个http的get 请求（之所以这样做其实是为了能够，绕过浏览器，防火墙的限制，因为这样做，但是这里为了能够告诉服务器其实并不是http协议，会加入两个字段：并且还会加入一些验证消息，目的就是为了能够防止误连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E4%BA%86%E8%BF%9E%E6%8E%A5%EF%BC%8C%E5%B9%B6%E4%B8%94%E7%A1%AE%E8%AE%A4%E4%BA%86%E5%B0%B1%E6%98%AFwebsocket%E5%8D%8F%E8%AE%AE%EF%BC%8C%E4%B9%8B%E5%90%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E5%B0%B1%E5%8F%AF%E4%BB%A5%E9%9A%8F%E6%84%8F%E4%BA%92%E5%8F%91%E4%BF%A1%E6%81%AF%E4%BA%86"><span class="toc-text">建立了连接，并且确认了就是websocket协议，之后客户端和服务器之间就可以随意互发信息了</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E5%8D%8F%E8%AE%AE%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%98%AF%E5%AF%B9http%E7%9A%84%E4%B8%80%E7%A7%8D%E4%BC%98%E5%8C%96"><span class="toc-text">这个协议更多的是对http的一种优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%B8%A7%E6%A0%BC%E5%BC%8F"><span class="toc-text">二进制帧格式</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

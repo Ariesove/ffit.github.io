@@ -22,8 +22,7 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="何为暂时性死区
-首先说起这个问题，首先需要来明确一下这个var let const 的一些本质的一个区别，首先对于这个var 会有一个变量提升的问题，其实这个变量从未提升过，从执行上下文的角度来..." />
+<meta name="description" content="HTTP3展望http2的阻塞具体是怎么来发生的首先 会建立tcp连接，连接完毕后，http报文会基于tcp发送流，但是这个流会被tcp拆分为更小的segment,然后再去发送可能丢包导致tcp..." />
 
 
 <meta name="robots" content="all" />
@@ -34,7 +33,7 @@
 
 <title>
     
-    暂时性死区 |
+    HTTP3展望 |
     
     Hexo
 </title>
@@ -143,9 +142,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="暂时性死区">
+        <h1 id="HTTP3展望">
             
-            暂时性死区
+            HTTP3展望
             
         </h1>
         <div class="post-meta">
@@ -168,7 +167,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2020/02/13</span>
+            2020/10/11</span>
     </span>
     
     <span class="fa-wrap">
@@ -180,21 +179,42 @@
 </div>
         
         
-        <p class="fa fa-exclamation-triangle warning">
-            本文于<strong>
-                404</strong>
-            天之前发表，文中内容可能已经过时。
-        </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h3 id="何为暂时性死区"><a href="#何为暂时性死区" class="headerlink" title="何为暂时性死区"></a>何为暂时性死区</h3><ol>
-<li>首先说起这个问题，首先需要来明确一下这个var let const 的一些本质的一个区别，首先对于这个var 会有一个变量提升的问题，其实这个变量从未提升过，从执行上下文的角度来考虑，问题，首先创建的阶段对于你所声明的变量，会去开辟空间，然后到达执行阶段才去赋值，因为创建阶段先给变量赋值为undefined，，但是又由于js解释执行的时候是在之后，才有值所以是undefined.所以它的本质其实就是这个，全局执行上下文创建阶段和执行阶段两者不同步所造成的。</li>
-<li>那么这个var同时还没有作用域的概念，所以在闭包常见题种循环输出只能拿到最后一次遍历的值，因为一旦用var来声明变量，首先这个var会被提升至全局，因为它没有作用域的这个概念，然后每次遍历这个var都是唯一的所以，不断被刷新了。</li>
-<li>那么这个let const 就是说let 之所以没有变量提升的问题在于它将全局执行上下文的创建阶段和执行阶段都同步了，所以才不会出现这个，问题，并且添加了块级作用域的概念，也就是说，每次声明一个变量都会将其绑定到当前作用域内比如在函数中去。</li>
-<li>const 就是声明的变量，不能被重新赋值，对于简单值类型，不能被重复改变值，但是对于引用类型的值，只要不改它的地址，可以修改比如对象里的值。</li>
-</ol>
+        <h1 id="HTTP3展望"><a href="#HTTP3展望" class="headerlink" title="HTTP3展望"></a>HTTP3展望</h1><h2 id="http2的阻塞具体是怎么来发生的"><a href="#http2的阻塞具体是怎么来发生的" class="headerlink" title="http2的阻塞具体是怎么来发生的"></a>http2的阻塞具体是怎么来发生的</h2><h3 id="首先-会建立tcp连接，连接完毕后，http报文会基于tcp发送流，但是这个流会被tcp拆分为更小的segment-然后再去发送"><a href="#首先-会建立tcp连接，连接完毕后，http报文会基于tcp发送流，但是这个流会被tcp拆分为更小的segment-然后再去发送" class="headerlink" title="首先 会建立tcp连接，连接完毕后，http报文会基于tcp发送流，但是这个流会被tcp拆分为更小的segment,然后再去发送"></a>首先 会建立tcp连接，连接完毕后，http报文会基于tcp发送流，但是这个流会被tcp拆分为更小的segment,然后再去发送</h3><h3 id="可能丢包导致tcp重传机制"><a href="#可能丢包导致tcp重传机制" class="headerlink" title="可能丢包导致tcp重传机制"></a>可能丢包导致tcp重传机制</h3><h2 id="HTTP3"><a href="#HTTP3" class="headerlink" title="HTTP3"></a>HTTP3</h2><h3 id="连接顺序"><a href="#连接顺序" class="headerlink" title="连接顺序"></a>连接顺序</h3><ul>
+<li><p>客户端需要先来和服务器之间用HTTP2来连接</p>
+</li>
+<li><p>服务器发送Alt-Svc帧</p>
+<ul>
+<li>告诉客户端这里提供的是http3协议而不是http2</li>
+</ul>
+</li>
+<li><p>客户端</p>
+<ul>
+<li>改用http3来收发数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于UDP不再去依赖于tcp"><a href="#基于UDP不再去依赖于tcp" class="headerlink" title="基于UDP不再去依赖于tcp"></a>基于UDP不再去依赖于tcp</h3><h2 id="头部压缩算法"><a href="#头部压缩算法" class="headerlink" title="头部压缩算法"></a>头部压缩算法</h2><h3 id="QPACK算法"><a href="#QPACK算法" class="headerlink" title="QPACK算法"></a>QPACK算法</h3><ul>
+<li><p>主要对于http2的hpack做出了升级</p>
+<ul>
+<li>就是之前的静态表的更新是双向的，如果更新多个发出多个请求</li>
+</ul>
+</li>
+</ul>
+<h2 id="QUIC"><a href="#QUIC" class="headerlink" title="QUIC"></a>QUIC</h2><h3 id="把除过tcp建立连接，断开连接机制舍弃，学习tcp的流量控制，拥塞窗口"><a href="#把除过tcp建立连接，断开连接机制舍弃，学习tcp的流量控制，拥塞窗口" class="headerlink" title="把除过tcp建立连接，断开连接机制舍弃，学习tcp的流量控制，拥塞窗口"></a>把除过tcp建立连接，断开连接机制舍弃，学习tcp的流量控制，拥塞窗口</h3><ul>
+<li>取其精华，取其糟粕</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>基于udp不需要握手，速度快</li>
+<li>引入类http2的流与多路复用</li>
+<li>quic协议基于udp实现了可靠传输，（udp早已改进，不再是以前不靠谱的协议了）//类似于tcp 基于ip实现了可靠传输</li>
+</ul>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><ul>
+<li>基于tls1.3</li>
+<li>但是是基于quic将tls一些信息包装成自己的帧，省掉一次开销是什么意思</li>
+</ul>
 
     </div>
     
@@ -213,17 +233,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2020/02/17/TCP%E9%87%8D%E9%9A%BE%E7%82%B9%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" class="pre-post btn btn-default" title='TCP重难点知识'>
+    <a href="/HEXOS/2020/11/02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" class="pre-post btn btn-default" title='执行上下文于调用栈'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            TCP重难点知识</span>
+            执行上下文于调用栈</span>
     </a>
     
     
-    <a href="/HEXOS/2020/02/03/%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/" class="next-post btn btn-default" title='最小路径'>
+    <a href="/HEXOS/2020/10/05/websocket/" class="next-post btn btn-default" title='Websocket'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            最小路径</span><i class="fa fa-angle-right fa-fw"></i>
+            Websocket</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -264,7 +284,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E4%B8%BA%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA"><span class="toc-text">何为暂时性死区</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP3%E5%B1%95%E6%9C%9B"><span class="toc-text">HTTP3展望</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#http2%E7%9A%84%E9%98%BB%E5%A1%9E%E5%85%B7%E4%BD%93%E6%98%AF%E6%80%8E%E4%B9%88%E6%9D%A5%E5%8F%91%E7%94%9F%E7%9A%84"><span class="toc-text">http2的阻塞具体是怎么来发生的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E5%85%88-%E4%BC%9A%E5%BB%BA%E7%AB%8Btcp%E8%BF%9E%E6%8E%A5%EF%BC%8C%E8%BF%9E%E6%8E%A5%E5%AE%8C%E6%AF%95%E5%90%8E%EF%BC%8Chttp%E6%8A%A5%E6%96%87%E4%BC%9A%E5%9F%BA%E4%BA%8Etcp%E5%8F%91%E9%80%81%E6%B5%81%EF%BC%8C%E4%BD%86%E6%98%AF%E8%BF%99%E4%B8%AA%E6%B5%81%E4%BC%9A%E8%A2%ABtcp%E6%8B%86%E5%88%86%E4%B8%BA%E6%9B%B4%E5%B0%8F%E7%9A%84segment-%E7%84%B6%E5%90%8E%E5%86%8D%E5%8E%BB%E5%8F%91%E9%80%81"><span class="toc-text">首先 会建立tcp连接，连接完毕后，http报文会基于tcp发送流，但是这个流会被tcp拆分为更小的segment,然后再去发送</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E4%B8%A2%E5%8C%85%E5%AF%BC%E8%87%B4tcp%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="toc-text">可能丢包导致tcp重传机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP3"><span class="toc-text">HTTP3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E9%A1%BA%E5%BA%8F"><span class="toc-text">连接顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EUDP%E4%B8%8D%E5%86%8D%E5%8E%BB%E4%BE%9D%E8%B5%96%E4%BA%8Etcp"><span class="toc-text">基于UDP不再去依赖于tcp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95"><span class="toc-text">头部压缩算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#QPACK%E7%AE%97%E6%B3%95"><span class="toc-text">QPACK算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QUIC"><span class="toc-text">QUIC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%8A%E9%99%A4%E8%BF%87tcp%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%EF%BC%8C%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5%E6%9C%BA%E5%88%B6%E8%88%8D%E5%BC%83%EF%BC%8C%E5%AD%A6%E4%B9%A0tcp%E7%9A%84%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%EF%BC%8C%E6%8B%A5%E5%A1%9E%E7%AA%97%E5%8F%A3"><span class="toc-text">把除过tcp建立连接，断开连接机制舍弃，学习tcp的流量控制，拥塞窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-text">特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-text">安全性</span></a></li></ol></li></ol></li></ol>
         
     </div>
 </aside>

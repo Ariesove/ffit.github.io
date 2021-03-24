@@ -1,0 +1,693 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="http(复盘）http/发展历程http1.1
+优势/主要是针对其格式方面的
+
+简单
+
+只由报文首部（由简单的文本形式构成）和报文主体来构成，结构简单
+
+
+灵活易扩展
+
+没有对http请求的方..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    HTTP(复盘） |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2471723616,1604025636&amp;fm=26&amp;gp=0.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="HTTP(复盘）">
+            
+            HTTP(复盘）
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/11/13</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="http-复盘）"><a href="#http-复盘）" class="headerlink" title="http(复盘）"></a>http(复盘）</h1><h2 id="http-发展历程"><a href="#http-发展历程" class="headerlink" title="http/发展历程"></a>http/发展历程</h2><h3 id="http1-1"><a href="#http1-1" class="headerlink" title="http1.1"></a>http1.1</h3><ul>
+<li><p>优势/主要是针对其格式方面的</p>
+<ul>
+<li><p>简单</p>
+<ul>
+<li>只由报文首部（由简单的文本形式构成）和报文主体来构成，结构简单</li>
+</ul>
+</li>
+<li><p>灵活易扩展</p>
+<ul>
+<li><p>没有对http请求的方法/响应码做死规定，开发人员可以进行扩展</p>
+</li>
+<li><p>它的灵活性还体现在，它本身是在应用层的/之下的其它层可以随意变化</p>
+<ul>
+<li><p>https</p>
+<ul>
+<li>直接就在http和tcp之间加入了TLS/SSL安全传输层</li>
+</ul>
+</li>
+<li><p>http3.0</p>
+<ul>
+<li>直接将tcp层换为了UDP层</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>跨平台</p>
+<ul>
+<li>移动端pc端/游戏</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>弊端</p>
+<ul>
+<li><p>无状态</p>
+<ul>
+<li>怎么解决这个问题/cookie 技术</li>
+</ul>
+</li>
+<li><p>明文传输</p>
+<ul>
+<li>用https协议解决</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>性能</p>
+<ul>
+<li><p>长连接</p>
+<ul>
+<li>客户端在向服务器发出http请求的时候，之前要来建立tcp连接–你想想，你稳定连接都没有来建立怎么来发送请求//这里有问题</li>
+<li>早在1.0版本的时候，每发一个请求，都要来建立一个tcp链接，那么就非常的消耗资源，那么为了解决这个问题，http1.1版本用长链接，只要双方没有主动断开连接的意愿，那么这个连接就不会断开//完全正确</li>
+</ul>
+</li>
+<li><p>管道网络传输</p>
+<ul>
+<li><p>正是因为长连接给管道网络传输创造了条件</p>
+</li>
+<li><p>就是说在一次tcp连接中，同时发出多个http串行请求//并不是在多路复用</p>
+<ul>
+<li>这里我需要来补充一点就是说，虽然可以同时发出多个请求，但是服务器这里接收还是按照顺序的，也就是说还是会阻塞的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>弊端：队头阻塞</p>
+<ul>
+<li><p>怎么会出现这个状况</p>
+<ul>
+<li>原因就在于http1.1版本采取的是串行请求，可以理解为顺序请求，只要第一个请求发出，但是因为某种原因而被阻塞了，那么之后的请求也都会被阻塞，也就是说客户端会一直收不到想要的数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><h3 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h3><ul>
+<li><p>特点</p>
+<ul>
+<li><p>报文格式采取二进制</p>
+<ul>
+<li><p>构成</p>
+<ul>
+<li>头信息帧</li>
+<li>数据帧</li>
+</ul>
+</li>
+<li><p>这样做的目的就是为了能够方便计算机接收数据</p>
+</li>
+</ul>
+</li>
+<li><p>报文的格式是一种数据流</p>
+<ul>
+<li><p>报文传输的过程是一种双向数据传输流</p>
+<ul>
+<li>彼此之间是以流的形式去传输的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>多路复用</p>
+<ul>
+<li>其实就是http多个请求基于同一个tcp连接</li>
+<li>移除了1.1的串行请求：也就是说可以并发接收请求（有点像异步，任何一个请求都不会阻塞其它请求）</li>
+</ul>
+</li>
+<li><p>头部压缩技术</p>
+<ul>
+<li><p>为什么要有头部压缩技术–其实是因为header 里面存有一些固定的头字段：useragent cookie accept 等这些多达几百字节，并且还有好多的重复头部</p>
+</li>
+<li><p>HPACK压缩算法，废除了http1.1的起始行的概念，它将原来的url，请求头方法，全部转换为伪头字段,以冒号（：）开头eg:   :method, :status </p>
+</li>
+<li><p>给那些重复的字段信息，引入了静态表，双方会共同维护这个静态表</p>
+<ul>
+<li>但是如果没有在静态表里找到我想要的信息，之后会紧跟着一个动态表，会不断的更新信息</li>
+<li>优势：减少请求的头部开销，提高网络传输的效率，如果有重复的头部信息，直接带上索引号就可以解决了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>安全性</p>
+<ul>
+<li><p>基于TLS握手所构成的</p>
+<ul>
+<li>那为了能够区别于https，会在tls握手结束后发给服务器一个连接前言，告诉服务器，我是http2协议而不是其它的协议</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>弊端</p>
+<ul>
+<li><p>其实这里只是解决了部分的对头阻塞（应用层，别忘了还有传输层的）问题：并没有完全的解决—为什么下层tcp就还是会出现队头阻塞问题-</p>
+<ul>
+<li>因为一旦tcp报文，有丢失直接触发了tcp的重传机制-服务器只有接收到了丢失的报文，才会去继续接收—也就是说其它报文来了也没用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>核心：流与多路复用</p>
+<ul>
+<li><p>本质是双向的数据传输序列</p>
+<ul>
+<li>同一个id号</li>
+</ul>
+</li>
+<li><p>流ID</p>
+<ul>
+<li><p>由于多路复用的问题-多个请求是乱发的</p>
+<ul>
+<li>并且发请求的时候头帧/数据帧是打乱的，但是属于同一个请求/回应的流的会分配相同的id</li>
+<li>接收方根据流id重组，排序收来的帧，形成流</li>
+</ul>
+</li>
+<li><p>但是由于http2里帧结构会有流标识符</p>
+</li>
+<li><p>具体就是当我此时发出一个请求后，这个请求会有一个流id，响应信息也会有一个与之相同的流id,这就意味同属一个流，即便</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="http3-0版本"><a href="#http3-0版本" class="headerlink" title="http3.0版本"></a>http3.0版本</h3><ul>
+<li><p>从根本上解决了队头阻塞</p>
+<ul>
+<li><p>为什么</p>
+<ul>
+<li>由于tcp建立的是可靠连接，所以当http包丢了会触发重传机制–也就会阻塞其它http请求–http2.0并没有完全的解决队头阻塞的问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>所以http下层的传输层采取了UDP</p>
+<ul>
+<li>udp采取的是不可靠传输–发了不管对方是否接收到–一个流阻塞了，仅阻塞这个流，其它流根本就不管</li>
+</ul>
+</li>
+<li><p>安全性</p>
+<ul>
+<li><p>基于最新的TLS1.3</p>
+<ul>
+<li>但是，会将其警报消息，握手消息，封装为自己的QUIC帧</li>
+<li>也就是说并不是完全的依赖于TLS协议</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>为什么要用不透明的ID意义是什么</p>
+</li>
+</ul>
+<h2 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h2><h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><ul>
+<li><p>安全幂等</p>
+<ul>
+<li>这里我印象中好像是因为是只读操作所以，不会对服务器的资源造成影响，所以是安全的/至于幂等应该是针对服务器来讲的，就是说多次操作不会造成服务器的资源改变//幂等可以这样来理解//所谓幂就是多次操作的意思</li>
+</ul>
+</li>
+</ul>
+<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><ul>
+<li>不安全也不幂等</li>
+</ul>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><h3 id="它有哪些分类呢"><a href="#它有哪些分类呢" class="headerlink" title="它有哪些分类呢"></a>它有哪些分类呢</h3><ul>
+<li><p>1××</p>
+<ul>
+<li>服务器收到了客户端的请求（但是还没处理）</li>
+</ul>
+</li>
+<li><p>2××</p>
+<ul>
+<li>收到了请求，并且产生了回应</li>
+</ul>
+</li>
+<li><p>3××</p>
+<ul>
+<li>资源重定向，意思就是，服务器这里没有客户端想要的资源，响应头部包含了一个location,(告诉客户端你想要的资源都在这个地址去寻找吧）</li>
+</ul>
+</li>
+<li><p>4××</p>
+<ul>
+<li>客户端错误（意思就是客户端访问了服务器所没有的资源）</li>
+</ul>
+</li>
+<li><p>5××</p>
+<ul>
+<li>服务器错误（就是服务器自己出现了bug无法返回客户端所需要的资源)</li>
+</ul>
+</li>
+</ul>
+<h3 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h3><ul>
+<li><p>200</p>
+<ul>
+<li>成功</li>
+</ul>
+</li>
+<li><p>301</p>
+<ul>
+<li>永久重定向，就是说当第一次服务器给了客户端这个重定向地址之后，客户端再次访问的时候就会直接去访问</li>
+</ul>
+</li>
+<li><p>302</p>
+<ul>
+<li>临时重定向，这个是每次客户端访问还是要访问原地址，之后再到重定向的地址eg:访问百度搜索引擎里的内容，都是先跳转至百度网址，然后再跳转至重定向的地址</li>
+</ul>
+</li>
+<li><p>304</p>
+<ul>
+<li>距离上次请求网页的内容不会改变，所以服务器不会来返回的内容，这个时候客户端应该是直接向本地缓存请求数据了</li>
+</ul>
+</li>
+<li><p>404</p>
+<ul>
+<li>客户端错误，资源未找到</li>
+</ul>
+</li>
+<li><p>500</p>
+<ul>
+<li>服务器本身错误</li>
+</ul>
+</li>
+<li><p>504</p>
+<ul>
+<li>网关超时-服务器内部网络超时</li>
+</ul>
+</li>
+</ul>
+<h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><h3 id="所谓超文本"><a href="#所谓超文本" class="headerlink" title="所谓超文本"></a>所谓超文本</h3><ul>
+<li>就是图片/视频/连接</li>
+<li>核心，在于有链接跳转至另一个超文本</li>
+</ul>
+<h3 id="传输"><a href="#传输" class="headerlink" title="传输"></a>传输</h3><ul>
+<li><p>两点之间进行传输</p>
+<ul>
+<li>你怎么理解它这个两点之间的传输</li>
+</ul>
+</li>
+</ul>
+<h3 id="它是一种协议"><a href="#它是一种协议" class="headerlink" title="它是一种协议"></a>它是一种协议</h3><ul>
+<li><p>它是一种双向传输协议</p>
+<ul>
+<li>就是说客户端与服务器通信，客户端发送请求，服务器响应请求/双向的</li>
+</ul>
+</li>
+</ul>
+<h2 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h2><h3 id="requiredheader"><a href="#requiredheader" class="headerlink" title="requiredheader"></a>requiredheader</h3><ul>
+<li><p>Accept</p>
+<ul>
+<li>浏览器发出http的请求的目的是什么是不是在请求资源–但是浏览器并不是能够接受所有资源格式//  Accept 浏览器能够接受的资源格式</li>
+</ul>
+</li>
+<li><p>Accept-encoding</p>
+<ul>
+<li><p>那现在浏览器已经能够接受到了资源–但是客户端的资源总是有限的此时服务器需要来压缩资源再发送给浏览器 </p>
+<ul>
+<li>那我总得告诉一下服务器我能够接受的压缩算法吧 Accept-encoding</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Cookie</p>
+<ul>
+<li>这个逻辑我不理解</li>
+</ul>
+</li>
+<li><p>Host</p>
+<ul>
+<li>你想你想访问资源总得知道地址吧/包含着访问的域名</li>
+</ul>
+</li>
+<li><p>useragent</p>
+<ul>
+<li><p>包含着浏览器的信息/操作系统的信息</p>
+<ul>
+<li>比如我是windows/chrome浏览器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>connection: keep-alive</p>
+<ul>
+<li>告诉服务器采取长连接模式</li>
+</ul>
+</li>
+</ul>
+<h3 id="responseheader"><a href="#responseheader" class="headerlink" title="responseheader"></a>responseheader</h3><ul>
+<li><p>content-type</p>
+<ul>
+<li>服务器返回给浏览器的资源格式</li>
+</ul>
+</li>
+<li><p>content-size</p>
+<ul>
+<li>返回的数据字节数</li>
+</ul>
+</li>
+<li><p>content-Length</p>
+<ul>
+<li>返回的数据多少字节</li>
+</ul>
+</li>
+<li><p>content-encoding</p>
+<ul>
+<li>服务器要告知我所采用的浏览器压缩格式目的是方便浏览器根据这个格式解压缩</li>
+</ul>
+</li>
+<li><p>cache-control</p>
+<ul>
+<li><p>no-cache</p>
+<ul>
+<li>Subtopic</li>
+</ul>
+</li>
+<li><p>子主题</p>
+</li>
+<li><p>子主题</p>
+</li>
+</ul>
+</li>
+<li><p>Etag</p>
+</li>
+<li><p>connection: keep-alive</p>
+<ul>
+<li>服务器采取长连接模式</li>
+</ul>
+</li>
+</ul>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h2 id="主题-1"><a href="#主题-1" class="headerlink" title="主题"></a>主题</h2>
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2020/11/25/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" class="pre-post btn btn-default" title='垃圾回收机制'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            垃圾回收机制</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2020/11/12/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="next-post btn btn-default" title='二叉树层序遍历'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            二叉树层序遍历</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http-%E5%A4%8D%E7%9B%98%EF%BC%89"><span class="toc-text">http(复盘）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#http-%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="toc-text">http&#x2F;发展历程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#http1-1"><span class="toc-text">http1.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS"><span class="toc-text">HTTPS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http2-0"><span class="toc-text">http2.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http3-0%E7%89%88%E6%9C%AC"><span class="toc-text">http3.0版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95"><span class="toc-text">请求方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET"><span class="toc-text">GET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST"><span class="toc-text">POST</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">状态码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%83%E6%9C%89%E5%93%AA%E4%BA%9B%E5%88%86%E7%B1%BB%E5%91%A2"><span class="toc-text">它有哪些分类呢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">常见状态码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E6%88%90"><span class="toc-text">组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E8%B0%93%E8%B6%85%E6%96%87%E6%9C%AC"><span class="toc-text">所谓超文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93"><span class="toc-text">传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%83%E6%98%AF%E4%B8%80%E7%A7%8D%E5%8D%8F%E8%AE%AE"><span class="toc-text">它是一种协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Header"><span class="toc-text">Header</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#requiredheader"><span class="toc-text">requiredheader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#responseheader"><span class="toc-text">responseheader</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-text">主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98-1"><span class="toc-text">主题</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

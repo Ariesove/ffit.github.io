@@ -314,7 +314,7 @@ function的一种简化
 <li>在函数 的内部，</li>
 </ul>
 <h2 id=""><a href="#" class="headerlink" title=".  .   ."></a>.  .   .</h2><h3 id="实现对对象的深拷贝"><a href="#实现对对象的深拷贝" class="headerlink" title="实现对对象的深拷贝"></a>实现对对象的深拷贝</h3><h3 id="将数组转为由逗号隔开的序列，同时又可以实现拷贝"><a href="#将数组转为由逗号隔开的序列，同时又可以实现拷贝" class="headerlink" title="将数组转为由逗号隔开的序列，同时又可以实现拷贝"></a>将数组转为由逗号隔开的序列，同时又可以实现拷贝</h3><h3 id="传递形参时用"><a href="#传递形参时用" class="headerlink" title="传递形参时用"></a>传递形参时用</h3><ul>
-<li>如果你并不知道参数有几个的时候？？？</li>
+<li>如果你并不知道参数有几个的时候,就是apply用到了，因为你也不知道调用函数的时候到底传递了几个参数。</li>
 </ul>
 <h2 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h2><h3 id="怎么用-2"><a href="#怎么用-2" class="headerlink" title="怎么用"></a>怎么用</h3><ul>
 <li>需要从一些对象（也可解构多层嵌套对象）</li>
@@ -379,16 +379,11 @@ function的一种简化
 <h3 id="能做到什么"><a href="#能做到什么" class="headerlink" title="能做到什么"></a>能做到什么</h3><ul>
 <li><p>数组去重</p>
 <ul>
-<li><p>首先通过，[…set(arry)]</p>
+<li><p>首先通过，[… new Set(arry)]</p>
 <ul>
 <li>但是我对于这个有一些问题就是，首先通过…元素是否意思是将set数据结构转为数组，那如果已经是数组了为什么要在加上数组字面量不理解</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>求交集</p>
-<ul>
-<li>怎么做</li>
 </ul>
 </li>
 </ul>

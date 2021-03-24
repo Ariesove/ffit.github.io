@@ -152,24 +152,23 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
-                <a href="/HEXOS/2020/12/25/HTTPS/">
-                    HTTPS基础</a>
+                <a href="/HEXOS/2020/01/25/jsonp/">
+                    JSONP结合Promise</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
-                    2020年12月25日
+                    2020年01月25日
                 </time>
             </div>
         </div>
         <p class="brief">
             
-            HTTPS复盘HTTPS对称加密
-其实就是说用同一个经过交换的公钥来加密信息
-弊端：交换过程容易被中间人所攻击
+            手写 JSONP 的实现思路
+就是由于这个是一个异步的请求，所以需要用这个 promise,来做；
 
-非对称加密
-其实就是用公钥加密，私钥解密
-服务器（公钥a-私钥a)先将公钥a发给客户端，客户端拿到公钥a后加密自己生成一...
+…解构的应用： 与对象去使用就是在将里面所有可遍历的属性，进行拷贝。
+
+for in 用来循环对象的属性的  let key  fo...
             
         </p>
     </div>
@@ -180,19 +179,23 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
-                <a href="/HEXOS/2020/12/25/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
-                    深拷贝</a>
+                <a href="/HEXOS/2020/01/25/requestanimation/">
+                    requetAnimationFrame</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
-                    2020年12月25日
+                    2020年01月25日
                 </time>
             </div>
         </div>
         <p class="brief">
             
-            思想
-复盘第一次判断传入参数是不是一个对象造成了混乱，应该是判断不是一个数组或对象，并且对象为空，我当时还用了 type of 判断空，其实不对，应该是直接参数等于 Null 就行，typeof 还得为一个 object ,之后用 i...
+            requetAnimationFrame-js 动画
+这个是 js 动画用的，就是来控制动画的更新频率为 60hz/s,
+
+settimeout 是手动来控制的而 raf 是浏览器自动控制的
+
+浏览器如果切换到后台了，那么 raf 会...
             
         </p>
     </div>
@@ -203,220 +206,23 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
-                <a href="/HEXOS/2020/12/23/TCP/">
-                    TCP简要总结</a>
+                <a href="/HEXOS/2020/01/15/Http%E7%BC%93%E5%AD%98/">
+                    HTTP缓存</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
-                    2020年12月23日
+                    2020年01月15日
                 </time>
             </div>
         </div>
         <p class="brief">
             
-            TCP这一次首先复习一下TCP重传机制为什么TCP会重传呢
-TCP建立连接的过程如果这个过程如果有丢包那么就会触发重传机制
+            Http缓存为什么要有缓存如果你每一次的请求都让服务器去重新发送资源
+这无疑是非常的低效的
+如果说能够做到把一些重复申请的资源存放在缓存里而服务器不必每次都返回资源
+这样能够极大的提升用户访问资源的效率
 
-超时重传
-
-就是TCP内部有一个机制会设定一个时间（时延）这个时间大概略大于，tcp报文往返时间，这个时间的...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/15/es6/">
-                    ES6基础</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月15日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            es6promise/generator/async/await箭头函数是什么
-function的一种简化
-
-何时用
-简化函数，凡是用到函数的时候就可以用
-
-怎么用
-无参数
-
-&amp;lt;ol&amp;gt;&amp;lt;li&amp;gt;（）=&amp;gt;{&amp;...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/12/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">
-                    LRU</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月12日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            思路1. 浏览器 LRU 缓存策略
-其实这个就是当输入网址访问时先会去本地缓存查看是否有我想要的数据，如果有直接用本地缓存的数据目的就是降低用户访问的时间
-那么这里有一个问题就是，本地缓存总有满的一天，那么删哪些
-核心： 删最近最少使...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/01/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/">
-                    相交链表</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月01日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            160. 相交链表。反思
-首先这个题的思路就是来联想一下这个相交节点，为什么要用双指针，就是说 a+b+c=b+1+c 也就是说我，都同时开始且路程相同，那么一定会在相交节点，相遇；
-因此思路就是只要我能够判断当前的节点是否为空，如果...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/01/biba/">
-                    闭包</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月01日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            闭包体系切入点词法作用域
-首先我需要从作用域的底层机制说起，首先在 V8 引擎中是有编译阶段的，这里叙述”js 执行代码过程”&amp;gt; V8 引擎如何执行一段代码
-
-编译阶段
-那在执行一段代码执行之前，得做些准备工作，（你做事情不也得...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/01/V8%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81/">
-                    V8引擎执行代码</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月01日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            V8 引擎如何执行一段代码编译阶段
-那在执行一段代码执行之前，得做些准备工作，（你做事情不也得需要做准备工作吗），具体就是需要准备基础环境。
-
-全局执行上下文，创建阶段，首先会创建一个全局对象window，创建一个this 然后让它指...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/01/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/">
-                    最长子序列</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月01日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            
-最长递增子序列给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
-
-子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/11/25/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
-                    垃圾回收机制</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年11月25日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            垃圾回收机制分类为什么要分类—依据
-代际假说
-
-一些变量生存周期很短
-
-存放在新生代区域
-
-
-一些比如window这些存活时间很长的对象
-
-存放在老生代区域
-
-
-依据生存周期的长短–因地制宜的选取对应的算法来回收
-
-
-
-
-堆/划分的
-...
+那我能够缓存哪些资源静态资源...
             
         </p>
     </div>
@@ -425,7 +231,7 @@ function的一种简化
 
 <nav class="pagination" role="navigation">
     <div id="page-nav">
-        <a class="extend prev" rel="prev" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">&lt;i class&#x3D;&#39;fa fa-angle-left&#39;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">1</a><span class="page-number current">2</span><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/3/">3</a><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/4/">4</a><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/5/">5</a><a class="extend next" rel="next" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/3/">&lt;i class&#x3D;&#39;fa fa-angle-right&#39;&gt;&lt;&#x2F;i&gt;</a>
+        <a class="extend prev" rel="prev" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/4/">&lt;i class&#x3D;&#39;fa fa-angle-left&#39;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">1</a><span class="space">&hellip;</span><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/3/">3</a><a class="page-number" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/page/4/">4</a><span class="page-number current">5</span>
     </div>
 </nav>
 
