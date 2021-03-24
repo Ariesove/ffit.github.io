@@ -22,10 +22,12 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="csrf
-怎么来理解，就是你想想，跨站伪造，就是攻击方提供一个接口，然后诱导用户点击它，然后在没有验证的基础上，向后端发送请求。
-简单来讲其实就是，伪装用户向后端发送请求进行操作。
-原理：就是在..." />
+<meta name="description" content="requetAnimationFrame-js 动画
+这个是 js 动画用的，就是来控制动画的更新频率为 60hz/s,
+
+settimeout 是手动来控制的而 raf 是浏览器自动控制的
+
+..." />
 
 
 <meta name="robots" content="all" />
@@ -36,7 +38,7 @@
 
 <title>
     
-    CSRF |
+    requetAnimationFrame |
     
     Hexo
 </title>
@@ -145,9 +147,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="CSRF">
+        <h1 id="requetAnimationFrame">
             
-            CSRF
+            requetAnimationFrame
             
         </h1>
         <div class="post-meta">
@@ -170,7 +172,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2020/02/02</span>
+            2021/01/25</span>
     </span>
     
     <span class="fa-wrap">
@@ -182,21 +184,21 @@
 </div>
         
         
-        <p class="fa fa-exclamation-triangle warning">
-            本文于<strong>
-                416</strong>
-            天之前发表，文中内容可能已经过时。
-        </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h2 id="csrf"><a href="#csrf" class="headerlink" title="csrf"></a>csrf</h2><ol>
-<li>怎么来理解，就是你想想，跨站伪造，就是攻击方提供一个接口，然后诱导用户点击它，然后在没有验证的基础上，向后端发送请求。</li>
-<li>简单来讲其实就是，<strong>伪装用户</strong>向后端<strong>发送请求</strong>进行操作。</li>
-<li><strong>原理</strong>：就是在用户登录状态下，浏览器此时保存 cookie,用户点击了一个链接，这个链接就是网站的某个请求接口，然后浏览器会自动携带 cookie,进行请求，进行伪造身份。</li>
-<li><strong>怎么解决</strong>：就是可以借助 token，每次访问后端接口后，给前端页面表单标签里携带以一个 token,然后 cookie 也携带一个 token.由于用户点击的页面是拿不到页面的 token,所以服务器这里就不会通过这个请求。就是虽然 csrf 能够去，伪造用户，但其实由于浏览器的同源策略，客户端是拿不到这个 cookie 的，所以自然服务器，是无法进行验证通过的。</li>
-<li>怎么来预防就是通过这个，post 接口， 因为一般如果借助 img 标签来攻击的话， post 想跨域要借助这个服务端的支持。</li>
+        <h3 id="requetAnimationFrame-js-动画"><a href="#requetAnimationFrame-js-动画" class="headerlink" title="requetAnimationFrame-js 动画"></a>requetAnimationFrame-js 动画</h3><ol>
+<li><p>这个是 js 动画用的，就是来控制动画的更新频率为 60hz/s,</p>
+</li>
+<li><p>settimeout 是手动来控制的而 raf 是浏览器自动控制的</p>
+</li>
+<li><p>浏览器如果切换到后台了，那么 raf 会停止，而 settimeout 会继续执行。<strong>节省资源</strong></p>
+</li>
+<li><p>而且用 settimeout 还得算时间.</p>
+</li>
+<li><p>我们来分析一下，为什么要在重新渲染前去调用？因为 <code>rAF</code> 是官方推荐的用来做一些流畅动画所应该使用的 API，做<strong>动画不可避免的会去更改 DOM，</strong>而如果在渲染之后再去更改 DOM，那就只能等到下一轮渲染机会的时候才能去绘制出来了，这显然是不合理的。</p>
+<p><code>rAF</code> 在浏览器决定渲染之前给你最后一个机会去改变 DOM 属性，然后很快在接下来的绘制中帮你呈现出来，所以这是做流畅动画的不二选择。下面我用一个 <code>setTimeout</code> 的例子来对比。</p>
+</li>
 </ol>
 
     </div>
@@ -216,17 +218,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/HEXOS/2020/02/03/js%E6%95%B0%E7%BB%84%E6%9C%AC%E8%B4%A8/" class="pre-post btn btn-default" title='JS数组本质'>
+    <a href="/HEXOS/2021/02/01/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%80%BB%E7%BB%93/" class="pre-post btn btn-default" title='进程和线程总结'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            JS数组本质</span>
+            进程和线程总结</span>
     </a>
     
     
-    <a href="/HEXOS/2020/02/01/%E7%BB%A7%E6%89%BF/" class="next-post btn btn-default" title='JS继承'>
+    <a href="/HEXOS/2021/01/20/css%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="next-post btn btn-default" title='CSS知识体系'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            JS继承</span><i class="fa fa-angle-right fa-fw"></i>
+            CSS知识体系</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -267,7 +269,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#csrf"><span class="toc-text">csrf</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#requetAnimationFrame-js-%E5%8A%A8%E7%94%BB"><span class="toc-text">requetAnimationFrame-js 动画</span></a></li></ol>
         
     </div>
 </aside>

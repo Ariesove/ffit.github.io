@@ -152,6 +152,172 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
+                <a href="/HEXOS/2020/12/12/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">
+                    LRU</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月12日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            思路1. 浏览器 LRU 缓存策略
+其实这个就是当输入网址访问时先会去本地缓存查看是否有我想要的数据，如果有直接用本地缓存的数据目的就是降低用户访问的时间
+那么这里有一个问题就是，本地缓存总有满的一天，那么删哪些
+核心： 删最近最少使...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/01/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/">
+                    相交链表</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            160. 相交链表。反思
+首先这个题的思路就是来联想一下这个相交节点，为什么要用双指针，就是说 a+b+c=b+1+c 也就是说我，都同时开始且路程相同，那么一定会在相交节点，相遇；
+因此思路就是只要我能够判断当前的节点是否为空，如果...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/01/biba/">
+                    闭包</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            闭包体系切入点词法作用域
+首先我需要从作用域的底层机制说起，首先在 V8 引擎中是有编译阶段的，这里叙述”js 执行代码过程”&amp;gt; V8 引擎如何执行一段代码
+
+编译阶段
+那在执行一段代码执行之前，得做些准备工作，（你做事情不也得...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/01/V8%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81/">
+                    V8引擎执行代码</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            V8 引擎如何执行一段代码编译阶段
+那在执行一段代码执行之前，得做些准备工作，（你做事情不也得需要做准备工作吗），具体就是需要准备基础环境。
+
+全局执行上下文，创建阶段，首先会创建一个全局对象window，创建一个this 然后让它指...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/12/01/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/">
+                    最长子序列</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年12月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            
+最长递增子序列给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
+
+子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2020/11/25/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+                    垃圾回收机制</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2020年11月25日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            垃圾回收机制分类为什么要分类—依据
+代际假说
+
+一些变量生存周期很短
+
+存放在新生代区域
+
+
+一些比如window这些存活时间很长的对象
+
+存放在老生代区域
+
+
+依据生存周期的长短–因地制宜的选取对应的算法来回收
+
+
+
+
+堆/划分的
+...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
                 <a href="/HEXOS/2020/11/13/http(%E5%A4%8D%E7%9B%98%EF%BC%89/">
                     HTTP(复盘）</a>
             </h1>
@@ -250,155 +416,6 @@
             
             先来明确一点，为什么一定要用栈，这里我一直遗漏了一点就是 在递归中，再不断调用函数自身的时候，会形成一个调用栈，每调用一次就推入一个函数，执行完毕就去释放？这里不是特别理解理清一下思路（时刻记住其实这个是由递归来改进的）
 先设置一个栈...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/11/11/%E8%BF%AD%E4%BB%A3%E6%B3%95%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/">
-                    后序遍历</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年11月11日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            首先来捋一下思路
-后续遍历的顺序是先左子树，再右子树，再根节点
-那么从这你思考一下如果我把这个顺序颠倒一下是什么是不是先根节点，再右子树，再左子树，是不是非常的像先序遍历，及就是说把先序遍历的结果再入栈，然后根据栈的先进后出的特性，来...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/11/11/GET%E5%92%8CPost%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB/">
-                    GET 和 post 本质区别</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年11月11日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            ##👱 GET 和 post 本质区别
-叙述思路
-首先属于 HTTP 协议—–》 引出本质是 TCP 连接——》 引出 tcp 连接次数问题—–&amp;gt; 由次数问题：想到幂等。
-其次想到安全幂等，GET 安全幂等，POST 不安全也...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/11/03/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                    动态规划</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年11月03日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            动态规划
-先明确哪类题用动态规划
-
-
-特征： 要求达成某个目的的具体个数
-不要求具体解法的过程重解法的====结果====
-
-
-思维模型是什么
-倒着分析问题–咋个倒就是站在问题的==终点==上思考
-在终点的基础上，思考能不能==后退=...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/11/02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/">
-                    执行上下文于调用栈</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年11月02日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            执行上下文所谓的执行上下文其实就是代码所处的环境分类全局执行上下文函数执行上下文eval执行上下文–我不用调用栈每当执行上下文创建一个就将起推入调用栈中，然后当函数执行完后，对应的函数执行上下文才会出栈，从而让出资源空间
-从这里开始，...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/10/11/HTTP3%E5%B1%95%E6%9C%9B/">
-                    HTTP3展望</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年10月11日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            HTTP3展望http2的阻塞具体是怎么来发生的首先 会建立tcp连接，连接完毕后，http报文会基于tcp发送流，但是这个流会被tcp拆分为更小的segment,然后再去发送可能丢包导致tcp重传机制HTTP3连接顺序
-客户端需要先...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/10/05/websocket/">
-                    Websocket</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年10月05日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            websocket它解决了http是半双工，实现了服务端推送也就是说客户端和服务器之间无法，随意互相发送数据，只能是客户端，发，服务器去接受，服务器无法主动发送数据，只能是被动的那为了能够实现类似全双工的效果，http做出了哪些努力，...
             
         </p>
     </div>
@@ -508,7 +525,7 @@
     <h3 class="title">
         归档
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/02/"><i class="fa" aria-hidden="true">2021年02月</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">3</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/02/"><i class="fa" aria-hidden="true">2021年02月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
 </div>
 
     
