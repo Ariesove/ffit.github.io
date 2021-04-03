@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/HEXOS/">
+    <link rel="dns-prefetch" href="https://gitee.com/HEXOS/hexos">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="js 基础隐式转换
+‘2’——‘0’ 可以将字符串转换为数字。（减号）
+‘2’+ ‘2’可以进行字符串拼接”大数相加”。算法中用到了。进行结果相加
+
+symbol:
+可以用来定义一个绝对唯一的常..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    JS基础 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/HEXOS/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/HEXOS/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/HEXOS/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2471723616,1604025636&amp;fm=26&amp;gp=0.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='宋辰星'>
+            <img src="/HEXOS/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                简单点
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://gitee.com/HEXOS/hexos">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="JS基础">
+            
+            JS基础
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2021/03/01</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="js-基础"><a href="#js-基础" class="headerlink" title="js 基础"></a>js 基础</h2><h4 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h4><ol>
+<li>‘2’<strong>——</strong>‘0’ 可以将字符串转换为数字。（减号）</li>
+<li>‘2’+ ‘2’可以进行字符串拼接”大数相加”。算法中用到了。进行结果相加</li>
+</ol>
+<h4 id="symbol"><a href="#symbol" class="headerlink" title="symbol:"></a>symbol:</h4><ol>
+<li><p>可以用来定义一个绝对唯一的常量，避免命名冲突。就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let s2 &#x3D; Symbol(&#39;another symbol&#39;)</span><br><span class="line">let s3 &#x3D; Symbol(&#39;another symbol&#39;)</span><br></pre></td></tr></table></figure></li>
+<li><p>模拟私有变量，就是通过这个定义的属性是私有的，类似于之前通过立即执行函数，来实现的一个私有变量((20210228094815-czyjstw “闭包是如何来实现这个私有变量的”))。</p>
+</li>
+</ol>
+<h3 id="如何来区分数据类型"><a href="#如何来区分数据类型" class="headerlink" title="如何来区分数据类型"></a>如何来区分数据类型</h3><p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/99698.htm">typeof instance of</a>。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89238840">数据类型参考</a>。</p>
+<ol>
+<li><p>看到这个类型（type）就联想到了这个，类型。type of instanceof</p>
+</li>
+<li><p>typeof  弊端就是只能区分简单类型的数据，对于复杂数据数组和对象都是 object 然后 typeof null= ‘<strong>object</strong>‘  (lao 老人)type of <strong>NaN</strong> = ‘<strong>number</strong>‘ (nn)。</p>
+</li>
+<li><p>instance of 就是对于 基本数据类型无法判断，并且只能判断无法返回具体的数据类型。//<a target="_blank" rel="noopener" href="https://www.imooc.com/article/69870">instanceof 弊端</a>。它不能返回具体的数据类型。</p>
+</li>
+<li><p><strong>Object</strong>.prototype.<strong>tostring.call(1)</strong> // [ <strong>o</strong>bject <strong>N</strong>umber ]//更完美。</p>
+</li>
+<li><p>补充 Object.prototype.<strong>tostring.call(1)**原理：其实 Array, Boolean 也有一个 toString 方法，但是这个仅是转为字符串的,Object 上的 tostring 才是能够真正返回数据类型的，</strong>易错**：不是 Array 上的，我第一次记得是 Array 原型上的不对是顶层 Object 的方法，Array 类上的方法是改写过的，搞错了。<a target="_blank" rel="noopener" href="https://blog.csdn.net/hanyanshuo/article/details/104620122">Object.propotype.tostring.call</a></p>
+</li>
+<li><p>对于数组还可以用 **Array.isArray()**判断是否是一个数组。</p>
+</li>
+<li><p>如何来判断这个引用类型–》数组或是对象，就是通过这个 instance of，object.prototype.toString.call().来判断</p>
+</li>
+</ol>
+<h3 id="valueof-和-toString"><a href="#valueof-和-toString" class="headerlink" title="valueof 和 toString"></a>valueof 和 toString</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7cb41d109b7e">valueof 和 tostring 区别</a>.</li>
+<li>value of 对于 Number string Boolean 显示其值，其它都是自身</li>
+<li>tostring 除过这个 object {} 等为其类型，其它均为值，比如这个[].tostring=== ‘ ‘.</li>
+</ol>
+<h3 id="类数组"><a href="#类数组" class="headerlink" title="类数组"></a>类数组</h3><ol>
+<li><p>具有数组的长度，但是没有数组的方法，比如通过这个 queryselectAll  在调用 <code>getElementsByTagName</code> 和 <code>document.childNodes</code> 方法时，它们返回的 <code>NodeList</code> 对象都属于伪数组。返回的是一个类数组，</p>
+<h4 id="问题是怎么来转换这个数组，主要通过这个：slice-call-方法的补充。"><a href="#问题是怎么来转换这个数组，主要通过这个：slice-call-方法的补充。" class="headerlink" title="问题是怎么来转换这个数组，主要通过这个：slice.call 方法的补充。"></a>问题是怎么来转换这个数组，主要通过这个：<a target="_blank" rel="noopener" href="https://www.imooc.com/article/281593">slice.call 方法的补充</a>。</h4><p>1：**Array.from()**。</p>
+<p>2: <strong>Array.prototype.slice.call(类数组)</strong>//就是首先 slice 会返回一个数组，然后 call 调用这个方法，然后改变 slice 里的 this,将其替换为类数组。</p>
+</li>
+</ol>
+<h3 id="requetAnimationFrame-js-动画"><a href="#requetAnimationFrame-js-动画" class="headerlink" title="requetAnimationFrame-js 动画"></a>requetAnimationFrame-js 动画</h3><ol>
+<li><p>这个是 js 动画用的，就是来控制动画的更新频率为 60hz/s,</p>
+</li>
+<li><p>settimeout 是手动来控制的而 raf 是浏览器自动控制的</p>
+</li>
+<li><p>浏览器如果切换到后台了，那么 raf 会停止，而 settimeout 会继续执行。<strong>节省资源</strong></p>
+</li>
+<li><p>而且用 settimeout 还得算时间.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1633898">在页面渲染前再取调用 requetAnimationFrame</a>.</p>
+</li>
+<li><p>我们来分析一下，为什么要在重新渲染前去调用？因为 <code>rAF</code> 是官方推荐的用来做一些流畅动画所应该使用的 API，做<strong>动画不可避免的会去更改 DOM，</strong>而如果在渲染之后再去更改 DOM，那就只能等到下一轮渲染机会的时候才能去绘制出来了，这显然是不合理的。</p>
+<p><code>rAF</code> 在浏览器决定渲染之前给你最后一个机会去改变 DOM 属性，然后很快在接下来的绘制中帮你呈现出来，所以这是做流畅动画的不二选择。下面我用一个 <code>setTimeout</code> 的例子来对比。</p>
+</li>
+<li><p>这样记忆。就是 <strong>r—&gt; 渲染</strong>前去调用，所以，就是渲染后调用，又会触发 dom 的更新，就白渲染了。</p>
+</li>
+</ol>
+<p>模块规范（commonJS、es6 、AMD、CMD）</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://coding.imooc.com/lesson/320.html#mid=38779">commonjs 和 es6 之间的区别</a>。<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenwenhao/p/12153332.html">AMD CMD 区别</a><br>1。 <strong>联想</strong>记忆（看到这个 commonjs,就想这个<strong>来</strong>，此处联想自己的项目，就是<strong>执行</strong>时，才引入，而 es6 module ,就是执行代码逻辑上应该是，<strong>先编译</strong>，后执行，所以 commonjs 是执行，时引入，那 es6 就是编译时引入，然后 <strong>c</strong>md 也是，执行时加载依赖，amd 是提前加载依赖）,ES6 是支持这个异步的，（e 异步）<br>2：后端： commonjs 是执行时引入，而这个 ES6Module 是这个静态时引入编译时引用，自己理解就是，es6 比如我 vue3 的项目中全部都用的是 es6 映入放在 script 标签的最外部，如果在使用的时候再去用会报错，编译阶段就要引入完成，而不是等执行 js 语句的时候再去引用了，然后这个 commonjs 就是动态，按需用， 哪里需要再引用。<br>3 ：就是这个 path.resolve 取绝对路径,webpack entry 就是要用到这个绝对路径，join 就是这个相对路径</p>
+</li>
+<li><p>但是 commonjs 是同步的，如果网络请求出现了阻塞那么就会导致这个页面阻塞，所以运用这个 CMD 和 AMD （addvance)，就是 提前定义加载所有依赖，CMD 是需要时再加载依赖.</p>
+</li>
+<li><p>你觉得 CommonJS 为什么不能做 Tree-Shaking ?,就是 Webpack 打包阶段还没有</p>
+</li>
+<li><p><strong>A</strong>MD | 速度快 | 会浪费资源 | <strong>预先加载</strong>所有的依赖，直到使用的时候才执行</p>
+<p><strong>C</strong>MD | 只有真正需要才加载依赖 | 性能较差 | 直到<strong>使用</strong>的时候才定义依赖。</p>
+</li>
+<li><pre><code class="js"> + &#39;123&#39; = 123
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. 特点：最终结果一定是一个数字类型。</span><br><span class="line"></span><br><span class="line">[相关参考链接](https:&#x2F;&#x2F;www.imooc.com&#x2F;article&#x2F;281312)</span><br><span class="line"></span><br><span class="line">## js 基础体系</span><br><span class="line"></span><br><span class="line">### 跨域问题</span><br><span class="line"></span><br><span class="line">1. 有 JSONP 进行跨域。</span><br><span class="line">2. nginx 进行跨域。&#x2F;&#x2F;其实本质就是现在把两个域同一到一个域上了， 自然就可以实现跨域了</span><br><span class="line">3. CORS 跨域</span><br><span class="line"></span><br><span class="line">   CORS 中，如果没有响应头，那么数据会返回吗</span><br><span class="line"></span><br><span class="line">   - CORS 中，options 会发起几次</span><br><span class="line"></span><br><span class="line">### 数组方法</span><br><span class="line">#### weakmap weakset</span><br><span class="line"></span><br><span class="line">1. [weakmap weakset](https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s?__biz&#x3D;MzA4Nzg0MDM5Nw&#x3D;&#x3D;&amp;mid&#x3D;2247492665&amp;idx&#x3D;2&amp;sn&#x3D;67d9d9aa7b626255c758d25d6da9bb09&amp;chksm&#x3D;9031e7dba7466ecdf40e506b256a67fc6c7d548162949411ac2031cc530cb48f1755f278a90b&amp;mpshare&#x3D;1&amp;scene&#x3D;23&amp;srcid&#x3D;0301OFYj4hmtGCIMJ6MwQZc5&amp;sharer_sharetime&#x3D;1614568505112&amp;sharer_shareid&#x3D;5c4cb3b03822fd6d2d2de99001875f93#rd).</span><br><span class="line">2. 首先联想这个 weak 是弱的意思，弱应用，就是键是弱引用类型，具体来讲就是一旦这个引用断开，或者说改变了地址的时候就会去销毁这个 value 值，再具体，点就是 key&#x3D;null;key&#x3D;new Array() 这样就可以，让 v8 引擎判断这个键值对可以销毁了。防止内存泄漏。&#x2F;&#x2F;不是特别的理解 ❓。 （叙述的思路就是，弱应用的键，一旦断开或着改变，就会被自动回收。）</span><br><span class="line">3. join(&#39;&amp;&#39;)&#x2F;&#x2F;&quot;1.join()&quot;.就是将数组转换为字符串。里面的元素并以参数相隔开。&quot;jsonp&quot;.中用到了这个方法。</span><br><span class="line">4. **set**: 就是集合，没有重复的元素，只要往里通过.add() 方法去添加元素。&#x2F;&#x2F;并且 set 所返回的集合是一个类数组。所以需要转为真正的数组。</span><br><span class="line">5. push &#x2F; **unshift**这个 API 就是 push 的反向操作首先应该联想到这个 ushift.</span><br><span class="line">6. every:就是执行回调针对每一个元素，并且都通过，回调函数里的条件</span><br><span class="line">7. slice 和 splice 的区别： 就是，slice 是截取数组，**并不修改原数组**，splice，更像是拿刀看断数组，splice(2,3)从第二个元素开始，移除多个元素，并返回包含移除元素的数组。修改原数组。</span><br><span class="line"></span><br><span class="line">### 如何来看待 JavaScript</span><br><span class="line"></span><br><span class="line">1. JavaScript 借鉴了很多语言的特性，比如 C 语言的基本语法、**Java 的类型系统和内存管理**、Scheme 的函数作为**一等公民**，还有 **Self 基于原型（prototype）的继承机制**。毫无疑问，JavaScript 是一门非常优秀的语言，特别是“原型继承机制”和“函数是一等公民”这两个设计。JavaScript 的设计思想不过 JavaScript 也是一门处处是坑的语言，由于历史原因，很多错误的或者不合理的设计都被延续至今，比如使用 **new 加构造函数**来创建对象，这种方式的背后隐藏了太多的细节，非常容易增加代码出错概率，而且也大大增加了新手的学习成本；再比如初期的 JavaScript 没有块级作用域机制，使得 JavaScript 需要采取变量提升的策略，而变量提升又是非常反人性的设计。还有就是**不太适合大型项目，因为项目中变量类型错误的情况**，**动态类型**，执行时才检测数据类型的问题，所以才产生了 ts 尤其是接口的概念，减少了数据类型的问题。</span><br><span class="line">2. **个人理解**： 吸收了 Java 的垃圾回收机制，self 的原型继承，scheme 的一等公民（scheme 是一等一的强，其它都往边上站）。c 语言的基本语法，但是早期的 js 没有块级作用域的概念，有变量提升，的 bug。</span><br><span class="line">3. 动态类型，弱类型（可以给一个变量赋予不同类型的值），解释型语言。单线程的 .（又**弱**又想**动**弹不得，所以是动态，弱类型）。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### NaN</span><br><span class="line"></span><br><span class="line">#### Number.isNaN() &#x2F; IsNaN</span><br><span class="line"></span><br><span class="line">[isnan 链接参考](https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_33901641&#x2F;article&#x2F;details&#x2F;91476575)。</span><br><span class="line"></span><br><span class="line">1. 为什么引入： NAN!&#x3D;&#x3D;NAN 我没有办法去判断一个数值是不是 NAn</span><br><span class="line"></span><br><span class="line">1. 易错点就是说这个是判断不是数字的变为 true,是数字的为 false.</span><br><span class="line">2. isNan :原理是转换为数值类型(isNan)，然后再去判断是否为 NAN，**不能转换为数值型的都为 NAN**,所以对于这个，‘**aa’字符串也是一个 NAN **对于 undefined 由于也能转为这个 NAN,所以**不精确。**（联想记忆：s（is you 是你吗，数值，））</span><br><span class="line"></span><br><span class="line">1. Number.NaN() 不转类型，严格判断 NAN 类型，是 NAN 的那就为 true，其它都为 false.</span><br><span class="line"></span><br><span class="line">### js 栈和堆</span><br><span class="line">个人理解就是**简单**数据类型，都放在**栈**中，**复杂数**据类型对象的地址存放在栈中，在**堆中存储这个对象的值。**</span><br><span class="line"></span><br><span class="line">1. 如果是 **let a&#x3D;1  a&#x3D;&#39;scx&#39;** 对于简单数据类型的仅重新赋值，不会去开辟空间。</span><br><span class="line">2. **谁块**：栈块，因为栈先进后出的数据结构更加的简单，栈是编译时系统自动分配空间，而堆是动态分配（运行时分配空间），所以栈的速度快。并且每次访问用类型数据都是先访问栈里的对象的引用，然后再去找堆里的对象。所以步骤多了，慢。</span><br><span class="line">3. 堆更大——联系进程--》&quot;堆和栈与进程和线程的关系&quot;</span><br><span class="line"></span><br><span class="line">   #### **js 数组为什么不需要去分配固定的空间**</span><br><span class="line"></span><br><span class="line">   1. [v8 如何来实现这个 js 的数组](https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;6844903943638794248#heading-12)。</span><br><span class="line"></span><br><span class="line">   2. js 里的**数组**是一个特殊的**对象**，为什么数组长度可变，为什么这个数组可以存储多个类型数据，因为是一个对象。**快数组**是一种线性的存储方式。新创建的空数组，默认的存储方式是快数组，快数组**长度是可变**的，可以根据元素的增加和删除来动态调整存储空间大小，内部是通过扩容和收缩机制实现，**慢数组**是用类似**哈希表**的形式创建的。</span><br><span class="line"></span><br><span class="line">   3. 如果 v8 引擎发现数组内部出现了大量空洞，就是比如 arr&#x3D;[1,3] arr[1222]&#x3D;1 ,那就转为慢数组，因为不需要去申请大量连续空间，但是是以一种 hash 表来展示的。</span><br><span class="line"></span><br><span class="line">   4. 慢转快；就是这个，js 数组的空洞少的时候就会去转换，这就是为什么 js 不需要分配固定长度的本质原因。</span><br><span class="line"></span><br><span class="line">[js 的栈和堆](https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000015118062)。</span><br><span class="line"></span><br><span class="line">### 布尔值转换规则</span><br><span class="line"></span><br><span class="line">1. [布尔值转换规则](https:&#x2F;&#x2F;www.cnblogs.com&#x2F;wincent98&#x2F;p&#x2F;9812860.html)。</span><br><span class="line">2. 个人理解：就是对于 undefined, nAN,NULL, &#39; &#39;, 0:(+0,-0) (记忆：boolean,布尔是联合国的但是很穷，穷光蛋 0）</span><br><span class="line"></span><br><span class="line">### 内存泄漏</span><br><span class="line"></span><br><span class="line">**联想记忆**：泄漏--》out 出去--》settimeout 没有清除这个定时器，之后再联想调用栈，最底层的全局变量。</span><br><span class="line"></span><br><span class="line">1. 内存泄漏相关问题[内存泄漏问题](https:&#x2F;&#x2F;www.imooc.com&#x2F;read&#x2F;70&#x2F;article&#x2F;1616)。</span><br><span class="line"></span><br><span class="line">   1. 对于那些 &#96;&#96;&#96; </span><br><span class="line"></span><br><span class="line">      &#96;&#96;&#96; js</span><br><span class="line">      function neicun ()&#123;</span><br><span class="line">       a&#x3D;1</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;&#x2F;在js中如果没有声明直接赋值，会将这个变量提至全局对象，那gcroot不就可以访问到了吗，自然也没办法清除了</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><p>定时器忘清除了，那也就是说这个防抖和节流，如果不注意清除定时器，这就会导致内存泄漏的问题了。</p>
+</li>
+</ol>
+<h3 id="10-null-和-undefined-的区别是什么"><a href="#10-null-和-undefined-的区别是什么" class="headerlink" title="10. null 和 undefined 的区别是什么"></a>10. null 和 undefined 的区别是什么</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span>==<span class="literal">undefined</span>)<span class="comment">//true//注意这个是双等号，就是隐式转换了</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span>===<span class="literal">undefined</span>)<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p><code>null</code>： Null 类型，代表“空值”，代表一个空对象指针</p>
+<p><code>undefined</code>： Undefined 类型，当一个声明了一个变量未初始化时，得到的是 undefined</p>
+<p>undefined 表示“缺少值”，此处应该有一个值，但是还没有定义。</p>
+<p>null 表示“没有对象”，该处不应该有值。</p>
+<h3 id="遍历-for-of-for-in"><a href="#遍历-for-of-for-in" class="headerlink" title="遍历 for of for in"></a>遍历 for of for in</h3><ol>
+<li>for in 遍历的是键，也就是索引号，而且会遍历继承的属性，一般会配合 hasOwnPropoty,来去除从原型链上继承的属性，有的对象里的值会继承至原型链上的，比如 obj ={a:1},Object.propotype.b=1,obj.b=1,这样不就不是自身的吗。//<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33682790/article/details/91479156">hasOwnProperty</a>.</li>
+<li>所以这个联系”深拷贝”。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/w390058785/article/details/80522383">for of 和 for in</a>.</li>
+<li>那你觉得 foreach 和 for of 两个效率如何？为什么？</li>
+</ol>
+<h3 id="es6"><a href="#es6" class="headerlink" title="es6"></a>es6</h3><h4 id="…-运算符号"><a href="#…-运算符号" class="headerlink" title="… 运算符号"></a>… 运算符号</h4><ol>
+<li>… 第一个作用可以将数组转换为 …[1,2]= 1,2 ;写 bind 扁平化迭代实现。</li>
+<li>正因为这个特点，可以去重一层数组.</li>
+<li>还可以去拷贝一份数组，就是在迭代中实现数组扁平化中用到</li>
+<li>还可以去合并两个数组 […arr1,…arr2]。</li>
+</ol>
+<h4 id="let-const-var"><a href="#let-const-var" class="headerlink" title="let const var"></a>let const var</h4><ol>
+<li>这个看到 var 就想到了变量提升—》那就是说这个全局执行上下文的创建阶段和执行阶段两者<strong>不同步</strong>。</li>
+<li>而 let const 就是让两者时机同步了</li>
+<li>同时，let const 有了作用域的概念就是说—》同时有了<strong>暂时性死区</strong>，避免在定义之前去使用这个变量。</li>
+</ol>
+<h3 id="和-区别"><a href="#和-区别" class="headerlink" title="==  和===区别"></a>==  和===区别</h3><ol>
+<li><pre><code>a=&#123;a:1&#125;
+b=&#123;b:1&#125;</code></pre>
+</li>
+</ol>
+<p>a==b a===b  都是 false</p>
+<h3 id="window-onload-和-window-Domcontentloaded"><a href="#window-onload-和-window-Domcontentloaded" class="headerlink" title="window.onload 和 window.Domcontentloaded"></a>window.onload 和 window.<strong>Dom</strong>contentloaded</h3><ol>
+<li>其实主要区别就是 onload 事件触发时，所有资源加载完毕。</li>
+<li>而 <strong>dom</strong>content 故名思意其实就时，仅 <strong>dom</strong>构建完毕就可以去执行了。</li>
+</ol>
+<h2 id="易混淆知识点"><a href="#易混淆知识点" class="headerlink" title="易混淆知识点"></a>易混淆知识点</h2><ol>
+<li><p>return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行,在循环的语句中是去，直接返回了外部的函数。</p>
+</li>
+<li><p>break：在循环体内结束整个循环过程</p>
+</li>
+<li><p>continue ：结束本次的循环，直接进行下一次的循环.</p>
+</li>
+</ol>
+<h3 id="let-const-var-区别"><a href="#let-const-var-区别" class="headerlink" title="let const var 区别"></a>let const var 区别</h3><ol>
+<li>const arr = [1,2,3]<br>arr.push(4);<br>arr.splice(1);<br>arr[1] = 3;<br>arr = [1,2,3];<br>arr = [2,3];</li>
+<li>谁可以满足允许// const.</li>
+</ol>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/HEXOS/2021/03/01/JS%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="pre-post btn btn-default" title='JAVAscript系统'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            JAVAscript系统</span>
+    </a>
+    
+    
+    <a href="/HEXOS/2021/02/25/promise/" class="next-post btn btn-default" title='手写Promise'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            手写Promise</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/HEXOS/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#js-%E5%9F%BA%E7%A1%80"><span class="toc-text">js 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-text">隐式转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#symbol"><span class="toc-text">symbol:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%9D%A5%E5%8C%BA%E5%88%86%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">如何来区分数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#valueof-%E5%92%8C-toString"><span class="toc-text">valueof 和 toString</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E6%95%B0%E7%BB%84"><span class="toc-text">类数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%98%AF%E6%80%8E%E4%B9%88%E6%9D%A5%E8%BD%AC%E6%8D%A2%E8%BF%99%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E4%B8%BB%E8%A6%81%E9%80%9A%E8%BF%87%E8%BF%99%E4%B8%AA%EF%BC%9Aslice-call-%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%A5%E5%85%85%E3%80%82"><span class="toc-text">问题是怎么来转换这个数组，主要通过这个：slice.call 方法的补充。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#requetAnimationFrame-js-%E5%8A%A8%E7%94%BB"><span class="toc-text">requetAnimationFrame-js 动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-null-%E5%92%8C-undefined-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">10. null 和 undefined 的区别是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8D%E5%8E%86-for-of-for-in"><span class="toc-text">遍历 for of for in</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#es6"><span class="toc-text">es6</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%A6-%E8%BF%90%E7%AE%97%E7%AC%A6%E5%8F%B7"><span class="toc-text">… 运算符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#let-const-var"><span class="toc-text">let const var</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%92%8C-%E5%8C%BA%E5%88%AB"><span class="toc-text">&#x3D;&#x3D;  和&#x3D;&#x3D;&#x3D;区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window-onload-%E5%92%8C-window-Domcontentloaded"><span class="toc-text">window.onload 和 window.Domcontentloaded</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%93%E6%B7%B7%E6%B7%86%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text">易混淆知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#let-const-var-%E5%8C%BA%E5%88%AB"><span class="toc-text">let const var 区别</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/HEXOS/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

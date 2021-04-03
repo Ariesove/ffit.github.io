@@ -222,7 +222,7 @@ symbol:
 <li><p>而且用 settimeout 还得算时间.</p>
 </li>
 <li><p>我们来分析一下，为什么要在重新渲染前去调用？因为 <code>rAF</code> 是官方推荐的用来做一些流畅动画所应该使用的 API，做<strong>动画不可避免的会去更改 DOM，</strong>而如果在渲染之后再去更改 DOM，那就只能等到下一轮渲染机会的时候才能去绘制出来了，这显然是不合理的。</p>
-<p><code>rAF</code> 在浏览器决定渲染之前给你最后一个机会去改变 DOM 属性，然后很快在接下来的绘制中帮你呈现出来，所以这是做流畅动画的不二选择。下面我用一个 <code>setTimeout</code> 的例子来对比。</p>
+<p><code>rAF</code> 在浏览器决定渲染之前给你最后一个机会去改变 DOM 属性，然后很快在接下来的绘制中帮你呈现出来，所以这是做流畅动画的不二选择。</p>
 </li>
 </ol>
 <h2 id="闭包体系"><a href="#闭包体系" class="headerlink" title="闭包体系"></a>闭包体系</h2><h3 id="切入点词法作用域"><a href="#切入点词法作用域" class="headerlink" title="切入点词法作用域"></a>切入点词法作用域</h3><ol>
@@ -463,11 +463,17 @@ console.log(b2.color) // [&quot;green&quot;, &quot;yellow&quot;, &quot;black&quo
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
+    <a href="/HEXOS/2021/03/10/JS%E6%A0%B8%E5%BF%83%E9%AA%A8%E6%9E%B6/" class="pre-post btn btn-default" title='JS核心内容总结'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            JS核心内容总结</span>
+    </a>
     
-    <a href="/HEXOS/2021/02/25/promise/" class="next-post btn btn-default" title='手写Promise'>
+    
+    <a href="/HEXOS/2021/03/01/JAVASCRIPT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="next-post btn btn-default" title='JS基础'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            手写Promise</span><i class="fa fa-angle-right fa-fw"></i>
+            JS基础</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>

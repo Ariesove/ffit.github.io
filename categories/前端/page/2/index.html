@@ -152,6 +152,112 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
+                <a href="/HEXOS/2021/02/02/csrf%E6%94%BB%E5%87%BB/">
+                    CSRF</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2021年02月02日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            csrf
+怎么来理解，就是你想想，跨站伪造，就是攻击方提供一个接口，然后诱导用户点击它，然后在没有验证的基础上，向后端发送请求。
+简单来讲其实就是，伪装用户向后端发送请求进行操作。
+原理：就是在用户登录状态下，浏览器此时保存 cook...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2021/02/01/V8%E5%BC%95%E6%93%8E/">
+                    V8引擎基础体系</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2021年02月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            V8引擎如何来执行一段js代码首先你想想，v8想要来执行一段代码，首先你得有一个初始环境吧，基础环境
+全局执行上下文
+
+创建阶段
+
+首先会创建一个全局对象window： global object
+创建一个this 然后让它指向这个w...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2021/02/01/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%80%BB%E7%BB%93/">
+                    进程和线程</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2021年02月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            进程和线程的区别思路：
+
+首先所谓的进程就是，资源调度的基本单位
+线程就是依附于**进程的一个独立**的执行单元。
+它俩的区别就是，一个进程可以有多个线程，线程依附于进程进程有独立的单元，也就是说一个进程的崩溃，不会影响其它进程，而一...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/HEXOS/2021/01/25/requestanimation/">
+                    requetAnimationFrame</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2021年01月25日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            requetAnimationFrame-js 动画
+这个是 js 动画用的，就是来控制动画的更新频率为 60hz/s,
+
+settimeout 是手动来控制的而 raf 是浏览器自动控制的
+
+浏览器如果切换到后台了，那么 raf 会...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
                 <a href="/HEXOS/2021/01/18/TLS1.2%E6%8F%A1%E6%89%8B%E5%8D%8F%E8%AE%AE/">
                     TLS1.2</a>
             </h1>
@@ -232,24 +338,18 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
-                <a href="/HEXOS/2021/01/01/V8%E5%BC%95%E6%93%8E/">
-                    V8引擎基础总结</a>
+                <a href="/HEXOS/2021/01/08/HTML%E4%BD%93%E7%B3%BB/">
+                    HTML知识总结</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
-                    2021年01月01日
+                    2021年01月08日
                 </time>
             </div>
         </div>
         <p class="brief">
             
-            V8引擎如何来执行一段js代码首先你想想，v8想要来执行一段代码，首先你得有一个初始环境吧，基础环境
-全局执行上下文
-
-创建阶段
-
-首先会创建一个全局对象window： global object
-创建一个this 然后让它指向这个w...
+            1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556&amp;lt;!DOCTYPE h...
             
         </p>
     </div>
@@ -311,115 +411,6 @@ new/...
             
             图片懒加载
 首先所谓的图片懒加载其实就是当触发滚动事件的时候，判断当前元素上边距离视区域的上边框具有多少距离，如果说刚好小于等于视口高度，那就是遍历每一个元素，然后获取每一个元素上的 data-src 里得真实的 src,去赋值给每一...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/25/HTTPS/">
-                    HTTPS基础</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月25日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            HTTPS复盘HTTPS对称加密
-其实就是说用同一个经过交换的公钥来加密信息
-弊端：交换过程容易被中间人所攻击
-
-非对称加密
-其实就是用公钥加密，私钥解密
-服务器（公钥a-私钥a)先将公钥a发给客户端，客户端拿到公钥a后加密自己生成一...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/25/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
-                    深拷贝</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月25日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            思想
-复盘第一次判断传入参数是不是一个对象造成了混乱，应该是判断不是一个数组或对象，并且对象为空，我当时还用了 type of 判断空，其实不对，应该是直接参数等于 Null 就行，typeof 还得为一个 object ,之后用 i...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/23/TCP/">
-                    TCP简要总结</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月23日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            TCP这一次首先复习一下TCP重传机制为什么TCP会重传呢
-TCP建立连接的过程如果这个过程如果有丢包那么就会触发重传机制
-
-超时重传
-
-就是TCP内部有一个机制会设定一个时间（时延）这个时间大概略大于，tcp报文往返时间，这个时间的...
-            
-        </p>
-    </div>
-</article>
-
-<article class="post">
-    
-    <div class="post-content">
-        <div class="post-head home-post-head">
-            <h1 class="post-title">
-                <a href="/HEXOS/2020/12/15/es6/">
-                    ES6基础</a>
-            </h1>
-            <div class="post-meta"> &bull;
-                <time class="post-date" datetime="" title="">
-                    2020年12月15日
-                </time>
-            </div>
-        </div>
-        <p class="brief">
-            
-            es6promise/generator/async/await箭头函数是什么
-function的一种简化
-
-何时用
-简化函数，凡是用到函数的时候就可以用
-
-怎么用
-无参数
-
-&amp;lt;ol&amp;gt;&amp;lt;li&amp;gt;（）=&amp;gt;{&amp;...
             
         </p>
     </div>
@@ -520,7 +511,7 @@ function的一种简化
     <h3 class="title">
         分类
     </h3>
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">43</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%B7%A5%E5%85%B7/"><i class="fa" aria-hidden="true">工具</i></a><span class="category-list-count">1</span></li></ul>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%89%8D%E7%AB%AF/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">46</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%90%8E%E7%AB%AF/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/HEXOS/categories/%E5%B7%A5%E5%85%B7/"><i class="fa" aria-hidden="true">工具</i></a><span class="category-list-count">1</span></li></ul>
 </div>
 
     
@@ -529,7 +520,7 @@ function的一种简化
     <h3 class="title">
         归档
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/02/"><i class="fa" aria-hidden="true">2021年02月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/02/"><i class="fa" aria-hidden="true">2021年02月</i></a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/11/"><i class="fa" aria-hidden="true">2020年11月</i></a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/02/"><i class="fa" aria-hidden="true">2020年02月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/HEXOS/archives/2020/01/"><i class="fa" aria-hidden="true">2020年01月</i></a><span class="archive-list-count">1</span></li></ul>
 </div>
 
     
